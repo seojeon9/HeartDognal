@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Movie - Charts</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/datepicker3.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="#"><span>Movie</span>Chart</a>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name" id="username">Username</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+
+		<ul class="nav menu">
+			<li ><a href="chartScrn.html"><em class="fa fa-bar-chart">&nbsp;</em> 개봉일 스크린수와 총 관객수의 상관관계</a></li>
+			<li ><a href="chartShow.html"><em class="fa fa-bar-chart">&nbsp;</em> 개봉일 상영횟수와 총 관객수의 상관관계</a></li>
+			<li ><a href="chartSales.html"><em class="fa fa-bar-chart">&nbsp;</em> 개봉일 매출점유율과 총 관객수의 상관관계</a></li>
+			<li ><a href="chartAudi.html"><em class="fa fa-bar-chart">&nbsp;</em> 개봉일 관객수와 총 관객수의 상관관계</a></li>
+			<li ><a href="chartScore.html"><em class="fa fa-bar-chart">&nbsp;</em> 관람객 평점과 총 관객수의 상관관계</a></li>
+			<li><a href="login.html" id="btn_logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">관람객 평점과 총 관객수의 상관관계</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">관람객 평점과 총 관객수의 상관관계</h1>
+			</div>
+		</div><!--/.row-->
+
+		
+		<div class="row">
+			
+			<div class="col-lg-12">
+				<div class="input-group mt-5">
+					<span class="input-group-addon" id="basic-addon3">검색등급</span>
+					<select class="form-control" id="movie_grade" aria-describedby="basic-addon3">
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+						<option value="D">D</option>
+						<option value="E">E</option>
+						<option value="F">F</option>
+					</select>
+
+
+
+					<span class="input-group-addon btn btn-primary" id="btn_send">전송</span>
+				</div>
+
+				<div class="panel panel-default mt-3">
+					<div class="panel-heading">
+						Scatter Chart
+						<ul class="pull-right panel-settings panel-button-tab-right">
+							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+								<em class="fa fa-cog"></em>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<ul class="dropdown-settings">
+											<li><a href="#" id="scatter-chart">
+												<em class="fa fa-cog"></em> scatter
+											</a></li>
+											<li class="divider"></li>
+											<li><a href="#" id="lines-chart">
+												<em class="fa fa-cog"></em> lines
+											</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<div class="main-chart" id="chart" height="200" width="600"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	  
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/util.js"></script>
+	<script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+	<script>
+
+	let token = '';
+	let username = '';
+
+	const init = () => {
+		//localStorage에 값이 존재하지 않으면 로그인 페이지로
+		if(!localStorage.length){
+			location.href='/login.html'
+		}
+
+		token = localStorage.getItem('token');
+		username = localStorage.getItem('user');
+		document.querySelector('#username').textContent = localStorage.getItem('user')
+		document.querySelector('#btn_logout').addEventListener('click', (e) => {
+			localStorage.clear();
+		})
+	}
+	
+	
+	const renderChart = (res) => {
+		
+		data = []
+		key = res[0].map(e => e.movie_name);
+		
+		
+		aBetween = res[0].sort((a, b) => a.audi_score - b.audi_score)
+		bBetween = res[1].sort((a, b) => a.tot_audi_cnt - b.tot_audi_cnt)
+
+		key.forEach(k => {
+			
+			a = res[0].filter((e) => e.movie_name == k)
+			b = res[1].filter((e) => e.movie_name == k)
+			
+			trace = {};
+			trace.x = [a[0].audi_score];
+			trace.y = [b[0].tot_audi_cnt];
+			trace.mode = 'markers',
+			trace.type = 'scatter',
+			trace.name = k;
+			trace.text = a[0].hit_grade
+			trace.marker = { size: 13 }
+			console.dir(trace)
+			data.push(trace)
+		})
+
+
+		var layout = {
+			xaxis: {title: "관람객 평점", size: 8}, 
+  			yaxis: {title: "총 관객 수", size: 8},
+			showlegend: false,
+			title:'관람객 평점과 총 관객 수의 상관관계'
+		};
+		
+
+		console.dir(data)
+		
+		Plotly.newPlot('chart', data, layout);
+	}
+
+	
+	async function getDataDouble(url1, url2){
+		
+		res1 = await getData(url1, 
+				{'hit_grade':movie_grade},
+				{'Content-Type': 'application/json'
+				,'Authorization':'Token '+ token })
+	
+				
+				res2 = await  getData(url2, 
+				{'hit_grade':movie_grade},
+				{'Content-Type': 'application/json'
+					,'Authorization':'Token '+ token })
+
+		return [res1, res2]
+
+	}
+
+	//corona-rest서버에 요청을 보내고 응답받은 데이터를 차트로 그려주는 함수
+	const drawChar = (mode) => {
+
+		//start_date, end_date, token
+		movie_grade = document.querySelector('#movie_grade').value;
+
+
+		
+		url1 = 'http://127.0.0.1/movie/movie_movie_score/'
+		url2 = 'http://127.0.0.1/movie/movie_moviehit/'
+	
+		getDataDouble(url1,url2)
+		.then(res => {
+			renderChart(res)
+		})
+		
+
+
+
+
+
+
+
+	}
+
+	window.onload = function () {
+
+		init()
+		document.querySelector('#btn_send').addEventListener('click', (e) => {
+			drawChar()
+		})
+
+		document.querySelector('#scatter-chart').addEventListener('click', (e) => {
+			drawChar('markers')
+		})
+
+		document.querySelector('#lines-chart').addEventListener('click', (e) => {
+			drawChar('lines')
+		})
+
+	};
+	</script>	
+</body>
+</html>
