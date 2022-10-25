@@ -3,16 +3,16 @@ from infra.spark_session import get_spark_session
 
 
 class DataWarehouse(Enum):
-    URL = 'jdbc:oracle:thin:@demovie_high?TNS_ADMIN=/home/big/study/db/Wallet_DEMOVIE'
+    URL = 'jdbc:oracle:thin:@roadpet_high?TNS_ADMIN=/home/big/study/db/Wallet_DEMOVIE'
     PROPS = {
-        'user': 'dw_admin', 'password': '123qwe!@#QWE'
+        'user': 'roadpet_dw', 'password': '123qwe!@#QWE'
     }
 
 
 class DataMart(Enum):
-    URL = 'jdbc:oracle:thin:@demovie_high?TNS_ADMIN=/home/big/study/db/Wallet_DEMOVIE'
+    URL = 'jdbc:oracle:thin:@roadpet_high?TNS_ADMIN=/home/big/study/db/Wallet_DEMOVIE'
     PROPS = {
-        'user': 'dm_admin',
+        'user': 'roadpet_dm',
         'password': '123qwe!@#QWE'
     }
 
