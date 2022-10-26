@@ -9,31 +9,46 @@ class RoadDogExtractor:
     file_dir = '/roadpet/detail/'
 
     @classmethod
-    def extract_data(cls, befor_cnt=1090):
+    def extract_data(cls, befor_cnt=1):
         
         for i in range(1, befor_cnt+1):
-            params = {
-                'serviceKey':cls.service_key
-                ,'bgnde':cal_std_day_yyyymmdd(i)
-                ,'endde':cal_std_day_yyyymmdd(i)
-                ,'upkind':'417000'
-                ,'_type':'json'
-                ,'numOfRows':'1000'
-            }
+            params = cls.__create_param(i)
 
-            log_dict = {
+            try:
+                res = execute_rest_api('get', cls.url, {}, params)
+                file_name = 'road_dog_' + params['bgnde'] + '.json'
+                cls.__upload_to_hdfs(res, file_name)
+
+            except Exception as e:
+                log_dict = cls.__create_log_dict(params)
+                cls.__dump_log(e, log_dict)
+
+    @classmethod
+    def __dump_log(cls, e, log_dict):
+        log_dict['err_msg']= e.__str__()
+        log_json = json.dumps(log_dict, ensure_ascii=False)
+        get_logger('road_dog_extractor').error(log_json)
+
+    @classmethod
+    def __create_log_dict(cls, params):
+        return {
                 "is_success":"Fail"
                 ,"type":"road_dog_extract"
                 ,"bgnde":params['bgnde']
                 ,"params":params
             }
 
-            try:
-                res = execute_rest_api('get', cls.url, {}, params)
-                file_name = 'road_dog_' + params['bgnde'] + '.json'
-                get_client().write(cls.file_dir + file_name, res, encoding='utf-8', overwrite=True)
+    @classmethod
+    def __upload_to_hdfs(cls, res, file_name):
+        return get_client().write(cls.file_dir + file_name, res, encoding='utf-8', overwrite=True)
 
-            except Exception as e:
-                log_dict['err_msg']= e.__str__()
-                log_json = json.dumps(log_dict, ensure_ascii=False)
-                get_logger('road_dog_extractor').error(log_json)
+    @classmethod
+    def __create_param(cls, befor_day):
+        return {
+                'serviceKey':cls.service_key
+                ,'bgnde':cal_std_day_yyyymmdd(befor_day)
+                ,'endde':cal_std_day_yyyymmdd(befor_day)
+                ,'upkind':'417000'
+                ,'_type':'json'
+                ,'numOfRows':'1000'
+            }
