@@ -17,7 +17,8 @@ class RoadDogExtractor:
                 ,'bgnde':cal_std_day_yyyymmdd(i)
                 ,'endde':cal_std_day_yyyymmdd(i)
                 ,'upkind':'417000'
-                ,'apiType':'JSON'
+                ,'_type':'json'
+                ,'numOfRows':'1000'
             }
 
             log_dict = {
