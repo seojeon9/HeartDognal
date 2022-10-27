@@ -1,5 +1,6 @@
 import json
 from infra.hdfs_client import get_client
+from infra.jdbc import DataWarehouse, find_data
 from infra.util import execute_rest_api
 from infra.logger import get_logger
 
@@ -12,18 +13,21 @@ class SigunguExtract:
     @classmethod
     def extract_data(cls):
 
+        sido_df = find_data(DataWarehouse, 'SIDO')
         # 디비에서 시도 읽어오기
-        upr_cd = '6110000'
+        sido_list = sido_df[['SIDO_CD']].collect()
+        for sido in sido_list:
+            upr_cd = str(sido['SIDO_CD'])
 
-        try:
-            params = cls.__create_param(upr_cd)
-            res = execute_rest_api('get', cls.URL, {}, params)
-            file_name = 'sigungu_' + params['upr_cd'] + '.json'
-            cls.__upload_to_hdfs(file_name, res)
-        except Exception as e:
-            log_dict = cls.__create_log_dict(params)
-            cls.__dump_log(log_dict, e)
-            raise e
+            try:
+                params = cls.__create_param(upr_cd)
+                res = execute_rest_api('get', cls.URL, {}, params)
+                file_name = 'sigungu_' + params['upr_cd'] + '.json'
+                cls.__upload_to_hdfs(file_name, res)
+            except Exception as e:
+                log_dict = cls.__create_log_dict(params)
+                cls.__dump_log(log_dict, e)
+                raise e
 
     @classmethod
     def __upload_to_hdfs(cls, file_name, res):
