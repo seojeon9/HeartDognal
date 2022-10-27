@@ -1,4 +1,7 @@
 {
     "python.linting.pylamaEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.formatting.autopep8Args": [
+        "--max-line-length=200"
+    ]
 }
