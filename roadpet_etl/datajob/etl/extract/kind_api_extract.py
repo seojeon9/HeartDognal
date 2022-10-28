@@ -5,7 +5,7 @@ from infra.util import execute_rest_api
 class KindExtract:
     URL = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/kind'
     SERVICE_KEY = 'NJZf0IxXtTO8vlgpcZ8TbyYzgziNOLkFbn8dWmvTRbx4AYWTjdPnpNd2nbroAcineXLi971rvGbpoy23qSMPmQ=='
-    FILE_DIR = '/road_pet/kind/'
+    FILE_DIR = '/roadpet/dog/kind/'
 
     @classmethod
     def extract_data(cls):

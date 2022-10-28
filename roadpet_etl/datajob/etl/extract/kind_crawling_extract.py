@@ -3,12 +3,13 @@ import bs4
 import requests
 import pandas as pd
 import json
-from infra.logger import get_logger
 from infra.hdfs_client import get_client
+from infra.logger import get_logger
+from infra.spark_session import get_spark_session
 
 
 class DogKindExtractor:
-    file_dir = '/roadpet/dog/kind'
+    file_dir = '/roadpet/dog/kind/'
 
     @classmethod
     def extract_data(cls):
@@ -94,4 +95,10 @@ class DogKindExtractor:
 
                 dog_kind.loc[len(dog_kind)] = [품종, 원산지, 체고, 체중, 크기, 외모, 성격, 추천성향, 주요유의질병, 색상, 그룹구분, 친화성, 털빠짐, 집지키기, 실내외구분]
 
+
         print(dog_kind)
+        # 스파크 형식으로 올리기
+        dog_kind=get_spark_session().createDataFrame(dog_kind)
+        # HDFS 올리는 코드 (밑에2개) 아래꺼는 나누지않은 그..... 스파크머시기
+        # get_client().write(cls.file_dir + '지식백과특징.csv', dog_kind, encoding='CP949', overwrite=True) 
+        dog_kind.coalesce(1).write.mode("overwrite").format("csv").option("header", "true").save("/roadpet/dog/kind/지식백과특징.csv")
