@@ -3,7 +3,6 @@ from infra.hdfs_client import get_client
 from infra.jdbc import DataWarehouse, find_data
 from infra.util import execute_rest_api
 from infra.logger import get_logger
-import time
 
 
 class ShelterExtract:
