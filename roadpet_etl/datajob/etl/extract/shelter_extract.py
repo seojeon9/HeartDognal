@@ -1,7 +1,9 @@
 import json
 from infra.hdfs_client import get_client
+from infra.jdbc import DataWarehouse, find_data
 from infra.util import execute_rest_api
 from infra.logger import get_logger
+import time
 
 
 class ShelterExtract:
@@ -12,19 +14,26 @@ class ShelterExtract:
     @classmethod
     def extract_data(cls):
 
-        # 디비에서 시군구 읽어오기
-        upr_cd = '6110000'
-        org_cd = '3220000'
+        sido_df = find_data(DataWarehouse, 'SIGUNGU')
+        sido_list = sido_df[['SIDO_CD']].collect()
+        sigungu_list = sido_df[['SIGUNGU_CD']].collect()
 
-        try:
-            params = cls.__create_param(upr_cd, org_cd)
-            res = execute_rest_api('get', cls.URL, {}, params)
-            file_name = 'shelter_' + params['org_cd'] + '.json'
-            cls.__upload_to_hdfs(file_name, res)
-        except Exception as e:
-            log_dict = cls.__create_log_dict(params)
-            cls.__dump_log(log_dict, e)
-            raise e
+        for i in range(len(sido_list)):
+            sido = str(sido_list[i]['SIDO_CD'])
+            sigungu = str(sigungu_list[i]['SIGUNGU_CD'])
+            # print(sido, sigungu)
+            # sido = '6110000'
+            # sigungu = '3220000'
+
+            try:
+                params = cls.__create_param(sido, sigungu)
+                res = execute_rest_api('get', cls.URL, {}, params)
+                file_name = 'shelter_' + params['upr_cd'] + '_' + params['org_cd'] + '.json'
+                cls.__upload_to_hdfs(file_name, res)
+            except Exception as e:
+                log_dict = cls.__create_log_dict(params)
+                cls.__dump_log(log_dict, e)
+                raise e
 
     @classmethod
     def __upload_to_hdfs(cls, file_name, res):
