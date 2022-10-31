@@ -9,5 +9,5 @@ import pandas as pd
 class KindFeature:
     @ classmethod
     def transform(cls):
-    
+        path = '/roadpet/shelter/sido/sido.json'
 
