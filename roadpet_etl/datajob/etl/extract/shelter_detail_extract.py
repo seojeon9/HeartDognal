@@ -30,20 +30,21 @@ class ShelterDetailExtract:
 
             shelter_df = shelter_df.toPandas()
             for shelter in shelter_df['careRegNo']:
-                shelter_list.append(shelter)
+
                 try:
                     params = cls.__create_param(shelter)
                     res = execute_rest_api('get', cls.URL, {}, params)
                     file_name = 'shelter_' + sido + '_' + sigungu + '_' + params['care_reg_no'] + '.json'
+                    shelter_list.append(file_name)
                     cls.__upload_to_hdfs(file_name, res)
                 except Exception as e:
                     log_dict = cls.__create_log_dict(params)
                     cls.__dump_log(log_dict, e)
                     raise e
 
-        with open('shelter_list.txt', 'w', encoding='UTF-8') as f:
-            for name in shelter_list:
-                f.write(name+'\n')
+        with open('shelter_file_list.txt', 'w', encoding='UTF-8') as f:
+            for shelter in shelter_list:
+                f.write(shelter+'\n')
 
     @classmethod
     def __upload_to_hdfs(cls, file_name, res):
