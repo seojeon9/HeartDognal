@@ -7,9 +7,9 @@ from infra.logger import get_logger
 
 
 class ShelterDetailExtract:
-    URL = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/shelter?'
+    URL = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?'
     SERVICE_KEY = 'NJZf0IxXtTO8vlgpcZ8TbyYzgziNOLkFbn8dWmvTRbx4AYWTjdPnpNd2nbroAcineXLi971rvGbpoy23qSMPmQ=='
-    FILE_DIR = '/road_pet/shelter/shelter/'
+    FILE_DIR = '/road_pet/shelter/shelter_detail/'
 
     @classmethod
     def extract_data(cls):
@@ -17,47 +17,46 @@ class ShelterDetailExtract:
         sido_list = sido_df[['SIDO_CD']].collect()
         sigungu_list = sido_df[['SIGUNGU_CD']].collect()
 
-        for i in range(1):
-            # for i in range(len(sido_list)):
+        # print(sido_df.count())
+        shelter_list = []
+        for i in range(len(sido_list)):
             sido = str(sido_list[i]['SIDO_CD'])
             sigungu = str(sigungu_list[i]['SIGUNGU_CD'])
 
             shelter_df = cls.__generate_df(sido, sigungu)
             if shelter_df == '':
-                # print(sido)
+                # print(sigungu)
                 continue
 
-                shelter_df
+            shelter_df = shelter_df.toPandas()
+            for shelter in shelter_df['careRegNo']:
 
-            shelter_df.show()
+                try:
+                    params = cls.__create_param(shelter)
+                    res = execute_rest_api('get', cls.URL, {}, params)
+                    file_name = 'shelter_' + sido + '_' + sigungu + '_' + params['care_reg_no'] + '.json'
+                    shelter_list.append(file_name)
+                    cls.__upload_to_hdfs(file_name, res)
+                except Exception as e:
+                    log_dict = cls.__create_log_dict(params)
+                    cls.__dump_log(log_dict, e)
+                    raise e
 
-        # for i in range(len(sido_list)):
-        #     sido = str(sido_list[i]['SIDO_CD'])
-        #     sigungu = str(sigungu_list[i]['SIGUNGU_CD'])
-        #     # print(sido, sigungu)
-        #     # sido = '6110000'
-        #     # sigungu = '3220000'
-
-        #     try:
-        #         params = cls.__create_param(sido, sigungu)
-        #         res = execute_rest_api('get', cls.URL, {}, params)
-        #         file_name = 'shelter_' + params['upr_cd'] + '_' + params['org_cd'] + '.json'
-        #         cls.__upload_to_hdfs(file_name, res)
-        #     except Exception as e:
-        #         log_dict = cls.__create_log_dict(params)
-        #         cls.__dump_log(log_dict, e)
-        #         raise e
+        with open('shelter_file_list.txt', 'w', encoding='UTF-8') as f:
+            for shelter in shelter_list:
+                f.write(shelter+'\n')
 
     @classmethod
     def __upload_to_hdfs(cls, file_name, res):
         get_client().write(cls.FILE_DIR + file_name, res, encoding='utf-8', overwrite=True)
 
     @classmethod
-    def __create_param(cls, upr_cd, org_cd):
+    def __create_param(cls, care_reg_no):
         return {
             'serviceKey': cls.SERVICE_KEY,
-            'upr_cd': upr_cd,
-            'org_cd': org_cd,
+            'upkind': '417000',
+            'care_reg_no': care_reg_no,
+            'numOfRows': '1',
             '_type': 'json',
         }
 
@@ -86,5 +85,6 @@ class ShelterDetailExtract:
         try:
             shelter_df = get_spark_session().createDataFrame(shelter_json['response']['body']['items']['item'])
             return shelter_df
+
         except:
             return ''
