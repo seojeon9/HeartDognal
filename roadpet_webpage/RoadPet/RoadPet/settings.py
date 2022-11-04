@@ -76,8 +76,10 @@ WSGI_APPLICATION = 'RoadPet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':'django.db.backends.oracle',
+        'NAME':'roadpet_high', # tnsnames.ora 파일에 등록된 NAME을 등록
+        'USER':'roadpet_op',
+        'PASSWORD':'123qwe!@#QWE', #Please provide the db password here
     }
 }
 
