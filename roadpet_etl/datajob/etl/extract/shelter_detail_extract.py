@@ -14,23 +14,23 @@ class ShelterDetailExtract:
     @classmethod
     def extract_data(cls):
         sido_df = find_data(DataWarehouse, 'SIGUNGU')
-        sido_list = sido_df[['SIDO_CD']].collect()
-        sigungu_list = sido_df[['SIGUNGU_CD']].collect()
-
-        # print(sido_df.count())
+        sido_df = sido_df.toPandas()
         shelter_list = []
-        for i in range(len(sido_list)):
-            sido = str(sido_list[i]['SIDO_CD'])
-            sigungu = str(sigungu_list[i]['SIGUNGU_CD'])
+
+        for i in range(sido_df['SIDO_CD'].count()):
+            sido = str(sido_df['SIDO_CD'][i])
+            sigungu = str(sido_df['SIGUNGU_CD'][i])
 
             shelter_df = cls.__generate_df(sido, sigungu)
             if shelter_df == '':
-                # print(sigungu)
+                print(sido, sigungu)
                 continue
 
+            print(sido, sigungu)
+            shelter_df.show()
             shelter_df = shelter_df.toPandas()
             for shelter in shelter_df['careRegNo']:
-
+                print(shelter)
                 try:
                     params = cls.__create_param(shelter)
                     res = execute_rest_api('get', cls.URL, {}, params)
