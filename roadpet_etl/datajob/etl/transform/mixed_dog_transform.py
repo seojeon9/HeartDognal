@@ -5,13 +5,9 @@ from infra.spark_session import get_spark_session
 from infra.util import cal_std_day_yyyymmdd
 from pyspark.sql.types import *
 
-class ClassifiedDog:
+class MixedDog:
     @ classmethod
     def transform(cls):
-        path = find_data(DataWarehouse, 'KIND_FEATURE')
-        path1 = find_data(DataWarehouse, 'ROADDOG_INFO')
-        tmp = path.select('KIND')
-        tmp1 = path1.select('KIND_NM')
-
-        tmp.show()
-        tmp1.show()
+        path = find_data(DataWarehouse, 'ROADDOG_INFO')
+        mix = path.select('KIND_NM').where(path.KIND_NM =='믹스견')
+        mix.show()
