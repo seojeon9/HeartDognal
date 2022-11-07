@@ -14,15 +14,12 @@ class ShelterExtract:
     def extract_data(cls):
 
         sido_df = find_data(DataWarehouse, 'SIGUNGU')
-        sido_list = sido_df[['SIDO_CD']].collect()
-        sigungu_list = sido_df[['SIGUNGU_CD']].collect()
-
-        for i in range(len(sido_list)):
-            sido = str(sido_list[i]['SIDO_CD'])
-            sigungu = str(sigungu_list[i]['SIGUNGU_CD'])
-            # print(sido, sigungu)
-            # sido = '6110000'
-            # sigungu = '3220000'
+        sido_df = sido_df.toPandas()
+        for i in range(sido_df['SIDO_CD'].count()):
+            sido = str(sido_df['SIDO_CD'][i])
+            sigungu = str(sido_df['SIGUNGU_CD'][i])
+            # print(i, '번:', sido, sigungu)
+            # print(type(sido))
 
             try:
                 params = cls.__create_param(sido, sigungu)
