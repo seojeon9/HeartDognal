@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 from my_road_pet.module import kmeans_recom
 from my_road_pet.module import content_recom
 from sklearn.cluster import KMeans
@@ -7,7 +8,6 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import joblib
-
 
 # Create your views here.
 def index(request):
@@ -17,10 +17,6 @@ def index(request):
 def about_us(request):
 
     return render(request, 'roaddog/about_us.html')
-
-def signup(request):
-
-    return render(request, 'accounts/signup.html')
 
 def mypage(request):
 

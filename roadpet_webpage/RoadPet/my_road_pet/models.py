@@ -100,19 +100,19 @@ class Survey(models.Model):
         db_table = 'survey'
 
 
-class UserInfo(models.Model):
-    user_id = models.BigAutoField(primary_key=True)
-    id = models.CharField(max_length=100, blank=True, null=True)
-    password = models.CharField(max_length=100, blank=True, null=True)
-    name = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    tel = models.CharField(max_length=100, blank=True, null=True)
-    address = models.CharField(max_length=100, blank=True, null=True)
-    detail_addr = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.CharField(max_length=100, blank=True, null=True)
-    modify_date = models.CharField(max_length=100, blank=True, null=True)
-    end_date = models.CharField(max_length=100, blank=True, null=True)
+# class UserInfo(models.Model):
+#     user_id = models.BigAutoField(primary_key=True)
+#     id = models.CharField(max_length=100, blank=True, null=True)
+#     password = models.CharField(max_length=100, blank=True, null=True)
+#     name = models.CharField(max_length=100, blank=True, null=True)
+#     email = models.CharField(max_length=100, blank=True, null=True)
+#     tel = models.CharField(max_length=100, blank=True, null=True)
+#     address = models.CharField(max_length=100, blank=True, null=True)
+#     detail_addr = models.CharField(max_length=100, blank=True, null=True)
+#     start_date = models.CharField(max_length=100, blank=True, null=True)
+#     modify_date = models.CharField(max_length=100, blank=True, null=True)
+#     end_date = models.CharField(max_length=100, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'user_info'
+#     class Meta:
+#         managed = False
+#         db_table = 'user_info'
