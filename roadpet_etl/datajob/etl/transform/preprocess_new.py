@@ -17,7 +17,7 @@ import kmeans_recom
 # In[3]:
 
 def preprocess() :
-    animal = pd.read_csv('../data/raw_data.csv', index_col = 0)
+    animal = pd.read_csv('../data/raw_data.csv')
 
 
     # ### 보호중인 동물만
@@ -671,6 +671,4 @@ def preprocess() :
 
     # 군집 라벨 부착
     animal = kmeans_recom.recommend(animal)
-    return animal
-
-print(preprocess())
+    return animal[['유기번호','군집']]

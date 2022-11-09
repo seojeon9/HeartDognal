@@ -561,13 +561,13 @@ for a in animal['체중'] :
 # In[53]:
 
 
-animal['체중_숫자'] = weight_list
+animal['체중'] = weight_list
 
 
 # In[54]:
 
 
-animal['체중_숫자'] = animal['체중_숫자'].astype(float)
+animal['체중'] = animal['체중'].astype(float)
 
 
 # ### 성별
@@ -594,7 +594,7 @@ animal = pd.concat([animal, pd.get_dummies(animal['중성화여부'])], axis=1)
 # In[74]:
 
 
-feature = animal[['나이_주환산', '체중_숫자', 'api_친화성', 'api_건강점수']]
+feature = animal[['나이_주환산', '체중', 'api_친화성', 'api_건강점수']]
 minmaxscaler = MinMaxScaler()
 minmaxscaler.fit(feature)
 joblib.dump(minmaxscaler, '../model/minmaxscaler.pkl')
