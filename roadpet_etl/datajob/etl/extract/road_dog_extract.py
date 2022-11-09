@@ -9,7 +9,7 @@ class RoadDogExtractor:
     file_dir = '/roadpet/detail/'
 
     @classmethod
-    def extract_data(cls, befor_cnt=40):
+    def extract_data(cls, befor_cnt=20):
         
         for i in range(0, befor_cnt+1):
             params = cls.__create_param(i)
