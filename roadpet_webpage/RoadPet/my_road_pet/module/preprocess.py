@@ -524,7 +524,6 @@ for a, b in zip(animal['1년미만_주환산'], animal['1년이상_주환산']) 
 
 animal['나이_주환산'] = week_age_list
 
-
 # ## 체중
 
 # In[49]:
