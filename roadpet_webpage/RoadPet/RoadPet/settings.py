@@ -82,14 +82,14 @@ WSGI_APPLICATION = 'RoadPet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE':'django.db.backends.oracle',
-        'NAME':'roadpet_high', # tnsnames.ora 파일에 등록된 NAME을 등록
-        'USER':'roadpet_op',
-        'PASSWORD':'123qwe!@#QWE', #Please provide the db password here
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.oracle',
+#         'NAME':'roadpet_high', # tnsnames.ora 파일에 등록된 NAME을 등록
+#         'USER':'roadpet_op',
+#         'PASSWORD':'123qwe!@#QWE', #Please provide the db password here
+#     }
+# }
 
 
 # Password validation

@@ -43,7 +43,11 @@ def recommend(request):
     #5. 동일 군집 강아지 중 랜덤하게 선택
     #6. 디비에서 선택된 강아지 세부 정보 추출
     #7. 추출된 정보를 템플릿으로 전송
-
+    weight = request.POST['weight']
+    age = request.POST['age']
+    friendly = request.POST['friendly']
+    health = request.POST['health']
+    print(kmeans_recom.recommend([[weight,age,friendly,health]]))
     return render(request, 'accounts/recommend.html')
 
 def presurvey(request):
@@ -65,4 +69,3 @@ def detail_info(request):
         # 디비에서 유사도가 높은 강아지들 정보 얻어오기(10개) - 상세페이지 넘어가게
         # 템플릿에 강아지 정보 전송
     return render(request, 'roaddog/detail_info.html')
-

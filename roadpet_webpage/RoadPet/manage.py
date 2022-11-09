@@ -3,8 +3,8 @@
 import os
 import sys
 
-import cx_Oracle
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Program Files\instantclient_19_16")
+# import cx_Oracle
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Program Files\instantclient_19_16")
 
 def main():
     """Run administrative tasks."""
