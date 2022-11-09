@@ -1,38 +1,13 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- PAGE settings -->
-  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Checkout</title>
-  <meta name="description" content="Wireframe design of a checkout form by Pingendo">
-  <meta name="keywords" content="Pingendo bootstrap example template wireframe checkout form">
-  <meta name="author" content="Pingendo">
-  <!-- CSS dependencies -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="{% static 'member/wireframe.css' %}">
-</head>
+{% block header_code %}
+<link rel="stylesheet" href="{% static 'member/wireframe.css' %}">
+{% endblock %}
 
-<body class="bg-light">
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
-    <div class="container"> <a class="navbar-brand" href="/about_us">
-        <i class="fa d-inline fa-lg fa-stop-circle"></i>
-        <b style="">About Us</b></a>
-        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar16">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+
+{% block content %}
+
   <div class="py-5">
     <div class="container">
       <div class="row">
@@ -48,38 +23,40 @@
       <div class="row">
         <div class="col-md-12 order-md-1 my-2">
           <h4 class="mb-3"><b>정보 입력</b></h4>
-          <form class="needs-validation" novalidate="">
+          <form class="needs-validation" novalidate="" action="/accounts/signup/" method="post">
+            {% csrf_token %}
             <div class="row">
               <div class="col-md-12 mb-3"> <label for="lastName">아이디 (*)</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                <input type="text" class="form-control" id="lastName" placeholder=""  name="username" required="">
                 <div class="invalid-feedback"> Valid last name is required. </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6"><label for="password">비밀번호 (*)</label>
                 <div class="form-group row">
-                  <div class="col-10 col-md-12" style=""><input type="text" class="form-control" id="firstName" placeholder="" value="" required=""></div>
+                  <div class="col-10 col-md-12" style=""><input type="password" class="form-control" id="firstName" 
+                    name="password1"  ></div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group row">
-                  <div class="col-10 col-md-12" style=""><label for="password">비밀번호 확인 (*)</label><input type="text" class="form-control" id="firstName" placeholder="" value="" required=""></div>
+                  <div class="col-10 col-md-12" style=""><label for="password">비밀번호 확인 (*)</label><input type="password" class="form-control" name="password2"></div>
                 </div>
               </div>
             </div>
             <div class="mb-3"> <label for="name">이름 (*)<br></label>
-              <input type="name" class="form-control" id="name">
+              <input type="name" class="form-control" id="name" name="name">
             </div>
             <div class="mb-3"> <label for="email">이메일 (*)<br></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" id="email"   name="email"  placeholder="you@example.com">
             </div>
             <div class="mb-3"> <label for="address2">휴대폰 번호 (*)<br></label>
-              <input type="text" class="form-control" id="tel" placeholder="010-0000-0000"> </div>
+              <input type="text" class="form-control" id="tel"  name="tel"  placeholder="010-0000-0000"> </div>
             <div class="mb-3"> <label for="address">주소 (*)</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+              <input type="text" class="form-control" id="address"  name="addr"  placeholder="1234 Main St" required="">
             </div>
             <div class="mb-3"> <label for="address2">상세주소<br></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite"> </div>
+              <input type="text" class="form-control" id="address2"  name="addr_detail"  placeholder="Apartment or suite"> </div>
             <hr class="mb-4">
             <div class="form-group row">
               <div class="col-md-12">
@@ -96,15 +73,15 @@
               </div>
             </div>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="save-info" value="on"> <label class="custom-control-label" for="save-info">동의합니다.</label> </div>
+              <input type="checkbox" class="custom-control-input" id="save-info" value="on" required> <label class="custom-control-label" for="save-info">동의합니다.</label> </div>
             <hr class="mb-4">
             <div class="row">
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-2"></div>
-                  <div class="col-md-2"><a class="btn btn-info w-100" href="/">취소</a></div>
-                  <div class="col-md-2"><a class="btn btn-dark w-100" href="/">회원가입</a></div>
+                  <div class="col-md-2"><button class="btn btn-info w-100"  type="reset">취소</button></div>
+                  <div class="col-md-2"><button  class="btn btn-dark w-100" >회원가입</button></div>
                   <div class="col-md-2"></div>
                   <div class="col-md-2"></div>
                 </div>
@@ -135,11 +112,5 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <script src="{% static 'assets/js/validation.js' %}"></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
-</body>
 
-</html>
+{% endblock %}

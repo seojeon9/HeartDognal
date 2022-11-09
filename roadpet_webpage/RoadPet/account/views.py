@@ -1,13 +1,10 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
-from my_road_pet.module import kmeans_recom
-from my_road_pet.module import content_recom
-from sklearn.cluster import KMeans
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-import joblib
+from .forms import UserForm
+
 
 # Create your views here.
 def index(request):
@@ -17,6 +14,26 @@ def index(request):
 def about_us(request):
 
     return render(request, 'roaddog/about_us.html')
+
+@csrf_exempt
+def signup(request):
+    if request.method == 'GET':
+        form = UserForm()
+        return render(request, 'accounts/signup.html', {'form': form})
+
+    form = UserForm(request.POST)
+
+    if form.is_valid():
+        form.save()
+        user_name = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        user = authenticate(username=user_name, password=raw_password)
+        login(request, user)
+        return redirect('/')
+
+    print(form.errors)
+
+    return render(request, 'accounts/signup.html', {'form': form})
 
 def mypage(request):
 
@@ -43,11 +60,7 @@ def recommend(request):
     #5. 동일 군집 강아지 중 랜덤하게 선택
     #6. 디비에서 선택된 강아지 세부 정보 추출
     #7. 추출된 정보를 템플릿으로 전송
-    weight = request.POST['weight']
-    age = request.POST['age']
-    friendly = request.POST['friendly']
-    health = request.POST['health']
-    print(kmeans_recom.recommend([[weight,age,friendly,health]]))
+
     return render(request, 'accounts/recommend.html')
 
 def presurvey(request):
@@ -69,3 +82,7 @@ def detail_info(request):
         # 디비에서 유사도가 높은 강아지들 정보 얻어오기(10개) - 상세페이지 넘어가게
         # 템플릿에 강아지 정보 전송
     return render(request, 'roaddog/detail_info.html')
+
+
+
+
