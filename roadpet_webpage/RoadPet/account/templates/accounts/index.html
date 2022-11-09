@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PAGE settings -->
+  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+  <title>Roaddog Match Service</title>
+  <meta name="description" content="Free Bootstrap 4 Pingendo Elegant template for restaurant and food">
+  <meta name="keywords" content="Pingendo restaurant food elegant free template bootstrap 4">
+  <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="{% static 'main/main.css'%}" type="text/css">
+
+  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+  <script src="{% static 'main/js/navbar-ontop.js'%}"></script>
+  <!-- Script: Animated entrance -->
+  <script src="{% static 'main/js/animate-in.js'%}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
+    <div class="container"> <a class="navbar-brand" href="/about_us">
+        <i class="fa d-inline fa-lg fa-stop-circle"></i>
+        <b style="">About Us</b></a>
+        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar16">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="align-items-center d-flex photo-overlay py-5 cover" style="background-image: url({% static 'main/images/bg_main.png' %}) ; background-position: left top; background-size: 100%; background-repeat: repeat;">
+    <div class="container">
+      <div class="row" style="">
+        <div class="col-lg-7 align-self-center text-lg-left text-center" style="	text-shadow: 0px 0px 4px black;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row my-5">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">유기강아지&nbsp;<br>매칭서비스</h1>
+                  <div class="row" style="	box-shadow: 0px 0px 4px  black;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6" style="">
+                  <a class="btn btn-lg btn-block btn-light text-primary" href="recommend/presurvey/">Recommended</a>
+                </div>
+                <div class="col-md-6"><a class="btn btn-block btn-lg btn-light text-primary" href="search/">Search</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 p-3" style="">
+          <form class="p-4 bg-dark-opaque" method="post" action="https://formspree.io/" style="">
+            <div class="form-group"> <label>ID</label> <input type="Text" class="form-control mb-2" placeholder=""> </div>
+            <div class="form-group"> <label>Password</label> <input type="password" class="form-control mb-3" placeholder=""> </div> <button type="submit" class="btn my-2 btn-block active btn-lg btn-primary text-light" style="">Sign In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cover -->
+  <!-- Intro -->
+  <!-- Gallery -->
+  <!-- Menu -->
+  <!-- Carousel reviews -->
+  <!-- Carousel venue -->
+  <!-- Events -->
+  <!-- Dark opaque section -->
+  <!-- Footer -->
+  <!-- JavaScript dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <!-- Script: Smooth scrolling between anchors in the same page -->
+  <script src="js/smooth-scroll.js"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</body>
+
+</html>

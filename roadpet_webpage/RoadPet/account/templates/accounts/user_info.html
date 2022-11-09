@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PAGE settings -->
+  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+  <title>Checkout</title>
+  <meta name="description" content="Wireframe design of a checkout form by Pingendo">
+  <meta name="keywords" content="Pingendo bootstrap example template wireframe checkout form">
+  <meta name="author" content="Pingendo">
+  <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="{% static 'member/wireframe.css' %}">
+</head>
+
+<body class="bg-light">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
+    <div class="container"> <a class="navbar-brand" href="/about_us">
+        <i class="fa d-inline fa-lg fa-stop-circle"></i>
+        <b style="">About Us</b></a>
+        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar16">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="text-center col-md-7 mx-auto"> <i class="fa d-block fa-bullseye fa-5x mb-4 text-info"></i>
+          <h2><b>회원정보 수정</b></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="" style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 order-md-1 my-2">
+          <h4 class="mb-3"><b>정보 입력</b></h4>
+          <form class="needs-validation" novalidate="">
+            <div class="row">
+              <div class="col-md-12 mb-3"> <label for="lastName">아이디&nbsp;</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="roaddog_id" required="">
+                <div class="invalid-feedback"> Valid last name is required. </div>
+              </div>
+            </div>
+            <div class="mb-3"> <label for="name">이름<br></label>
+              <input type="name" class="form-control" id="name">
+            </div>
+            <div class="mb-3"> <label for="email">이메일<br></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+            </div>
+            <div class="mb-3"> <label for="address2">휴대폰 번호<br></label>
+              <input type="text" class="form-control" id="tel" placeholder="010-0000-0000"> </div>
+            <div class="mb-3"> <label for="address">주소</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+            </div>
+            <div class="mb-3"> <label for="address2">상세주소<br></label>
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite"> </div>
+            <hr class="mb-4">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2"><a class="btn btn-info w-100" href="/accounts/mypage">취소</a></div>
+                  <div class="col-md-2"><a class="btn btn-dark w-100" href="/accounts/mypage">수정</a></div>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5 text-muted text-center" style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 my-4">
+          <p class="mb-1">© 2017-2018 Company Name</p>
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a href="#">Privacy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">Terms</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">Support</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="assets/js/validation.js"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</body>
+
+</html>
