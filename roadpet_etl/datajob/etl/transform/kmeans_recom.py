@@ -4,11 +4,11 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 
-def recommend(sample) :
-    minmax = joblib.load('./my_road_pet/model/minmaxscaler.pkl')
-    sample_minmax = minmax.transform(sample)
-    model = joblib.load("./my_road_pet/model/kmeans.pkl")
-    sample_cluster = model.predict(sample_minmax)[0]
-    dog = pd.read_csv('./my_road_pet/data/preprocessed_data/preprocessed_dog.csv', index_col=0)
-    dog_recom = dog.loc[dog['군집']==sample_cluster, :]
-    return dog_recom
+def recommend(animal) :
+    feature = animal[['나이_주환산', '체중', 'api_친화성', 'api_건강점수']]
+    minmax = joblib.load('../../../../roadpet_webpage/RoadPet/my_road_pet/model/minmaxscaler.pkl')
+    feature_minmax = minmax.transform(feature)
+    model = joblib.load("../../../../roadpet_webpage/RoadPet/my_road_pet/model/kmeans.pkl")
+    cluster_list = model.predict(feature_minmax)
+    animal['군집'] = cluster_list
+    return animal

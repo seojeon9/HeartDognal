@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 # In[1]:
 
@@ -13,12 +11,13 @@ import joblib
 from sklearn.preprocessing import MinMaxScaler
 from scipy.spatial.distance import cosine
 from sklearn.metrics.pairwise import cosine_similarity
+import kmeans_recom
 
 
 # In[3]:
 
-def preprocess() :
-    animal = pd.read_csv('../data/raw_data.csv', index_col = 0)
+def preprocess(animal) :
+    # animal = pd.read_csv('../data/raw_data.csv')
 
 
     # ### 보호중인 동물만
@@ -597,7 +596,7 @@ def preprocess() :
     feature = animal[['나이_주환산', '체중', 'api_친화성', 'api_건강점수']]
     minmaxscaler = MinMaxScaler()
     minmaxscaler.fit(feature)
-    joblib.dump(minmaxscaler, '../model/minmaxscaler.pkl')
+    joblib.dump(minmaxscaler, '../../../../roadpet_webpage/RoadPet/my_road_pet/model/minmaxscaler.pkl')
     animal_minmax_scaled = minmaxscaler.transform(feature)
 
     kmeans = KMeans(n_clusters=50, init='k-means++', max_iter=1000, random_state=1).fit(animal_minmax_scaled)
@@ -608,7 +607,7 @@ def preprocess() :
     # In[75]:
 
 
-    joblib.dump(kmeans, '../model/kmeans.pkl')
+    joblib.dump(kmeans, '../../../../roadpet_webpage/RoadPet/my_road_pet/model/kmeans.pkl')
 
 
     # ### 2) 콘텐츠 유사도 저장
@@ -616,7 +615,7 @@ def preprocess() :
     # In[88]:
 
 
-    # animal_cos_sim = cosine_similarity(animal_minmax_scaled, animal_minmax_scaled)
+    animal_cos_sim = cosine_similarity(animal_minmax_scaled, animal_minmax_scaled)
 
 
     # In[77]:
@@ -628,7 +627,7 @@ def preprocess() :
     # In[78]:
 
 
-    # animal_sim=animal_cos_sim.argsort(axis=1)
+    animal_sim=animal_cos_sim.argsort(axis=1)
 
 
     # In[79]:
@@ -640,36 +639,36 @@ def preprocess() :
     # In[87]:
 
 
-    # np.flip(animal_sim, axis=1)
+    np.flip(animal_sim, axis=1)
 
 
     # In[91]:
 
 
-    # sim10_index=np.flip(animal_cos_sim.argsort(axis=1), axis=1)[:,1:11]
-    #
-    # dogs_sim_reg = []
-    # for i in range(sim10_index.shape[0]) :
-    #     dog_sim_reg = []
-    #     for j in range(sim10_index.shape[1]) :
-    #         dog_sim_reg.append(animal.iloc[sim10_index[i][j]]['유기번호'])
-    #     dogs_sim_reg.append(dog_sim_reg)
-    #
-    # dogs_sim_reg = np.array(dogs_sim_reg)
-    #
-    #
-    # sim_dict = {}
-    #
-    # for i in range(len(dogs_sim_reg)) :
-    #     sim_dict[animal.iloc[i]['유기번호']] = dogs_sim_reg[i]
-    #
-    # # In[94]:
-    #
-    # joblib.dump(sim_dict, '../../../../roadpet_webpage/RoadPet/my_road_pet/data/preprocessed_data/dogs_sim10_regno.csv')
+    sim10_index=np.flip(animal_cos_sim.argsort(axis=1), axis=1)[:,1:11]
+
+    dogs_sim_reg = []
+    for i in range(sim10_index.shape[0]) :
+        dog_sim_reg = []
+        for j in range(sim10_index.shape[1]) :
+            dog_sim_reg.append(animal.iloc[sim10_index[i][j]]['유기번호'])
+        dogs_sim_reg.append(dog_sim_reg)
+
+    dogs_sim_reg = np.array(dogs_sim_reg)
+
+
+    sim_dict = {}
+
+    for i in range(len(dogs_sim_reg)) :
+        sim_dict[animal.iloc[i]['유기번호']] = dogs_sim_reg[i]
+
+    # In[94]:
+
+    joblib.dump(sim_dict, '../../../../roadpet_webpage/RoadPet/my_road_pet/data/preprocessed_data/dogs_sim10_regno.csv')
 
 
     # In[ ]:
-    return animal[['유기번호', '군집']]
 
+    # 군집 라벨 부착
 
-print(preprocess())
+    return animal[['유기번호','군집']]
