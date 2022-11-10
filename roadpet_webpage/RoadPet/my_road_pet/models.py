@@ -6,11 +6,12 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+from datetime import datetime
+from django.utils.dateformat import DateFormat
 
 class AdoptionInquiry(models.Model):
     ai_id = models.BigAutoField(primary_key=True)
-    user_id = models.BigIntegerField()
+    username = models.BigIntegerField()
     desertion_no = models.BigIntegerField(blank=True, null=True)
     std_date = models.CharField(max_length=30, blank=True, null=True)
 
@@ -21,7 +22,7 @@ class AdoptionInquiry(models.Model):
 
 class LikeStarPet(models.Model):
     lp_id = models.BigAutoField(primary_key=True)
-    user_id = models.BigIntegerField()
+    username = models.BigIntegerField()
     desertion_no = models.BigIntegerField(blank=True, null=True)
     star = models.BigIntegerField(blank=True, null=True)
     std_date = models.CharField(max_length=30, blank=True, null=True)
@@ -88,12 +89,13 @@ class Sigungu(models.Model):
 
 class Survey(models.Model):
     sv_id = models.BigAutoField(primary_key=True)
-    user_id = models.BigIntegerField()
+    username = models.CharField(max_length=100, blank=True, null=True)
     weight_cd = models.BigIntegerField(blank=True, null=True)
     age_cd = models.BigIntegerField(blank=True, null=True)
     attr_cd = models.BigIntegerField(blank=True, null=True)
     health_cd = models.BigIntegerField(blank=True, null=True)
-    std_date = models.CharField(max_length=100, blank=True, null=True)
+
+    std_date = models.CharField(max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Ymd'))
 
     class Meta:
         managed = False
@@ -101,7 +103,7 @@ class Survey(models.Model):
 
 
 # class UserInfo(models.Model):
-#     user_id = models.BigAutoField(primary_key=True)
+#     username = models.BigAutoField(primary_key=True)
 #     id = models.CharField(max_length=100, blank=True, null=True)
 #     password = models.CharField(max_length=100, blank=True, null=True)
 #     name = models.CharField(max_length=100, blank=True, null=True)
