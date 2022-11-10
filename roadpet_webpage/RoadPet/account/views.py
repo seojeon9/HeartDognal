@@ -54,7 +54,9 @@ def inquiry(request):
     return render(request, 'accounts/inquiry.html')
 
 def recommend(request):
-    #print('')
+
+
+
     #1. 사용자가 전달한 별점 점수 가져오기
     #2. 별점점수를 군집화 모듈로 전송(함수호출)
     #3. 군집화모듈에서 군집레이블 결정후 몇번 레이블인지 반환

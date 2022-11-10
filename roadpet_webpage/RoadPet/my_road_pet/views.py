@@ -73,6 +73,8 @@ def recommend(request):
 
 
 def presurvey(request):
+    
+
 
     return render(request, 'roaddog/presurvey.html')
 
@@ -83,6 +85,23 @@ def search(request):
 
 
 def survey(request):
+    # sv_id = models.BigAutoField(primary_key=True)
+    # user_id = models.BigIntegerField()
+    # weight_cd = models.BigIntegerField(blank=True, null=True)
+    # age_cd = models.BigIntegerField(blank=True, null=True)
+    # attr_cd = models.BigIntegerField(blank=True, null=True)
+    # health_cd = models.BigIntegerField(blank=True, null=True)
+    # std_date = models.CharField(max_length=100, blank=True, null=True)
+
+    #survey = Survey()
+
+
+    user = request.user
+    weight = request.POST['weight']
+    age = request.POST['age']
+    friendly = request.POST['friendly']
+    health = request.POST['health']
+
 
     return render(request, 'roaddog/survey.html')
 
