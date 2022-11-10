@@ -19,33 +19,7 @@ def index(request):
 
 
 def about_us(request):
-
     return render(request, 'roaddog/about_us.html')
-
-
-def signup(request):
-
-    return render(request, 'accounts/signup.html')
-
-
-def mypage(request):
-
-    return render(request, 'accounts/mypage.html')
-
-
-def user_info(request):
-
-    return render(request, 'accounts/user_info.html')
-
-
-def survey_info(request):
-
-    return render(request, 'accounts/survey_info.html')
-
-
-def inquiry(request):
-
-    return render(request, 'accounts/inquiry.html')
 
 
 def recommend(request):
@@ -81,7 +55,10 @@ def presurvey(request):
 
 def search(request):
 
-    return render(request, 'roaddog/search.html')
+    roaddog = list(RoaddogInfo.objects.filter(label=1).values())
+    content = {'roaddogs': roaddog}
+    print(content)
+    return render(request, 'roaddog/search.html', content)
 
 
 def survey(request):
