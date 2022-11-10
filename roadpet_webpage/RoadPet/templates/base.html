@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- PAGE settings -->
   <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Checkout</title>
+  <title>Home</title>
   <meta name="description" content="Wireframe design of a checkout form by Pingendo">
   <meta name="keywords" content="Pingendo bootstrap example template wireframe checkout form">
   <meta name="author" content="Pingendo">
@@ -21,17 +21,23 @@
 
 <body class="bg-light">
   <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
-    <div class="container"> <a class="navbar-brand" href="/about_us">
+    <div class="container"> <a class="navbar-brand" href="/">
         <i class="fa d-inline fa-lg fa-stop-circle"></i>
-        <b style="">About Us</b></a>
+        <b style="">Home</b></a>
         <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar16">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item"> <a class="nav-link" href="/about_us">About us</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'accounts:logout' %}">{{user.username}} | Logout</a></li>
           <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
+          {% else %}
+          <li class="nav-item"> <a class="nav-link" href="/about_us">About us</a> </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
+          {% endif %}
         </ul>
       </div>
     </div>

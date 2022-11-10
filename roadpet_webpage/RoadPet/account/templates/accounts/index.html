@@ -1,52 +1,22 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- PAGE settings -->
-  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Roaddog Match Service</title>
-  <meta name="description" content="Free Bootstrap 4 Pingendo Elegant template for restaurant and food">
-  <meta name="keywords" content="Pingendo restaurant food elegant free template bootstrap 4">
-  <!-- CSS dependencies -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="{% static 'main/main.css'%}" type="text/css">
+{% block header_code %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+{% endblock %}
 
-  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-  <script src="{% static 'main/js/navbar-ontop.js'%}"></script>
-  <!-- Script: Animated entrance -->
-  <script src="{% static 'main/js/animate-in.js'%}"></script>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
-    <div class="container"> <a class="navbar-brand" href="/about_us">
-        <i class="fa d-inline fa-lg fa-stop-circle"></i>
-        <b style="">About Us</b></a>
-        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar16">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="align-items-center d-flex photo-overlay py-5 cover" style="background-image: url({% static 'main/images/bg_main.png' %}) ; background-position: left top; background-size: 100%; background-repeat: repeat;">
+
+{% block content %}
     <div class="container">
       <div class="row" style="">
-        <div class="col-lg-7 align-self-center text-lg-left text-center" style="	text-shadow: 0px 0px 4px black;">
+        <div class="col-lg-7 align-self-center text-lg-left text-center">
           <div class="row">
             <div class="col-md-12">
               <div class="row my-5">
                 <div class="col-md-12">
                   <h1 class="display-4 text-center">유기강아지&nbsp;<br>매칭서비스</h1>
-                  <div class="row" style="	box-shadow: 0px 0px 4px  black;"></div>
+                  <div class="row"></div>
                 </div>
               </div>
             </div>
@@ -63,9 +33,16 @@
           </div>
         </div>
         <div class="col-lg-5 p-3" style="">
-          <form class="p-4 bg-dark-opaque" method="post" action="https://formspree.io/" style="">
-            <div class="form-group"> <label>ID</label> <input type="Text" class="form-control mb-2" placeholder=""> </div>
-            <div class="form-group"> <label>Password</label> <input type="password" class="form-control mb-3" placeholder=""> </div> <button type="submit" class="btn my-2 btn-block active btn-lg btn-primary text-light" style="">Sign In</button>
+          <form class="p-4 bg-dark-opaque" method="post" action="{% url 'accounts:login' %}" style="">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}">
+            {% if user.is_authenticated %}
+            <h1 class="" >{{user.name}}님<br>환영합니다.</h1>
+            {% else %}
+            <div class="form-group"> <label>ID</label> <input type="Text" class="form-control mb-2" name="username" id="username" placeholder="" value="{{form.username.value|default_if_none:''}}"> </div>
+            <div class="form-group"> <label>Password</label> <input type="password" class="form-control mb-3" name="password" id="password" placeholder="" value="{{form.password.value|default_if_none:''}}"> </div>
+            <button type="submit" class="btn my-2 btn-block active btn-lg btn-primary text-light" style="">LOGIN</button>
+            {% endif %}
           </form>
         </div>
       </div>
@@ -90,3 +67,4 @@
 </body>
 
 </html>
+{% endblock %}

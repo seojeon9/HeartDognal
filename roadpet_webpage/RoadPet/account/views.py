@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from .forms import UserForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your views here.
@@ -28,7 +30,7 @@ def signup(request):
         user_name = form.cleaned_data.get('username')
         raw_password = form.cleaned_data.get('password1')
         user = authenticate(username=user_name, password=raw_password)
-        login(request, user)
+        auth_login(request, user)
         return redirect('/')
 
     print(form.errors)
