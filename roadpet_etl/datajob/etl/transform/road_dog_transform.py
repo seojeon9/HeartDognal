@@ -8,6 +8,8 @@ from infra.spark_session import get_spark_session
 from infra.util import cal_std_day_yyyymmdd
 
 
+# 태그 테스트용 
+# 태그 테스트용 
 class RoadDogTrasformer:
     @classmethod
     def transform(cls):
@@ -81,6 +83,12 @@ class RoadDogTrasformer:
         # road_dog_rename.toPandas().to_csv('./datajob/etl/data/raw_data.csv',encoding = 'utf-8', index = False)
 
         save_data(DataWarehouse, road_dog_df, 'ROADDOG_INFO')
+
+        # ds쪽에서 만들어준 모델함수 호출 => 유기번호, 군집라벨
+        # 스파크 데이터프레임으로 변환
+        # 기존 데이터프레임과  변환한 데이터프레임을 유기번호로 조인
+        # 거기서 운영디비에 필요한 컬럼만 셀랙트해서 새로운 데프로 바꾼다음 운영디비에 저장
+
 
         # road_dog_today = road_dog_df.select("*").where(road_dog_df.NOTICE_DT==std_date)
         # road_dog_today.show()
