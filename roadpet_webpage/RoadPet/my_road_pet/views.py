@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import RoaddogInfo
+from .models import RoaddogInfo, Survey
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -19,33 +19,7 @@ def index(request):
 
 
 def about_us(request):
-
     return render(request, 'roaddog/about_us.html')
-
-
-def signup(request):
-
-    return render(request, 'accounts/signup.html')
-
-
-def mypage(request):
-
-    return render(request, 'accounts/mypage.html')
-
-
-def user_info(request):
-
-    return render(request, 'accounts/user_info.html')
-
-
-def survey_info(request):
-
-    return render(request, 'accounts/survey_info.html')
-
-
-def inquiry(request):
-
-    return render(request, 'accounts/inquiry.html')
 
 
 def recommend(request):
@@ -73,18 +47,48 @@ def recommend(request):
 
 
 def presurvey(request):
+    
+
 
     return render(request, 'roaddog/presurvey.html')
 
 
 def search(request):
 
-    return render(request, 'roaddog/search.html')
+    roaddog = list(RoaddogInfo.objects.filter(label=1).values())
+    content = {'roaddogs': roaddog}
+    print(content)
+    return render(request, 'roaddog/search.html', content)
 
 
 def survey(request):
 
-    return render(request, 'roaddog/survey.html')
+    if request.method == 'GET':
+        print('get request')
+        return render(request, 'roaddog/survey.html')
+
+    user = request.user
+    weight = request.POST['weight']
+    age = request.POST['age']
+    friendly = request.POST['friendly']
+    health = request.POST['health']
+
+    survey = Survey.objects.filter(username = user)
+
+    if not survey:
+        survey = Survey(username=user.username, weight_cd=weight, age_cd=age, health_cd=health, attr_cd=friendly)
+        survey.save()
+    else:
+        survey = survey[0]
+        
+        survey.weight_cd = weight
+        survey.age_cd = age
+        survey.attr_cd = friendly
+        survey.health_cd = health
+
+        survey.save()
+        
+    return render(request, 'roaddog/recommend.html')
 
 
 def detail_info(request):

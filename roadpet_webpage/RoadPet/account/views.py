@@ -13,9 +13,6 @@ def index(request):
 
     return render(request, 'accounts/index.html')
 
-def about_us(request):
-
-    return render(request, 'roaddog/about_us.html')
 
 @csrf_exempt
 def signup(request):
@@ -37,17 +34,21 @@ def signup(request):
 
     return render(request, 'accounts/signup.html', {'form': form})
 
+
 def mypage(request):
 
     return render(request, 'accounts/mypage.html')
+
 
 def user_info(request):
 
     return render(request, 'accounts/user_info.html')
 
+
 def survey_info(request):
 
     return render(request, 'accounts/survey_info.html')
+
 
 def inquiry(request):
 
