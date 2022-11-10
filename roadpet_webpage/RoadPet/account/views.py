@@ -14,11 +14,6 @@ def index(request):
     return render(request, 'accounts/index.html')
 
 
-def about_us(request):
-
-    return render(request, 'roaddog/about_us.html')
-
-
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':
