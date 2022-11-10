@@ -18,6 +18,7 @@
 </head>
 
 <body style="" class="">
+<form action="/recommend/survey/submit/" method="POST">{% csrf_token %}
   <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
     <div class="container"> <a class="navbar-brand" href="/about_us">
         <i class="fa d-inline fa-lg fa-stop-circle"></i>
@@ -48,11 +49,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="rating">
-            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <input type="radio" name="weight_cd" value="5" id="a5"><label for="a5">☆</label>
+            <input type="radio" name="weight_cd" value="4" id="a4"><label for="a4">☆</label>
+            <input type="radio" name="weight_cd" value="3" id="a3"><label for="a3">☆</label>
+            <input type="radio" name="weight_cd" value="2" id="a2"><label for="a2">☆</label>
+            <input type="radio" name="weight_cd" value="1" id="a1"><label for="a1">☆</label>
           </div>
         </div>
       </div>
@@ -72,11 +73,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="rating">
-            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <input type="radio" name="age_cd" value="5" id="b5"><label for="b5">☆</label>
+            <input type="radio" name="age_cd" value="4" id="b4"><label for="b4">☆</label>
+            <input type="radio" name="age_cd" value="3" id="b3"><label for="b3">☆</label>
+            <input type="radio" name="age_cd" value="2" id="b2"><label for="b2">☆</label>
+            <input type="radio" name="age_cd" value="1" id="b1"><label for="b1">☆</label>
           </div>
         </div>
       </div>
@@ -96,11 +97,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="rating">
-            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <input type="radio" name="health_cd" value="5" id="c5"><label for="c5">☆</label>
+            <input type="radio" name="health_cd" value="4" id="c4"><label for="c4">☆</label>
+            <input type="radio" name="health_cd" value="3" id="c3"><label for="c3">☆</label>
+            <input type="radio" name="health_cd" value="2" id="c2"><label for="c2">☆</label>
+            <input type="radio" name="health_cd" value="1" id="c1"><label for="c1">☆</label>
           </div>
         </div>
       </div>
@@ -120,11 +121,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="rating">
-            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <input type="radio" name="attr_cd" value="5" id="d5"><label for="d5">☆</label>
+            <input type="radio" name="attr_cd" value="4" id="d4"><label for="d4">☆</label>
+            <input type="radio" name="attr_cd" value="3" id="d3"><label for="d3">☆</label>
+            <input type="radio" name="attr_cd" value="2" id="d2"><label for="d2">☆</label>
+            <input type="radio" name="attr_cd" value="1" id="d1"><label for="d1">☆</label>
           </div>
         </div>
       </div>
@@ -135,7 +136,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-            <div class="col-md-12"><a class="btn btn-primary btn-lg text-center w-50" href="/recommend/">결 과 보 기</a></div>
+            <div class="col-md-12"><button class="btn btn-primary btn-lg text-center w-50">결 과 보 기</button></div>
           </div>
         </div>
       </div>
@@ -191,6 +192,7 @@
     </div>
   </div>
   <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</form>
 </body>
 
 </html>
