@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>django</title>
+    <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'drf-yasg/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'drf-yasg/swagger-ui-dist/swagger-ui.css' %}">
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="/">DE</a></li>
+   {% if user.is_authenticated %}
+    <li >
+        <a class="nav-link" href="{% url 'account:logout' %}">{{user.username}} | logout</a>
+    </li>
+    {% else %}
+     <li >
+        <a class="nav-link" href="{% url 'account:login' %}">login</a>
+     </li>
+     <li>
+        <a class="nav-link" href="{% url 'account:signup' %}">signup</a>
+     </li>
+    {% endif %}
+    <li >
+        <a class="nav-link" href="{% url 'doc' %}">doc</a>
+    </li>
+    <li >
+        <a class="nav-link" href="{% url 'account:apikey' %}">api-key</a>
+    </li>
+</ol>
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

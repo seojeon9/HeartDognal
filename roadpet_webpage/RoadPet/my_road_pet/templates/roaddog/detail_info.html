@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <link rel="stylesheet" href="{% static 'searchdetail/assets/css/star-rating.css' %}">
+</head>
+
+<body class="">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
+    <div class="container"> <a class="navbar-brand" href="/about_us">
+        <i class="fa d-inline fa-lg fa-stop-circle"></i>
+        <b style="">About Us</b></a>
+        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar16">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="">품종명</h2>
+            </div>
+            <div class="col-md-6">
+              <div class="rating">
+                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" style="">
+              <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-3.svg">
+              <div class="row">
+                <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 문의</a></div>
+              </div>
+            </div>
+            <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px; text-shadow: black 0px 0px 4px;">
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">나이</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">3세</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">성별</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">여</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">체중</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">4kg</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">중성화 여부</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">Y</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">상태</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">보호중</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">특징</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="" contenteditable="true">사람을 잘 따름</h5>
+                </div>
+              </div>
+              <div class="row w-100">
+                <div class="col-md-3" style="">
+                  <h4 class="">보호소</h4>
+                </div>
+                <div class="col-md-5" style="">
+                  <h5 class="">서울 유기동물 보호소</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"><iframe width="100%" height="400" src="https://maps.google.com/maps?q=New%20York&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
+      </div>
+    </div>
+  </div>
+  <div class="py-4 text-center">
+    <div class="container">
+      <div class="row" style="">
+        <div class="col-md-4">
+          <div class="btn-group dropleft" style="float:left;">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropleft </button>
+            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5 class="">이런 아이들도 있어요</h5>
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group dropright" style="float: right;">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropright </button>
+            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 p-3">
+          <div class="card">
+            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg" width="150">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 p-3 col-md-6">
+          <div class="card">
+            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-2.svg" width="150">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 p-3 col-md-6">
+          <div class="card">
+            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" style=""></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</body>
+
+</html>
