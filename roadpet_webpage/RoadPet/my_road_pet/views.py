@@ -13,6 +13,14 @@ from django.urls import reverse
 
 
 # Create your views here.
+def index(request):
+
+    return render(request, 'accounts/index.html')
+
+
+def about_us(request):
+    return render(request, 'roaddog/about_us.html')
+
 
 def recommend(request):
     # print('')
