@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import RoaddogInfo, Survey
+from .models import Kind, RoaddogInfo, Sido, Survey
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -47,17 +47,37 @@ def recommend(request):
 
 
 def presurvey(request):
-    
-
 
     return render(request, 'roaddog/presurvey.html')
 
 
 def search(request):
+    sido = list(Sido.objects.values())
+    kind = list(Kind.objects.values())
+    roaddog = list(RoaddogInfo.objects.values())
+    content = {'sidos': sido,
+               'kinds': kind,
+               'roaddogs': roaddog}
+    # print(content)
+    return render(request, 'roaddog/search.html', content)
 
-    roaddog = list(RoaddogInfo.objects.filter(label=1).values())
-    content = {'roaddogs': roaddog}
-    print(content)
+
+def search_filter(request):
+    sido = request.GET['sido']
+    kind = request.GET['kind']
+    # 쿼리문
+    # SIGUNGU의 SIDO_CD = sido의 SIGUNGU_CD
+    # SHLETER의 SIGUNGU_CD의 CARE_ID
+    # ROADDOG_INFO의 CARE_ID
+    # &
+    # ROADDOB_INFO의 KIND_NM = kind
+
+    # roaddog =
+    content = {'sidos': sido,
+               'kinds': kind,
+               #    'roaddogs': roaddog
+               }
+    # print(content)
     return render(request, 'roaddog/search.html', content)
 
 
@@ -73,21 +93,22 @@ def survey(request):
     friendly = request.POST['friendly']
     health = request.POST['health']
 
-    survey = Survey.objects.filter(username = user)
+    survey = Survey.objects.filter(username=user)
 
     if not survey:
-        survey = Survey(username=user.username, weight_cd=weight, age_cd=age, health_cd=health, attr_cd=friendly)
+        survey = Survey(username=user.username, weight_cd=weight,
+                        age_cd=age, health_cd=health, attr_cd=friendly)
         survey.save()
     else:
         survey = survey[0]
-        
+
         survey.weight_cd = weight
         survey.age_cd = age
         survey.attr_cd = friendly
         survey.health_cd = health
 
         survey.save()
-        
+
     return render(request, 'roaddog/recommend.html')
 
 
