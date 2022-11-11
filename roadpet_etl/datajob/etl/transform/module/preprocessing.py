@@ -1,20 +1,35 @@
-
-# In[1]:
-
-
 import pandas as pd
 import re
-import numpy as np
-from sklearn.metrics import silhouette_samples, silhouette_score
-from sklearn.cluster import KMeans
-import joblib 
-from sklearn.preprocessing import MinMaxScaler
-from scipy.spatial.distance import cosine
-from sklearn.metrics.pairwise import cosine_similarity
-import kmeans_recom
+
 
 
 def preprocess(animal) :
+
+    # 나이 형식에 안맞는 값 제거
+    animal['나이'] = animal['나이'].astype('str')
+    p = re.compile('(\d){4}')
+
+    drop_list = []
+    for index, a in enumerate(animal['나이']):
+
+        if p.search(a) == None:
+            drop_list.append(index)
+
+    animal = animal.drop(drop_list, axis=0)
+    animal.reset_index(inplace=True)
+
+    # 체중 형식에 안맞는 값 제거
+    p = re.compile('(\d+[.]){0,1}\d+')
+
+    drop_list = []
+    for index, a in enumerate(animal['체중']):
+
+        if p.search(a) == None:
+            drop_list.append(index)
+
+    animal = animal.drop(drop_list, axis=0)
+    animal.reset_index(inplace=True)
+
 
     pain_list = ['감염','염증', '병변', '피부', '이염', '결막염', '질병', '질환', '증상', '실조', '발작', '곤란', '사상충', '종양', '배농피증', '증세', '양성', '잠복', '장파열', '허니아', '백내장', '디스템퍼', '개선충', '진드기', '안충', '폐렴', '코로나', '손상', '백내장',
            '족지', '좌측후지', '장애', '골절', '절단', '기립', '못함', '마비', '교통사고', '사고', '상해', '불가', '불가능', '불능', '절음', '절고', '절뚝', '탈구', '탈골', '외상', '부정교합', '치아없음', '기형', '의식없음', '보행이상', '사고의심', '안구', '휘어',  '파행', '파열', '나와있음', '실명',
@@ -174,34 +189,19 @@ def preprocess(animal) :
         aff_list.append(len(aff))
 
 
-    # In[27]:
-
-
     unf_list = []
     for unf in animal['친화성-강조'] :
         unf_list.append(len(unf))
 
-
-
     aff_score2= [i-j for i, j in zip(aff_list, unf_list)]
-
-
-
 
     aff_score= [i+j for i, j in zip(aff_score1, aff_score2)]
 
-
-
     animal['api_친화성'] = aff_score
-
-
-
 
     pain_score = []
     for pain in animal['건강'] :
         pain_score.append(7-len(pain))
-
-
 
     animal['api_건강점수'] = pain_score
 
@@ -234,19 +234,13 @@ def preprocess(animal) :
     # ## 나이
 
 
-
-    animal['만나이'] = 2022 - animal['나이']
-
-
-    # In[40]:
+    animal['만나이'] = 2022 - animal['나이'].astype('int')
 
 
     month = re.compile('(\d+[.]){0,1}\d+개월')
     week = re.compile('(\d+[.]){0,1}\d+주')
     day = re.compile('(\d+[.]){0,1}\d+일')
     num = re.compile('(\d+[.]){0,1}\d+')
-
-
 
     age_list = []
 
@@ -271,18 +265,9 @@ def preprocess(animal) :
         else :
             age_list.append('None')
 
-
-
-
     animal['1년미만_주환산'] = age_list
 
-
-    # In[43]:
-
-
     animal['1년이상_주환산'] = animal['만나이'] * 52
-
-
 
     week_age_list = []
     for a, b in zip(animal['1년미만_주환산'], animal['1년이상_주환산']) :
@@ -293,14 +278,20 @@ def preprocess(animal) :
         else :
             week_age_list.append(a)
 
-
-
-
     animal['나이_주환산'] = week_age_list
- 
 
+    # 체중
+    p = re.compile('(\d+[.]){0,1}\d+')
+    weight_list = []
+    for a in animal['체중']:
+        weight_list.append(p.search(a).group())
+    animal['체중_숫자'] = weight_list
+    animal['체중_숫자'] = animal['체중_숫자'].astype(float)
+    animal.drop(animal.loc[animal['만나이'] > 9, :].index, axis=0, inplace=True)
+    animal.drop(animal.loc[animal['체중_숫자'] > 50, :].index, axis=0, inplace=True)
+    
     return animal
 
     # db에서 라벨링할 데이터 추출하는 코드
     # 추출된 df를 이용해 def preprocess(animal) 호출하면 animal 리턴
-    # create_model(animal)을 호출하면 유기번호, 군집라벨 출력 
+    # create_model(animal)을 호출하면 유기번호, 군집라벨 출력
