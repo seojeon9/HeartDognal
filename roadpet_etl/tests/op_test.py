@@ -1,5 +1,6 @@
 import unittest
 from datajob.etl.extract.kind_api_extract import KindExtract
+from datajob.etl.transform.kind_op_transform import KindOpTrasformer
 from datajob.etl.transform.shelter_op_transform import ShelterOpTrasformer
 from datajob.etl.transform.sido_op_transform import SidoOpTrasformer
 from datajob.etl.transform.sigungu_op_transform import SigunguOpTrasformer
@@ -17,6 +18,9 @@ class MTest(unittest.TestCase):
 
     def test4(self):
         KindExtract.extract()
+
+    def test5(self):
+        KindOpTrasformer.transform()
 
 
 if __name__ == "__main__":
