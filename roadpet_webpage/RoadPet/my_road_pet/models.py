@@ -9,6 +9,7 @@ from django.db import models
 from datetime import datetime
 from django.utils.dateformat import DateFormat
 
+
 class AdoptionInquiry(models.Model):
     ai_id = models.BigAutoField(primary_key=True)
     username = models.BigIntegerField()
@@ -33,19 +34,22 @@ class LikeStarPet(models.Model):
 
 
 class RoaddogInfo(models.Model):
-    desertion_no = models.BigIntegerField(primary_key=True)
-    happen_dt = models.CharField(max_length=100, blank=True, null=True)
-    happen_place = models.CharField(max_length=200, blank=True, null=True)
+    desertion_no = models.CharField(max_length=100, primary_key=True)
     kind_nm = models.CharField(max_length=100, blank=True, null=True)
-    color_nm = models.CharField(max_length=100, blank=True, null=True)
     age = models.CharField(max_length=100, blank=True, null=True)
     weight = models.CharField(max_length=100, blank=True, null=True)
-    profile = models.CharField(max_length=200, blank=True, null=True)
-    process_st = models.CharField(max_length=100, blank=True, null=True)
+    color_nm = models.CharField(max_length=100, blank=True, null=True)
+    care_id = models.BigIntegerField()
     sex_cd = models.CharField(max_length=10, blank=True, null=True)
     neuter_yn = models.CharField(max_length=10, blank=True, null=True)
+    process_st = models.CharField(max_length=100, blank=True, null=True)
+    happen_dt = models.CharField(max_length=100, blank=True, null=True)
+    happen_place = models.CharField(max_length=200, blank=True, null=True)
     special_mark = models.CharField(max_length=200, blank=True, null=True)
-    care_id = models.BigIntegerField()
+    thumbnail = models.CharField(max_length=200, blank=True, null=True)
+    profile = models.CharField(max_length=200, blank=True, null=True)
+    noticeedt = models.CharField(max_length=200, blank=True, null=True)
+    std_date = models.CharField(max_length=200, blank=True, null=True)
     label = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
@@ -95,26 +99,18 @@ class Survey(models.Model):
     attr_cd = models.BigIntegerField(blank=True, null=True)
     health_cd = models.BigIntegerField(blank=True, null=True)
 
-    std_date = models.CharField(max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Ymd'))
+    std_date = models.CharField(
+        max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Ymd'))
 
     class Meta:
         managed = False
         db_table = 'survey'
 
 
-# class UserInfo(models.Model):
-#     username = models.BigAutoField(primary_key=True)
-#     id = models.CharField(max_length=100, blank=True, null=True)
-#     password = models.CharField(max_length=100, blank=True, null=True)
-#     name = models.CharField(max_length=100, blank=True, null=True)
-#     email = models.CharField(max_length=100, blank=True, null=True)
-#     tel = models.CharField(max_length=100, blank=True, null=True)
-#     address = models.CharField(max_length=100, blank=True, null=True)
-#     detail_addr = models.CharField(max_length=100, blank=True, null=True)
-#     start_date = models.CharField(max_length=100, blank=True, null=True)
-#     modify_date = models.CharField(max_length=100, blank=True, null=True)
-#     end_date = models.CharField(max_length=100, blank=True, null=True)
+class Kind(models.Model):
+    kind_cd = models.BigIntegerField(primary_key=True)
+    kind_nm = models.CharField(max_length=100, blank=True, null=True)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'user_info'
+    class Meta:
+        managed = False
+        db_table = 'kind'
