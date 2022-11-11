@@ -1,7 +1,11 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+<<<<<<< HEAD
 from .models import Kind, RoaddogInfo, Sido, Survey, Shelter
+=======
+from .models import Kind, RoaddogInfo, Sido, Survey
+>>>>>>> c9373d381fde6a60ee764cbef8133a3a0747ebe3
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -33,6 +37,7 @@ def recommend(request):
 
     #######################################
     # db에서 해당 라벨의 강아지 중 랜덤 3개 가져와서 보여주기
+<<<<<<< HEAD
 
     # roaddog = list(RoaddogInfo.objects.filter(label=0).values())
     # random_roaddog = random.sample(roaddog, 3)
@@ -41,6 +46,15 @@ def recommend(request):
     # for i in range(len(random_roaddog)):
     #     content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
     return render(request, 'roaddog/recommend.html')
+=======
+    roaddog = list(RoaddogInfo.objects.filter(label=0).values())
+    random_roaddog = random.sample(roaddog, 3)
+    content = {'roaddog': random_roaddog}
+    print(content)
+    for i in range(len(random_roaddog)):
+        content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
+    return render(request, 'roaddog/recommend.html', content)
+>>>>>>> c9373d381fde6a60ee764cbef8133a3a0747ebe3
 
 
 def presurvey(request):
@@ -135,6 +149,7 @@ def detail_info(request, desertion_num):
     print(content)
     content['selected_dog'][0]['age'] = 2022 - \
         int(content['selected_dog'][0]['age'])
+<<<<<<< HEAD
     careid = content['selected_dog'][0]['care_id']
     carenm = list(Shelter.objects.filter(care_id=careid).values())[0]['care_nm']
     content['selected_dog'][0]['care_id'] = carenm
@@ -145,4 +160,6 @@ def detail_info(request, desertion_num):
         Q(desertion_no=top5_list[0])|Q(desertion_no=top5_list[1])|Q(desertion_no=top5_list[2])|Q(desertion_no=top5_list[3])|Q(desertion_no=top5_list[4])).values())
     print(recom_dog)
 
+=======
+>>>>>>> c9373d381fde6a60ee764cbef8133a3a0747ebe3
     return render(request, 'roaddog/detail_info.html', content)
