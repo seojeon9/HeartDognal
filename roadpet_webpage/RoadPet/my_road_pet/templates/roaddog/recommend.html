@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-md-4">
             <form action="/detail_info/{{roaddog.0.desertion_no}}/" method="GET">
-                <div class="card"> <img class="card-img-top" src="{{roaddog.0.profile}}" alt="Card image cap">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.0.profile}}" alt="Card image cap" style="width: 100%; height:300px;">
                   <div class="card-body">
                     <h4 class="card-title">품종 :
                       {{roaddog.0.kind_nm}}
@@ -44,14 +44,14 @@
                       {% else %}
                       {{roaddog.0.neuter_yn}}
                       {% endif %}
-                    </p><button class="btn btn-primary" style="">상세페이지</button>
+                    </p><button class="btn btn-primary" >상세페이지</button>
                   </div>
                 </div>
             </form>
           </div>
           <div class="col-md-4">
             <form action="/detail_info/{{roaddog.1.desertion_no}}/" method="GET">
-                <div class="card"> <img class="card-img-top" src="{{roaddog.1.profile}}" alt="Card image cap">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.1.profile}}" alt="Card image cap" style="width: 100%; height:300px;">
                   <div class="card-body">
                     <h4 class="card-title">품종 : 
                       {{roaddog.1.kind_nm}}
@@ -79,7 +79,7 @@
           </div>
           <div class="col-md-4">
             <form action="/detail_info/{{roaddog.2.desertion_no}}/" method="GET">
-                <div class="card"> <img class="card-img-top" src="{{roaddog.2.profile}}" alt="Card image cap">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.2.profile}}" alt="Card image cap" style="width: 100%; height:300px;">
                   <div class="card-body" >
                     <h4 class="card-title">품종 : 
                       {{roaddog.2.kind_nm}}
@@ -105,6 +105,17 @@
                 </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-5">
+      <div class="container">
+        <div class="row">
+          <form action="/search/" method="GET">
+            <div class="col-md-12" style="margin-bottom: 20px;">
+              <h4 class="">원하는 아이가 없다면 직접 찾아보세요!</h4>
+              <button class="btn btn-block btn-lg btn-light text-primary" >Search</button>
+          </form>
         </div>
       </div>
     </div>
