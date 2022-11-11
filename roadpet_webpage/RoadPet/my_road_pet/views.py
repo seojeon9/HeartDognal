@@ -50,7 +50,7 @@ def presurvey(request):
 
 def search(request):
     sidos = Sido.objects.values()
-    kinds = Kind.objects.values()
+    kinds = Kind.objects.values().order_by('kind_nm')
     roaddog = RoaddogInfo.objects.values()
     content = {'sidos': sidos,
                'kinds': kinds,
@@ -81,13 +81,10 @@ def search_filter(request):
             'SELECT * FROM roaddog_info WHERE kind_nm = %s;', [kind])
     else:
         roaddog = RoaddogInfo.objects.values()
-        # print(query)
 
-        # for p in RoaddogInfo.objects.raw(query):
-        #     print(p)
     print(roaddog)
-    sidos = list(Sido.objects.values())
-    kinds = list(Kind.objects.values())
+    sidos = Sido.objects.values()
+    kinds = Kind.objects.values().order_by('kind_nm')
     content = {'sidos': sidos,
                'kinds': kinds,
                'roaddogs': roaddog
