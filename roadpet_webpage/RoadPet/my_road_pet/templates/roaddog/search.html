@@ -9,30 +9,35 @@
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">시도선택</button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
+        <form action="/search/filter/" method="get">
+          <input type="hidden" name="sido" id="sido" />
+          <input type="hidden" name="kind" id="kind" />
+          <div class="col-md-12">
+            <div class="btn-group">
+              <button class="btn btn-primary dropdown-toggle " id="selectSido" data-toggle="dropdown">시도선택</button>
+              <div class="dropdown-menu"> <a class="dropdown-item" href="#" >시도선택</a>
+                <div class="dropdown-divider" style="height:250px; overflow:auto;">
+                  {% for sido in sidos %}
+                  <button type="button" class="dropdown-item sido" data-value="{{sido.sido_cd}}" data-nm="{{sido.sido_nm}}">{{sido.sido_nm}}</button>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"  id="selectKind" > 품종선택</button>
+              <div class="dropdown-menu"> <a class="dropdown-item" href="#">품종선택</a>
+                <div class="dropdown-divider" style="height:250px; overflow:auto;">
+                  {% for kind in kinds %}
+                  <button type="button" class="dropdown-item kind" data-value="{{kind.kind_nm}}">{{kind.kind_nm}}</button>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-lg"  style="font-size: 0.9rem;"><i class="fa fa-search"></i></button>
             </div>
           </div>
-          <!-- <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 시군구선택</button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div> -->
-          <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 품종선택</button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <button class="btn btn-primary btn-lg" style="margin: 10;" type="button" ><i class="fa fa-search"></i></button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -44,7 +49,7 @@
             {% for dog in roaddogs %}
             <div class="col-md-3 pl-3 pr-3">
                 <form action="/detail_info/" method="get" >
-                  <div class="card" style="margin-top: 10px"> <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}">
+                  <div class="card" style="margin-top: 10px"> <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 100%; height: 200px">
                     <div class="card-body" >
                       <h4 class="card-title">{{dog.kind_nm}}
                       </h4>
@@ -64,4 +69,74 @@
       </div>
     </div>
   </div>
+  <!-- <div class="py-5" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="pagination">
+            <li class="page-item"> <a class="page-link" href="#"> <span>«</span></a> </li>
+            <li class="page-item active"> <a class="page-link" href="#">1</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">2</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">3</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">4</a> </li>
+            <li class="page-item"> <a class="page-link" href="#"> <span>»</span></a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <script>
+
+      
+    document.querySelectorAll('.sido').forEach(e => {
+      e.addEventListener('click', ev => {
+        sido.value = ev.target.dataset.value;
+        selectSido.textContent = ev.target.dataset.nm;
+      })
+    })
+
+    document.querySelectorAll('.kind').forEach(e => {
+      e.addEventListener('click', ev => {
+        // alert('check click')
+        kind.value = ev.target.dataset.value;
+        selectKind.textContent = ev.target.dataset.value;
+      })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
   {% endblock %}
+
+ 
