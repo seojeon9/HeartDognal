@@ -1,39 +1,95 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- PAGE settings -->
-  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Restaurant Elegant - Pingendo template</title>
-  <meta name="description" content="Free Bootstrap 4 Pingendo Elegant template for restaurant and food">
-  <meta name="keywords" content="Pingendo restaurant food elegant free template bootstrap 4">
-  <!-- CSS dependencies -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="{% static 'main/main.css'%}" type="text/css">
-
-  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-  <script src="{% static 'main/js/navbar-ontop.js'%}"></script>
-  <!-- Script: Animated entrance -->
-  <script src="{% static 'main/js/animate-in.js'%}"></script>
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
 </head>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
-    <div class="container"> <a class="navbar-brand" href="/about_us">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container"> <a class="navbar-brand" href="#">
         <i class="fa d-inline fa-lg fa-stop-circle"></i>
-        <b style="">About Us</b></a>
-        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+        <b style="">About Us</b>
+      </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar16">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Sign Up</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">MyPage</a> </li>
         </ul>
       </div>
     </div>
   </nav>
+  <div class="py-5 text-center" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-body text-center">"There is no bad Dog in the world "</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 order-2 order-lg-1 p-0"><img class="card-img-top" src="../../../server/RoadPet/roadpet_webpage/RoadPet/my_road_pet/templates/assets/dogpic/dog2.png" alt="Card image cap" style="" ></div>
+        <div class="px-5 d-flex flex-column align-items-start justify-content-center order-1 order-lg-2 col-lg-5">
+          <h1 class="display-4"><b>Take Dog Make Life&nbsp;</b></h1>
+          <h3 class="">유기견들의 새로운 삶을 위해우리가 함께 합시다.</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-6 p-3">
+          <p> (주소) :<a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank">Fake street, 100 <br>NYC - 20179, USA</a> </p>
+          <p contenteditable="true"> (번호)<a href="tel:+246 - 542 550 5462">+1 - 256 845 87 86</a> </p>
+          <p class="mb-0"> (메일 주소)&nbsp;<a href="mailto:info@pingendo.com">info@pingendo.com</a> </p>
+        </div>
+        <div class="col-md-6 p-3">
+          <h5> <b>Our Team</b></h5>
+          <h5 class="">Science: 김경현 김태훈 이지훈&nbsp;<br>Engineer: 손지수 이상엽 이서정</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 mt-2">© 2021-2022 TDW Service. All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center d-md-flex align-items-center">
+          <ul class="nav mx-md-auto d-flex justify-content-center">
+            <li class="nav-item"> <a class="nav-link active" href="#">Home</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+          </ul>
+          <div class="row">
+            <div class="col-md-12 d-flex align-items-center justify-content-md-between justify-content-center my-2"> <a href="#">
+                <i class="d-block fa fa-facebook-official text-muted fa-lg mx-2"></i>
+              </a> <a href="#">
+                <i class="d-block fa fa-instagram text-muted fa-lg mx-2"></i>
+              </a> <a href="#">
+                <i class="d-block fa fa-twitter text-muted fa-lg ml-2"></i>
+              </a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</body>
+
+</html>
