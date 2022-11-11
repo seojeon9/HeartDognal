@@ -13,5 +13,5 @@ urlpatterns = [
     path('mypage/survey_info/', views.survey_info, name='survey_info'),
     path('mypage/user_info/', views.user_info, name='user_info'),
     path('mypage/', views.mypage, name='mypage'),
-
+    
 ]

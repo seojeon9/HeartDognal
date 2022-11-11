@@ -33,7 +33,7 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
-              <h2 class="">품종명</h2>
+              <h2 class="">품종명 : {{selected_dog.0.kind_nm}}</h2>
             </div>
             <div class="col-md-6">
               <div class="rating">
@@ -47,9 +47,9 @@
           </div>
           <div class="row">
             <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" style="">
-              <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-3.svg">
+              <img class="img-fluid d-block" src="{{selected_dog.0.profile}}">
               <div class="row">
-                <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 문의</a></div>
+                <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 입양문의</a></div>
               </div>
             </div>
             <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px; text-shadow: black 0px 0px 4px;">
@@ -58,7 +58,7 @@
                   <h4 class="">나이</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="">3세</h5>
+                  <h5 class="">{{selected_dog.0.age}}세</h5>
                 </div>
               </div>
               <div class="row w-100">
@@ -66,7 +66,15 @@
                   <h4 class="">성별</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="">여</h5>
+                  <h5 class="">
+                    {% if selected_dog.0.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.0.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                  </h5>
                 </div>
               </div>
               <div class="row w-100">
@@ -74,7 +82,7 @@
                   <h4 class="">체중</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="">4kg</h5>
+                  <h5 class="">{{selected_dog.0.weight}}kg</h5>
                 </div>
               </div>
               <div class="row w-100">
@@ -82,7 +90,13 @@
                   <h4 class="">중성화 여부</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="">Y</h5>
+                  <h5 class="">
+                    {% if selected_dog.0.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.0.neuter_yn}}
+                    {% endif %}
+                  </h5>
                 </div>
               </div>
               <div class="row w-100">
@@ -90,7 +104,7 @@
                   <h4 class="">상태</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="">보호중</h5>
+                  <h5 class="">{{selected_dog.0.process_st}}</h5>
                 </div>
               </div>
               <div class="row w-100">
@@ -98,7 +112,7 @@
                   <h4 class="">특징</h4>
                 </div>
                 <div class="col-md-5" style="">
-                  <h5 class="" contenteditable="true">사람을 잘 따름</h5>
+                  <h5 class="" contenteditable="true">{{selected_dog.0.special_mark}}</h5>
                 </div>
               </div>
               <div class="row w-100">

@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
 </head>
 <body>
-  <form action="/detail_info/" method="GET">
     <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
       <div class="container"> <a class="navbar-brand" href="/about_us">
           <i class="fa d-inline fa-lg fa-stop-circle"></i>
@@ -37,51 +36,89 @@
     <div class="py-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4 pl-4 pr-4">
-                <div class="card"> <img class="card-img-top" src="https://static.pingendo.com/cover-moon.svg" alt="Card image cap">
+          <div class="col-md-4">
+            <form action="/detail_info/{{roaddog.0.desertion_no}}/" method="GET">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.0.profile}}" alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title">(품종)
-                      <!--{{dog1.kind}}-->
+                    <h4 class="card-title">품종 :
+                      {{roaddog.0.kind_nm}}
                     </h4>
                     <p class="card-text">나이 :
-                      <!--{{dog1.age}}-->&nbsp;<br>성별 :
-                      <!--{{dog1.sex}}-->&nbsp;<br>중성화 :
-                      <!--{{dog1.neutral}}-->
+                      {{roaddog.0.age}}세 
+                      &nbsp;<br>성별 : 
+                      {% if roaddog.0.sex_cd == 'F' %}
+                      여
+                      {% elif roaddog.0.sex_cd == 'M' %}
+                      남
+                      {% else %}
+                      미상
+                      {% endif %}
+                      &nbsp;<br>중성화 여부 : 
+                      {% if roaddog.0.neuter_yn == 'U' %}
+                      미상
+                      {% else %}
+                      {{roaddog.0.neuter_yn}}
+                      {% endif %}
                     </p><button class="btn btn-primary" style="">상세페이지</button>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-4 pl-4 pr-4">
-                <div class="card"> <img class="card-img-top" src="https://static.pingendo.com/cover-moon.svg" alt="Card image cap">
+            </form>
+          </div>
+          <div class="col-md-4">
+            <form action="/detail_info/{{roaddog.1.desertion_no}}/" method="GET">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.1.profile}}" alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title">(품종)
-                      <!--{{dog2.kind}}-->
+                    <h4 class="card-title">품종 : 
+                      {{roaddog.1.kind_nm}}
                     </h4>
                     <p class="card-text">나이 :
-                      <!--{{dog2.age}}-->&nbsp;<br>성별 :
-                      <!--{{dog2.sex}}-->&nbsp;<br>중성화 :
-                      <!--{{dog2.neutral}}-->
-                    </p> <button class="btn btn-primary">상세페이지</button>
+                      {{roaddog.1.age}}세 
+                      &nbsp;<br>성별 : 
+                      {% if roaddog.1.sex_cd == 'F' %}
+                      여
+                      {% elif roaddog.1.sex_cd == 'M' %}
+                      남
+                      {% else %}
+                      미상
+                      {% endif %}
+                      &nbsp;<br>중성화 여부 : 
+                      {% if roaddog.1.neuter_yn == 'U' %}
+                      미상
+                      {% else %}
+                      {{roaddog.1.neuter_yn}}
+                      {% endif %}
+                    </p><button class="btn btn-primary">상세페이지</button>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-4 pl-4 pr-4">
-                <div class="card"> <img class="card-img-top" src="https://static.pingendo.com/cover-moon.svg" alt="Card image cap">
+            </form>
+          </div>
+          <div class="col-md-4">
+            <form action="/detail_info/{{roaddog.2.desertion_no}}/" method="GET">
+                <div class="card"> <img class="card-img-top" src="{{roaddog.2.profile}}" alt="Card image cap">
                   <div class="card-body" >
-                    <h4 class="card-title">(품종)
-                      <!--{{dog3.kind}}-->
+                    <h4 class="card-title">품종 : 
+                      {{roaddog.2.kind_nm}}
                     </h4>
                     <p class="card-text">나이 :
-                      <!--{{dog3.age}}-->&nbsp;<br>성별 :
-                      <!--{{dog3.sex}}-->&nbsp;<br>중성화 :
-                      <!--{{dog3.neutral}}-->
-                    </p> <button class="btn btn-primary">상세페이지</button>
+                      {{roaddog.2.age}}세 
+                      &nbsp;<br>성별 : 
+                      {% if roaddog.2.sex_cd == 'F' %}
+                      여
+                      {% elif roaddog.2.sex_cd == 'M' %}
+                      남
+                      {% else %}
+                      미상
+                      {% endif %}
+                      &nbsp;<br>중성화 여부 : 
+                      {% if roaddog.2.neuter_yn == 'U' %}
+                      미상
+                      {% else %}
+                      {{roaddog.2.neuter_yn}}
+                      {% endif %}
+                    </p><button class="btn btn-primary">상세페이지</button>
                   </div>
                 </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -106,6 +143,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00B0EB;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
-  </form>
 </body>
 </html>

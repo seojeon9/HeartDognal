@@ -1,13 +1,8 @@
-from sklearn.cluster import KMeans
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 import joblib
 
-
+# 유기번호가 입력되면 그 유기번호를 가진 동물과 유사한 동물 10개의 유기번호가 리스트로 출력
 def recommend(dog_regno) :
-    dogs_sim10_regno = joblib.load("./my_road_pet/data/preprocessed_data/dogs_sim10_regno.csv")
-    dog = pd.read_csv("./my_road_pet/data/preprocessed_data/preprocessed_dog.csv", index_col=0)
+    dogs_sim10_regno = joblib.load("../data/dogs_sim10_regno.pkl")
     sim10_reg_list = dogs_sim10_regno[dog_regno]
-    dog_sim10 = dog.loc[dog.유기번호.isin(sim10_reg_list), :]
-    return dog_sim10
+    return sim10_reg_list
+    
