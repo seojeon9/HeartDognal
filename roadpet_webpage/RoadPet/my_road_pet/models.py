@@ -34,7 +34,7 @@ class LikeStarPet(models.Model):
 
 
 class RoaddogInfo(models.Model):
-    desertion_no = models.BigIntegerField(primary_key=True)
+    desertion_no = models.CharField(max_length=100, primary_key=True)
     happen_dt = models.CharField(max_length=100, blank=True, null=True)
     happen_place = models.CharField(max_length=200, blank=True, null=True)
     kind_nm = models.CharField(max_length=100, blank=True, null=True)
