@@ -35,18 +35,21 @@ class LikeStarPet(models.Model):
 
 class RoaddogInfo(models.Model):
     desertion_no = models.CharField(max_length=100, primary_key=True)
-    happen_dt = models.CharField(max_length=100, blank=True, null=True)
-    happen_place = models.CharField(max_length=200, blank=True, null=True)
     kind_nm = models.CharField(max_length=100, blank=True, null=True)
-    color_nm = models.CharField(max_length=100, blank=True, null=True)
     age = models.CharField(max_length=100, blank=True, null=True)
     weight = models.CharField(max_length=100, blank=True, null=True)
-    profile = models.CharField(max_length=200, blank=True, null=True)
-    process_st = models.CharField(max_length=100, blank=True, null=True)
+    color_nm = models.CharField(max_length=100, blank=True, null=True)
+    care_id = models.BigIntegerField()
     sex_cd = models.CharField(max_length=10, blank=True, null=True)
     neuter_yn = models.CharField(max_length=10, blank=True, null=True)
+    process_st = models.CharField(max_length=100, blank=True, null=True)
+    happen_dt = models.CharField(max_length=100, blank=True, null=True)
+    happen_place = models.CharField(max_length=200, blank=True, null=True)
     special_mark = models.CharField(max_length=200, blank=True, null=True)
-    care_id = models.BigIntegerField()
+    thumbnail = models.CharField(max_length=200, blank=True, null=True)
+    profile = models.CharField(max_length=200, blank=True, null=True)
+    noticeept = models.CharField(max_length=200, blank=True, null=True)
+    std_date = models.CharField(max_length=200, blank=True, null=True)
     label = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
