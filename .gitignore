@@ -49,3 +49,6 @@ dist/**
 .venv
 .vscode
 .idea
+~
+~$
+_Document/~$기능정의서.xlsx
