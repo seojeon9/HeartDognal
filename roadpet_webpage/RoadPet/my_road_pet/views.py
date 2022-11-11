@@ -84,8 +84,15 @@ def survey(request):
         survey.health_cd = health
 
         survey.save()
+
+    roaddog = list(RoaddogInfo.objects.filter(label=0).values())
+    random_roaddog = random.sample(roaddog, 3)
+    content = {'roaddog':random_roaddog}
+    print(content)
+    for i in range(len(random_roaddog)) :
+        content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
         
-    return render(request, 'roaddog/recommend.html')
+    return render(request, 'roaddog/recommend.html', content)
 
 
 def detail_info(request, desertion_num):
