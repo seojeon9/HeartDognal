@@ -48,16 +48,28 @@
           <div class="row" style="width: 100%;">
             {% for dog in roaddogs %}
             <div class="col-md-3 pl-3 pr-3">
-                <form action="/detail_info/" method="get" >
+                <form action="/detail_info/{{dog.desertion_no}}/" method="GET" >
                   <div class="card" style="margin-top: 10px"> <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 100%; height: 200px">
                     <div class="card-body" >
                       <h4 class="card-title">{{dog.kind_nm}}
                       </h4>
-                      <p class="card-text">나이 :{{dog.age}}
-                        &nbsp;<br>성별 : {{dog.sex_cd}}
-                        &nbsp;<br>중성화 :{{dog.neuter_yn}}
+                      <p class="card-text">출생 : {{dog.age}}
+                        &nbsp;<br>성별 : 
+                        {% if dog.sex_cd == 'F' %}
+                        여
+                        {% elif dog.sex_cd == 'M' %}
+                        남
+                        {% else %}
+                        미상
+                        {% endif %}
+                        &nbsp;<br>중성화 :
+                        {% if dog.neuter_yn == 'U' %}
+                        미상
+                        {% else %}
+                        {{dog.neuter_yn}}
+                        {% endif %}
                       </p>
-                      <input type="hidden" id="desertion_no" name="desertion_no" value="{{dog.desertion_no}}">
+                      <!-- <input type="hidden" id="desertion_no" name="desertion_no" value="{{dog.desertion_no}}"> -->
                       <button class="btn btn-primary" >상세페이지</button>
                     </div>
                   </div>
