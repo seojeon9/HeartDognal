@@ -48,7 +48,7 @@ class RoaddogInfo(models.Model):
     special_mark = models.CharField(max_length=200, blank=True, null=True)
     thumbnail = models.CharField(max_length=200, blank=True, null=True)
     profile = models.CharField(max_length=200, blank=True, null=True)
-    noticeept = models.CharField(max_length=200, blank=True, null=True)
+    noticeedt = models.CharField(max_length=200, blank=True, null=True)
     std_date = models.CharField(max_length=200, blank=True, null=True)
     label = models.CharField(max_length=20, blank=True, null=True)
 
