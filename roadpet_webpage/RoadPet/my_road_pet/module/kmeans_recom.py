@@ -5,10 +5,8 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 
 def recommend(sample) :
-    minmax = joblib.load('./my_road_pet/model/minmaxscaler.pkl')
+    minmax = joblib.load('./my_road_pet/model/minmax(20000).pkl')
     sample_minmax = minmax.transform(sample)
-    model = joblib.load("./my_road_pet/model/kmeans.pkl")
+    model = joblib.load("./my_road_pet/model/kmeans(20000,60).pkl")
     sample_cluster = model.predict(sample_minmax)[0]
-    dog = pd.read_csv('./my_road_pet/data/preprocessed_data/preprocessed_dog.csv', index_col=0)
-    dog_recom = dog.loc[dog['군집']==sample_cluster, :]
-    return dog_recom
+    return sample_cluster

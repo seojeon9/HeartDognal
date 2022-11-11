@@ -8,6 +8,5 @@ urlpatterns = [
     path('recommend/presurvey/', views.presurvey, name='presurvey'),
     path('recommend/', views.recommend, name='recommend'),
     path('search/', views.search, name='search'),
-    path('detail_info/', views.detail_info, name='detail'),
-    path('recommend/survey/submit/', views.survey_submit, name='survey_sub'),
+    path('detail_info/<str:desertion_num>/', views.detail_info, name='detail'),
 ]
