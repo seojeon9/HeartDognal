@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="container">
-      <div class="row" style="">
+      <div class="row" style="margin-top: 150px; margin-bottom: 150px;">
         <div class="col-lg-7 align-self-center text-lg-left text-center">
           <div class="row">
             <div class="col-md-12">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-5 p-3" style="">
+        <div class="col-lg-5 p-3" >
           <form class="p-4 bg-dark-opaque" method="post" action="{% url 'accounts:login' %}" style="">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{next}}">
