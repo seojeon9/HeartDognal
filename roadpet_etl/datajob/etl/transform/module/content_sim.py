@@ -5,11 +5,24 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 from sklearn.metrics.pairwise import cosine_similarity
 from infra.jdbc import OperateDatabase, find_data
+from pyspark.sql.functions import col
 
 class ContentSimPreprocess:
     @classmethod
     def content_sim_preprocess(animal) :
+
         animal = find_data(OperateDatabase, 'ROADDOG_INFO')
+
+        animal = animal.select(
+                col('DESERTION_NO').alias('유기번호')
+                ,col('AGE').alias('나이')
+                ,col('WEIGHT').alias('체중')
+                ,col('COLOR_NM').alias('색상')
+                ,col('SPECIAL_MARK').alias('특징')
+            )
+
+        animal = animal.toPandas()
+
         # 나이 형식에 안맞는 값 제거
         animal['나이'] = animal['나이'].astype('str')
         p = re.compile('(\d){4}')
@@ -292,8 +305,6 @@ class ContentSimPreprocess:
             weight_list.append(p.search(a).group())
         animal['체중_숫자'] = weight_list
         animal['체중_숫자'] = animal['체중_숫자'].astype(float)
-        animal.drop(animal.loc[animal['만나이'] > 9, :].index, axis=0, inplace=True)
-        animal.drop(animal.loc[animal['체중_숫자'] > 50, :].index, axis=0, inplace=True)
         feature = animal[['만나이', '체중_숫자', 'api_친화성', 'api_건강점수']]
         minmaxscaler = MinMaxScaler()
         minmaxscaler.fit(feature)
@@ -315,6 +326,6 @@ class ContentSimPreprocess:
         for i in range(len(dogs_sim_reg)):
             sim_dict[animal.iloc[i]['유기번호']] = dogs_sim_reg[i]
 
-        joblib.dump(sim_dict, 'C:/Code/DE/spark/RoadPetProject/RoadPet/roadpet_webpage/RoadPet/my_road_pet/data/dogs_sim10_regno.pkl')
+        joblib.dump(sim_dict, '../roadpet_webpage/RoadPet/my_road_pet/data/dogs_sim10_regno.pkl')
 
 
