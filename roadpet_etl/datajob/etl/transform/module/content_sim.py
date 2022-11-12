@@ -13,6 +13,8 @@ class ContentSimPreprocess:
 
         animal = find_data(OperateDatabase, 'ROADDOG_INFO')
 
+        animal = animal.where(animal.PROCESS_ST.like('보호중%'))
+
         animal = animal.select(
                 col('DESERTION_NO').alias('유기번호')
                 ,col('AGE').alias('나이')
@@ -20,6 +22,7 @@ class ContentSimPreprocess:
                 ,col('COLOR_NM').alias('색상')
                 ,col('SPECIAL_MARK').alias('특징')
             )
+        animal.show()
 
         animal = animal.toPandas()
 
