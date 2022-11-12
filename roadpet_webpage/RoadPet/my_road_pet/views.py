@@ -54,7 +54,7 @@ def presurvey(request):
 def search(request):
     sidos = Sido.objects.values()
     kinds = Kind.objects.values().order_by('kind_nm')
-    roaddog = RoaddogInfo.objects.values()
+    roaddog = RoaddogInfo.objects.filter(process_st='보호중').values()
     content = {'sidos': sidos,
                'kinds': kinds,
                'roaddogs': roaddog}
