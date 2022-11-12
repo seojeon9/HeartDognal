@@ -75,15 +75,15 @@ def search_filter(request):
     if sido != '':
         if kind != '':
             roaddog = RoaddogInfo.objects.raw(
-                'SELECT * FROM roaddog_info WHERE care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s)) INTERSECT SELECT * FROM roaddog_info WHERE kind_nm = %s;', [sido, kind])
+                'SELECT * FROM roaddog_info WHERE process_st= %s AND care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s)) INTERSECT SELECT * FROM roaddog_info WHERE kind_nm = %s;', ['보호중', sido, kind])
         else:
             roaddog = RoaddogInfo.objects.raw(
-                'SELECT * FROM roaddog_info WHERE care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s))', [sido])
+                'SELECT * FROM roaddog_info WHERE process_st= %s AND care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s))', ['보호중', sido])
     elif kind != '':
         roaddog = RoaddogInfo.objects.raw(
-            'SELECT * FROM roaddog_info WHERE kind_nm = %s;', [kind])
+            'SELECT * FROM roaddog_info WHERE kind_nm = %s AND process_st= %s;', [kind, '보호중'])
     else:
-        roaddog = RoaddogInfo.objects.values()
+        roaddog = RoaddogInfo.objects.filter(process_st='보호중').values()
 
     print(roaddog)
     sidos = Sido.objects.values()
