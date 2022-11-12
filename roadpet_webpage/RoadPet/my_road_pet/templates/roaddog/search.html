@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="py-5">
-    <div class="container">
+    <div class="container" >
       <div class="row">
         <div class="col-md-12">
           <div class="row" style="width: 100%;">
@@ -51,7 +51,7 @@
                 <form action="/detail_info/{{dog.desertion_no}}/" method="GET" >
                   <div class="card" style="margin-top: 10px"> <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 100%; height: 200px">
                     <div class="card-body" >
-                      <h4 class="card-title">{{dog.kind_nm}}
+                      <h4 class="card-title" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}
                       </h4>
                       <p class="card-text">출생 : {{dog.age}}
                         &nbsp;<br>성별 : 
