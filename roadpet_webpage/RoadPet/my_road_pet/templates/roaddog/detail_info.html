@@ -1,32 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+{% load static %}
+
+{% block header_code %}
+
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
   <link rel="stylesheet" href="{% static 'searchdetail/assets/css/star-rating.css' %}">
-</head>
 
-<body class="">
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="">
-    <div class="container"> <a class="navbar-brand" href="/about_us">
-        <i class="fa d-inline fa-lg fa-stop-circle"></i>
-        <b style="">About Us</b></a>
-        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar16">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/signup/">Sign Up</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/accounts/mypage/">MyPage</a> </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+{% endblock %}
+
+{% block content %}
   <div class="py-5">
     <div class="container">
       <div class="row">
@@ -136,57 +119,144 @@
       </div>
     </div>
   </div>
-  <div class="py-4 text-center">
+  <div class="py-4" >
     <div class="container">
       <div class="row" style="">
-        <div class="col-md-4">
-          <div class="btn-group dropleft" style="float:left;">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropleft </button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <h5 class="">이런 아이들도 있어요</h5>
-        </div>
-        <div class="col-md-4">
-          <div class="btn-group dropright" style="float: right;">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropright </button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
+        <div class="col-md-12">
+          <h2 class="text-center">이런 아이들도 있어요</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 p-3">
-          <div class="card">
-            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg" width="150">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-2 mr-auto" style="">
+              <form action="/detail_info/{{selected_dog.1.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{selected_dog.1.profile}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">품종 : {{selected_dog.1.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{selected_dog.1.age}}세
+                    <br>성별 : 
+                    {% if selected_dog.1.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.1.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if selected_dog.1.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.1.neuter_yn}}
+                    {% endif %}
+                  </p><button class="btn btn-primary">상세페이지</button>
+                </div>
+              </div>
+              </form>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 p-3 col-md-6">
-          <div class="card">
-            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-2.svg" width="150">
+            <div class="col-md-2 mx-auto" style="">
+              <form action="/detail_info/{{selected_dog.2.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{selected_dog.2.profile}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">품종 : {{selected_dog.2.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{selected_dog.2.age}}세
+                    <br>성별 : 
+                    {% if selected_dog.2.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.2.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if selected_dog.2.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.2.neuter_yn}}
+                    {% endif %}
+                  </p><button class="btn btn-primary">상세페이지</button>
+                </div>
+              </div>
+              </form>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 p-3 col-md-6">
-          <div class="card">
-            <div class="card-body p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150">
+            <div class="col-md-2 mx-auto" style="">
+              <form action="/detail_info/{{selected_dog.3.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{selected_dog.3.profile}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">품종 : {{selected_dog.3.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{selected_dog.3.age}}세
+                    <br>성별 : 
+                    {% if selected_dog.3.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.3.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if selected_dog.3.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.3.neuter_yn}}
+                    {% endif %}
+                  </p><button class="btn btn-primary">상세페이지</button>
+                </div>
+              </div>
+              </form>
+            </div>
+            <div class="col-md-2 mx-auto" style="">
+              <form action="/detail_info/{{selected_dog.4.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{selected_dog.4.profile}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">품종 : {{selected_dog.4.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{selected_dog.4.age}}세
+                    <br>성별 : 
+                    {% if selected_dog.4.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.4.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if selected_dog.4.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.4.neuter_yn}}
+                    {% endif %}
+                  </p><button class="btn btn-primary">상세페이지</button>
+                </div>
+              </div>
+              </form>
+            </div>
+            <div class="col-md-2 ml-auto" style="">
+              <form action="/detail_info/{{selected_dog.5.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{selected_dog.5.profile}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">품종 : {{selected_dog.5.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{selected_dog.5.age}}세
+                    <br>성별 : 
+                    {% if selected_dog.5.sex_cd == 'F' %}
+                    여
+                    {% elif selected_dog.5.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if selected_dog.5.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{selected_dog.5.neuter_yn}}
+                    {% endif %}
+                  </p><button class="btn btn-primary">상세페이지</button>
+                </div>
+              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" style=""></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
-</body>
-
-</html>
+{% endblock %}
