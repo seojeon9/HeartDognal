@@ -10,6 +10,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -160,7 +161,7 @@ def detail_info(request, desertion_num):
             int(content['selected_dog'][i]['age'])
 
         careid = content['selected_dog'][i]['care_id']
-        carenm = list(Shelter.objects.filter(care_id=careid).values())[i]['care_nm']
+        carenm = list(Shelter.objects.filter(care_id=careid).values())[0]['care_nm']
         content['selected_dog'][i]['care_id'] = carenm
 
     return render(request, 'roaddog/detail_info.html', content)
