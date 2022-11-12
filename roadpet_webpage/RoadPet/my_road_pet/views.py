@@ -133,11 +133,26 @@ def survey(request):
         username=user).values())[0]['attr_cd']
     user_stars = np.array([[age, weight, health, friendly]])
     cluster_label = kmeans_recom.recommend(user_stars)
+    print(cluster_label)
+    roaddog = list(RoaddogInfo.objects.filter(
+        label=cluster_label, process_st='보호중').values())
 
-    roaddog = list(RoaddogInfo.objects.filter(label=cluster_label).values())
+    dog_len = len(roaddog)
+    print('라벨 강아지 마리수:', dog_len)
+    if dog_len == 0:
+        print('라벨강아지 0')
+        roaddog = list(RoaddogInfo.objects.filter(process_st='보호중').values())
+    elif dog_len < 3:
+        print('라벨강아지 3미만')
+        roaddog_null = list(RoaddogInfo.objects.filter(
+            process_st='보호중').values())
+        roaddog.append(random.sample(roaddog_null, 3-dog_len))
+
     random_roaddog = random.sample(roaddog, 3)
+
     content = {'roaddog': random_roaddog}
     print(content)
+
     for i in range(len(random_roaddog)):
         content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
 
@@ -154,7 +169,7 @@ def detail_info(request, desertion_num):
         desertion_no=desertion_num).values())
 
     sim10_reg_list = content_recom.recommend(desertion_num)
-    top5_list = sim10_reg_list[:5]
+    top5_list = sim10_reg_list
     recom_dog = list(RoaddogInfo.objects.filter(
         Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
     print(recom_dog)
