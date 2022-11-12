@@ -123,137 +123,39 @@
     <div class="container">
       <div class="row" style="">
         <div class="col-md-12">
-          <h2 class="text-center">이런 아이들도 있어요</h2>
+          <h2 class="text-center" style="margin-bottom: 10px;">이런 아이들도 있어요</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="row">
+            {% for dog in recom_dog %}
             <div class="col-md-2 mr-auto" style="">
-              <form action="/detail_info/{{selected_dog.1.desertion_no}}/" method="GET">
-              <div class="card"> <img class="card-img-top" src="{{selected_dog.1.profile}}" alt="Card image cap">
+              <form action="/detail_info/{{dog.desertion_no}}/" method="GET">
+              <div class="card"> <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 100%; height: 200px">
                 <div class="card-body">
-                  <h4 class="card-title">품종 : {{selected_dog.1.kind_nm}}</h4>
-                  <p class="card-text">나이 : {{selected_dog.1.age}}세
+                  <h4 class="card-title" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{dog.age}}세
                     <br>성별 : 
-                    {% if selected_dog.1.sex_cd == 'F' %}
+                    {% if dog.sex_cd == 'F' %}
                     여
-                    {% elif selected_dog.1.sex_cd == 'M' %}
+                    {% elif dog.sex_cd == 'M' %}
                     남
                     {% else %}
                     미상
                     {% endif %}
                     <br>중성화 여부 : 
-                    {% if selected_dog.1.neuter_yn == 'U' %}
+                    {% if dog.neuter_yn == 'U' %}
                     미상
                     {% else %}
-                    {{selected_dog.1.neuter_yn}}
+                    {{dog.neuter_yn}}
                     {% endif %}
                   </p><button class="btn btn-primary">상세페이지</button>
                 </div>
               </div>
               </form>
             </div>
-            <div class="col-md-2 mx-auto" style="">
-              <form action="/detail_info/{{selected_dog.2.desertion_no}}/" method="GET">
-              <div class="card"> <img class="card-img-top" src="{{selected_dog.2.profile}}" alt="Card image cap">
-                <div class="card-body">
-                  <h4 class="card-title">품종 : {{selected_dog.2.kind_nm}}</h4>
-                  <p class="card-text">나이 : {{selected_dog.2.age}}세
-                    <br>성별 : 
-                    {% if selected_dog.2.sex_cd == 'F' %}
-                    여
-                    {% elif selected_dog.2.sex_cd == 'M' %}
-                    남
-                    {% else %}
-                    미상
-                    {% endif %}
-                    <br>중성화 여부 : 
-                    {% if selected_dog.2.neuter_yn == 'U' %}
-                    미상
-                    {% else %}
-                    {{selected_dog.2.neuter_yn}}
-                    {% endif %}
-                  </p><button class="btn btn-primary">상세페이지</button>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="col-md-2 mx-auto" style="">
-              <form action="/detail_info/{{selected_dog.3.desertion_no}}/" method="GET">
-              <div class="card"> <img class="card-img-top" src="{{selected_dog.3.profile}}" alt="Card image cap">
-                <div class="card-body">
-                  <h4 class="card-title">품종 : {{selected_dog.3.kind_nm}}</h4>
-                  <p class="card-text">나이 : {{selected_dog.3.age}}세
-                    <br>성별 : 
-                    {% if selected_dog.3.sex_cd == 'F' %}
-                    여
-                    {% elif selected_dog.3.sex_cd == 'M' %}
-                    남
-                    {% else %}
-                    미상
-                    {% endif %}
-                    <br>중성화 여부 : 
-                    {% if selected_dog.3.neuter_yn == 'U' %}
-                    미상
-                    {% else %}
-                    {{selected_dog.3.neuter_yn}}
-                    {% endif %}
-                  </p><button class="btn btn-primary">상세페이지</button>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="col-md-2 mx-auto" style="">
-              <form action="/detail_info/{{selected_dog.4.desertion_no}}/" method="GET">
-              <div class="card"> <img class="card-img-top" src="{{selected_dog.4.profile}}" alt="Card image cap">
-                <div class="card-body">
-                  <h4 class="card-title">품종 : {{selected_dog.4.kind_nm}}</h4>
-                  <p class="card-text">나이 : {{selected_dog.4.age}}세
-                    <br>성별 : 
-                    {% if selected_dog.4.sex_cd == 'F' %}
-                    여
-                    {% elif selected_dog.4.sex_cd == 'M' %}
-                    남
-                    {% else %}
-                    미상
-                    {% endif %}
-                    <br>중성화 여부 : 
-                    {% if selected_dog.4.neuter_yn == 'U' %}
-                    미상
-                    {% else %}
-                    {{selected_dog.4.neuter_yn}}
-                    {% endif %}
-                  </p><button class="btn btn-primary">상세페이지</button>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="col-md-2 ml-auto" style="">
-              <form action="/detail_info/{{selected_dog.5.desertion_no}}/" method="GET">
-              <div class="card"> <img class="card-img-top" src="{{selected_dog.5.profile}}" alt="Card image cap">
-                <div class="card-body">
-                  <h4 class="card-title">품종 : {{selected_dog.5.kind_nm}}</h4>
-                  <p class="card-text">나이 : {{selected_dog.5.age}}세
-                    <br>성별 : 
-                    {% if selected_dog.5.sex_cd == 'F' %}
-                    여
-                    {% elif selected_dog.5.sex_cd == 'M' %}
-                    남
-                    {% else %}
-                    미상
-                    {% endif %}
-                    <br>중성화 여부 : 
-                    {% if selected_dog.5.neuter_yn == 'U' %}
-                    미상
-                    {% else %}
-                    {{selected_dog.5.neuter_yn}}
-                    {% endif %}
-                  </p><button class="btn btn-primary">상세페이지</button>
-                </div>
-              </div>
-              </form>
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>

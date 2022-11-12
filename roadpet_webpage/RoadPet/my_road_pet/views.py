@@ -13,6 +13,8 @@ from django.urls import reverse
 from django.db.models import Q
 
 # Create your views here.
+
+
 def index(request):
 
     return render(request, 'accounts/index.html')
@@ -123,10 +125,13 @@ def survey(request):
         survey.save()
 
     age = list(Survey.objects.filter(username=user).values())[0]['age_cd']
-    weight = list(Survey.objects.filter(username=user).values())[0]['weight_cd']
-    health = list(Survey.objects.filter(username=user).values())[0]['health_cd']
-    friendly = list(Survey.objects.filter(username=user).values())[0]['attr_cd']
-    user_stars = np.array([[age,weight,health,friendly]])
+    weight = list(Survey.objects.filter(
+        username=user).values())[0]['weight_cd']
+    health = list(Survey.objects.filter(
+        username=user).values())[0]['health_cd']
+    friendly = list(Survey.objects.filter(
+        username=user).values())[0]['attr_cd']
+    user_stars = np.array([[age, weight, health, friendly]])
     cluster_label = kmeans_recom.recommend(user_stars)
 
     roaddog = list(RoaddogInfo.objects.filter(label=cluster_label).values())
@@ -151,17 +156,27 @@ def detail_info(request, desertion_num):
     sim10_reg_list = content_recom.recommend(desertion_num)
     top5_list = sim10_reg_list[:5]
     recom_dog = list(RoaddogInfo.objects.filter(
-        Q(desertion_no=top5_list[0])|Q(desertion_no=top5_list[1])|Q(desertion_no=top5_list[2])|Q(desertion_no=top5_list[3])|Q(desertion_no=top5_list[4])).values())
+        Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
     print(recom_dog)
 
-    selected_dog.extend(recom_dog)
-    content = {'selected_dog': selected_dog}
-    for i in range(len(selected_dog)) :
+    content = {'selected_dog': selected_dog, 'recom_dog': recom_dog}
+
+    for i in range(len(selected_dog)):
         content['selected_dog'][i]['age'] = 2022 - \
             int(content['selected_dog'][i]['age'])
 
         careid = content['selected_dog'][i]['care_id']
-        carenm = list(Shelter.objects.filter(care_id=careid).values())[0]['care_nm']
+        carenm = list(Shelter.objects.filter(
+            care_id=careid).values())[0]['care_nm']
         content['selected_dog'][i]['care_id'] = carenm
+
+    for i in range(len(recom_dog)):
+        content['recom_dog'][i]['age'] = 2022 - \
+            int(content['recom_dog'][i]['age'])
+
+        careid = content['recom_dog'][i]['care_id']
+        carenm = list(Shelter.objects.filter(
+            care_id=careid).values())[0]['care_nm']
+        content['recom_dog'][i]['care_id'] = carenm
 
     return render(request, 'roaddog/detail_info.html', content)
