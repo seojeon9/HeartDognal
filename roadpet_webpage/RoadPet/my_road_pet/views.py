@@ -49,11 +49,11 @@ def presurvey(request):
 
 
 def search(request):
-    sido = list(Sido.objects.values())
-    kind = list(Kind.objects.values())
-    roaddog = list(RoaddogInfo.objects.values())
-    content = {'sidos': sido,
-               'kinds': kind,
+    sidos = Sido.objects.values()
+    kinds = Kind.objects.values().order_by('kind_nm')
+    roaddog = RoaddogInfo.objects.values()
+    content = {'sidos': sidos,
+               'kinds': kinds,
                'roaddogs': roaddog}
     # print(content)
     return render(request, 'roaddog/search.html', content)
@@ -62,17 +62,32 @@ def search(request):
 def search_filter(request):
     sido = request.GET['sido']
     kind = request.GET['kind']
+    print('sido:'+sido+'kind:'+kind)
     # 쿼리문
     # SIGUNGU의 SIDO_CD = sido의 SIGUNGU_CD
     # SHLETER의 SIGUNGU_CD의 CARE_ID
     # ROADDOG_INFO의 CARE_ID
     # &
     # ROADDOB_INFO의 KIND_NM = kind
+    if sido != '':
+        if kind != '':
+            roaddog = RoaddogInfo.objects.raw(
+                'SELECT * FROM roaddog_info WHERE care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s)) INTERSECT SELECT * FROM roaddog_info WHERE kind_nm = %s;', [sido, kind])
+        else:
+            roaddog = RoaddogInfo.objects.raw(
+                'SELECT * FROM roaddog_info WHERE care_id IN (SELECT care_id FROM shelter WHERE sigungu_cd IN (SELECT sigungu_cd FROM sigungu WHERE sido_cd = %s))', [sido])
+    elif kind != '':
+        roaddog = RoaddogInfo.objects.raw(
+            'SELECT * FROM roaddog_info WHERE kind_nm = %s;', [kind])
+    else:
+        roaddog = RoaddogInfo.objects.values()
 
-    # roaddog =
-    content = {'sidos': sido,
-               'kinds': kind,
-               #    'roaddogs': roaddog
+    print(roaddog)
+    sidos = Sido.objects.values()
+    kinds = Kind.objects.values().order_by('kind_nm')
+    content = {'sidos': sidos,
+               'kinds': kinds,
+               'roaddogs': roaddog
                }
     # print(content)
     return render(request, 'roaddog/search.html', content)

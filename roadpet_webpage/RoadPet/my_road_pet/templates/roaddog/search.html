@@ -14,21 +14,21 @@
           <input type="hidden" name="kind" id="kind" />
           <div class="col-md-12">
             <div class="btn-group">
-              <button class="btn btn-primary dropdown-toggle " id="selectSido" data-toggle="dropdown">시도선택</button>
-              <div class="dropdown-menu"> <a class="dropdown-item" href="#" >시도선택</a>
+              <button class="btn btn-primary dropdown-toggle " id="selectSido" data-toggle="dropdown" type="button">시도선택</button>
+              <div class="dropdown-menu"> <a class="dropdown-item">시도선택</a>
                 <div class="dropdown-divider" style="height:250px; overflow:auto;">
                   {% for sido in sidos %}
-                  <button type="button" class="dropdown-item sido" data-value="{{sido.sido_cd}}" data-nm="{{sido.sido_nm}}">{{sido.sido_nm}}</button>
+                  <button type="button" class="dropdown-item sido" data-value="{{sido.sido_cd}}" data-nm="{{sido.sido_nm}}" type="button">{{sido.sido_nm}}</button>
                   {% endfor %}
                 </div>
               </div>
             </div>
             <div class="btn-group">
-              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"  id="selectKind" > 품종선택</button>
-              <div class="dropdown-menu"> <a class="dropdown-item" href="#">품종선택</a>
+              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"  id="selectKind" type="button"> 품종선택</button>
+              <div class="dropdown-menu"> <a class="dropdown-item">품종선택</a>
                 <div class="dropdown-divider" style="height:250px; overflow:auto;">
                   {% for kind in kinds %}
-                  <button type="button" class="dropdown-item kind" data-value="{{kind.kind_nm}}">{{kind.kind_nm}}</button>
+                  <button type="button" class="dropdown-item kind" data-value="{{kind.kind_nm}}" type="button">{{kind.kind_nm}}</button>
                   {% endfor %}
                 </div>
               </div>
@@ -116,39 +116,8 @@
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </script>
 
-  {% endblock %}
+{% endblock %}
 
  
