@@ -5,4 +5,3 @@ def recommend(dog_regno) :
     dogs_sim10_regno = joblib.load("../data/dogs_sim10_regno.pkl")
     sim10_reg_list = dogs_sim10_regno[dog_regno]
     return sim10_reg_list
-    

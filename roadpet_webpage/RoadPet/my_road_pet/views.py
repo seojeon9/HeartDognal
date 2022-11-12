@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Kind, RoaddogInfo, Sido, Survey
+from .models import Kind, RoaddogInfo, Sido, Survey, Shelter
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -10,7 +10,6 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 from django.urls import reverse
-
 
 # Create your views here.
 def index(request):
@@ -34,13 +33,14 @@ def recommend(request):
 
     #######################################
     # db에서 해당 라벨의 강아지 중 랜덤 3개 가져와서 보여주기
-    roaddog = list(RoaddogInfo.objects.filter(label=0).values())
-    random_roaddog = random.sample(roaddog, 3)
-    content = {'roaddog': random_roaddog}
-    print(content)
-    for i in range(len(random_roaddog)):
-        content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
-    return render(request, 'roaddog/recommend.html', content)
+
+    # roaddog = list(RoaddogInfo.objects.filter(label=0).values())
+    # random_roaddog = random.sample(roaddog, 3)
+    # content = {'roaddog': random_roaddog}
+    # print(content)
+    # for i in range(len(random_roaddog)):
+    #     content['roaddog'][i]['age'] = 2022 - int(content['roaddog'][i]['age'])
+    return render(request, 'roaddog/recommend.html')
 
 
 def presurvey(request):
@@ -121,7 +121,14 @@ def survey(request):
 
         survey.save()
 
-    roaddog = list(RoaddogInfo.objects.filter(label=0).values())
+    age = list(Survey.objects.filter(username=user).values())[0]['age_cd']
+    weight = list(Survey.objects.filter(username=user).values())[0]['weight_cd']
+    health = list(Survey.objects.filter(username=user).values())[0]['health_cd']
+    friendly = list(Survey.objects.filter(username=user).values())[0]['attr_cd']
+    user_stars = np.array([[age,weight,health,friendly]])
+    cluster_label = kmeans_recom.recommend(user_stars)
+
+    roaddog = list(RoaddogInfo.objects.filter(label=cluster_label).values())
     random_roaddog = random.sample(roaddog, 3)
     content = {'roaddog': random_roaddog}
     print(content)
@@ -139,8 +146,21 @@ def detail_info(request, desertion_num):
     # 템플릿에 강아지 정보 전송
     selected_dog = list(RoaddogInfo.objects.filter(
         desertion_no=desertion_num).values())
+
+    sim10_reg_list = content_recom.recommend(desertion_num)
+    top5_list = sim10_reg_list[:5]
+    recom_dog = list(RoaddogInfo.objects.filter(
+        Q(desertion_no=top5_list[0])|Q(desertion_no=top5_list[1])|Q(desertion_no=top5_list[2])|Q(desertion_no=top5_list[3])|Q(desertion_no=top5_list[4])).values())
+    print(recom_dog)
+
+    selected_dog.extend(recom_dog)
     content = {'selected_dog': selected_dog}
-    print(content)
-    content['selected_dog'][0]['age'] = 2022 - \
-        int(content['selected_dog'][0]['age'])
+    for i in range(len(selected_dog)) :
+        content['selected_dog'][i]['age'] = 2022 - \
+            int(content['selected_dog'][i]['age'])
+
+        careid = content['selected_dog'][i]['care_id']
+        carenm = list(Shelter.objects.filter(care_id=careid).values())[i]['care_nm']
+        content['selected_dog'][i]['care_id'] = carenm
+
     return render(request, 'roaddog/detail_info.html', content)
