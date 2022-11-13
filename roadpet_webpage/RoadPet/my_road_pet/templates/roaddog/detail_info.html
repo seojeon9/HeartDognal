@@ -8,6 +8,58 @@
   <link rel="stylesheet" href="{% static 'searchdetail/assets/css/star-rating.css' %}">
 
   <style>
+    /* 입양문의 모달창 css */
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+
+        /* 숨기기 */
+        z-index: -1;
+        opacity: 0;
+      }
+
+      .show {
+        opacity: 1;
+        z-index: 1000;
+        transition: all 0.5s;
+      }
+
+      .window {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius:10px; 
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+
+        /* 임시 지정 */
+        width:400px; 
+        height:300px;
+
+        /* 초기에 약간 아래에 배치 */
+        transform: translate(-50%, -40%);
+      }
+
+      .show .popup {
+        transform: translate(-50%, -50%);
+        transition: all 0.5s;
+      }
+    /* end */
+
+    /* 이런아이들도 있어요 슬라이드 css */
     /* 보여줄 구간의 높이와 넓이 설정 */
     #slideShow{
       width: 100%;
@@ -19,7 +71,6 @@
       정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
       hidden으로 숨겨줘야됨*/
     }
-
 
     .slides{
       position: absolute;
@@ -82,6 +133,7 @@
     .next:hover{
       transform: translateX(10px);
     }
+    /* end */
   </style>
 {% endblock %}
 
@@ -107,8 +159,30 @@
           <div class="row">
             <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" style="">
               <img class="img-fluid d-block" src="{{selected_dog.0.profile}}">
-              <div class="row">
-                <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 입양문의</a></div>
+              <form action="/detail_info/adop_inquiry/" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <input type="hidden" name="desertion_no" id="desertion_no" value="{{selected_dog.0.desertion_no}}"/>
+                  <div class="col-md-12"><button class="btn btn-primary w-100" id="show"><img src="https://cdn-icons-png.flaticon.com/512/7044/7044607.png" style="width: 25px;"> 입양문의</button></div>
+                </div>
+              </form>
+              <!-- 모달 팝업 -->
+              <div class="background">
+                <div class="window">
+                  <div class="popup">
+                    <p style="padding: 10px; ">
+                      <h2 style="text-align: center;">보호소 정보</h2>
+                      <p style="padding: 20px;"><b>이름</b> : {{shelter.care_nm}} <br>
+                        <b>상세주소</b> : {{shelter.addr_detail}}<br>
+                        <b>전화번호</b> : {{shelter.care_tel}}
+                      </p>
+                      <button class="btn btn-primary" id="close" style="margin-left: 15%; width: 70%;">닫기</button>
+                    </p>
+                  </div>
+                  <div>
+                    <div></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px; text-shadow: black 0px 0px 4px;">
@@ -247,6 +321,20 @@
 
 
   <script>
+    // 입양문의 모달 js
+    function show() {
+      document.querySelector(".background").className = "background show";
+    }
+
+    function close() {
+      document.querySelector(".background").className = "background";
+    }
+
+    document.querySelector("#show").addEventListener("click", show);
+    document.querySelector("#close").addEventListener("click", close);
+
+
+    // 이런 아이들도 있어요 슬라이드 js
     const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
     const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
     let currentIdx = 0; //현재 슬라이드 index
