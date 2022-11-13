@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Kind, RoaddogInfo, Sido, Survey, Shelter
+from .models import AdoptionInquiry, Kind, RoaddogInfo, Sido, Survey, Shelter
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -169,29 +169,44 @@ def detail_info(request, desertion_num):
         desertion_no=desertion_num).values())
 
     sim10_reg_list = content_recom.recommend(desertion_num)
-    top5_list = sim10_reg_list
+    top5_list = sim10_reg_list[:5]
     recom_dog = list(RoaddogInfo.objects.filter(
         Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
-    print(recom_dog)
 
-    content = {'selected_dog': selected_dog, 'recom_dog': recom_dog}
+    # print(recom_dog)
+    selected_dog[0]['age'] = 2022 - \
+        int(selected_dog[0]['age'])
 
-    for i in range(len(selected_dog)):
-        content['selected_dog'][i]['age'] = 2022 - \
-            int(content['selected_dog'][i]['age'])
+    careid = selected_dog[0]['care_id']
+    carenm = list(Shelter.objects.filter(
+        care_id=careid).values())[0]['care_nm']
+    selected_dog[0]['care_id'] = carenm
 
-        careid = content['selected_dog'][i]['care_id']
-        carenm = list(Shelter.objects.filter(
-            care_id=careid).values())[0]['care_nm']
-        content['selected_dog'][i]['care_id'] = carenm
+    shelter = Shelter.objects.filter(
+        care_id=careid).values()[0]
 
+    # print(shelter)
     for i in range(len(recom_dog)):
-        content['recom_dog'][i]['age'] = 2022 - \
-            int(content['recom_dog'][i]['age'])
+        recom_dog[i]['age'] = 2022 - int(recom_dog[i]['age'])
 
-        careid = content['recom_dog'][i]['care_id']
+        careid = recom_dog[i]['care_id']
         carenm = list(Shelter.objects.filter(
             care_id=careid).values())[0]['care_nm']
-        content['recom_dog'][i]['care_id'] = carenm
+
+        recom_dog[i]['care_id'] = carenm
+
+    content = {'selected_dog': selected_dog,
+               'recom_dog': recom_dog, 'shelter': shelter}
 
     return render(request, 'roaddog/detail_info.html', content)
+
+
+def adoption_inquiry(request):
+    user = request.user
+    desertion_no = request.POST['desertion_no']
+
+    adop = AdoptionInquiry(username=user.username, desertion_no=desertion_no)
+    adop.save()
+
+    # db에만 넣고 페이지적으로는 아무런 반환도 하고싶지 않음
+    return HttpResponse('')
