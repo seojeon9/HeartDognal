@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import AdoptionInquiry, Kind, RoaddogInfo, Sido, Survey, Shelter
 from .module import kmeans_recom
 from .module import content_recom
@@ -11,6 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 from django.urls import reverse
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -201,6 +202,7 @@ def detail_info(request, desertion_num):
     return render(request, 'roaddog/detail_info.html', content)
 
 
+@csrf_exempt
 def adoption_inquiry(request):
     user = request.user
     desertion_no = request.POST['desertion_no']
@@ -208,5 +210,6 @@ def adoption_inquiry(request):
     adop = AdoptionInquiry(username=user.username, desertion_no=desertion_no)
     adop.save()
 
+    print('adoption_inquiry')
     # db에만 넣고 페이지적으로는 아무런 반환도 하고싶지 않음
-    return HttpResponse('')
+    return JsonResponse()
