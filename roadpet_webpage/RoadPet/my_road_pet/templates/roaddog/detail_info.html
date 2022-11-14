@@ -62,7 +62,7 @@
     /* 이런아이들도 있어요 슬라이드 css */
     /* 보여줄 구간의 높이와 넓이 설정 */
     #slideShow{
-      width: 100%;
+      width: 75%;
       height: 423px;
       position: relative;
       margin: 50px auto;
@@ -83,21 +83,21 @@
 
     /* 첫 번째 슬라이드 가운데에 정렬하기위해
     첫번째 슬라이드만 margin-left조정 */
-    .slides li:first-child{
-      margin-left: 100px;
+    .slides li{
+      margin-right: 110px;
+      width:22%"
     }
 
     /* 슬라이드들 옆으로 정렬 */
     .slides li:not(:last-child){
       float: left;
-      margin-right: 100px;
     }
 
     .slides li{
       float: left;
     }
 
-    .controller span{
+    .wrap_arrow span{
       position:absolute;
       background-color: transparent;
       color: black;
@@ -110,7 +110,7 @@
     }
 
     /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
-    .controller span:hover{
+    .wrap_arrow span:hover{
       background-color: rgba(128, 128, 128, 0.11);
     }
 
@@ -132,6 +132,21 @@
     이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
     .next:hover{
       transform: translateX(10px);
+    }
+
+    .wrap_arrow{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .wrap_arrow span{
+      align-self: center;
+    }
+
+    .card-body{
+      display: flex;
+      flex-direction: column;
     }
     /* end */
   </style>
@@ -265,7 +280,8 @@
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-12"><iframe width="100%" height="400" src="https://maps.google.com/maps?q=Seoul&amp;z=14&amp;output=embed&callback=?" scrolling="no" frameborder="0"></iframe></div>
+        <div class="col-md-12">
+          <iframe width="100%" height="400" src="https://maps.google.com/maps?q={{shelter.addr_detail|urlencode}}&center={{shelter.latitude}},{{shelter.longitude}}1&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
       </div>
     </div>
   </div>
@@ -277,8 +293,9 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-1 wrap_arrow"><span class="prev">&lang;</span></div>
         <!-- class="col-md-12" -->
-        <div id="slideShow"> 
+        <div id="slideShow" class="col-md-10"> 
           <ul class="slides" style="list-style:none;">
             {% for dog in recom_dog %}
             <li>
@@ -308,13 +325,10 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="controller">
-            <!-- &lang: 왼쪽 방향 화살표
-            &rang: 오른쪽 방향 화살표 -->
-            <span class="prev">&lang;</span>  
-            <span class="next">&rang;</span>
-          </p>
+          
+
         </div>
+        <div class="col-md-1 wrap_arrow"><span class="next">&rang;</span></div>
       </div>
     </div>
   </div>
@@ -346,9 +360,10 @@
 
     //전체 슬라이드 컨테이너 넓이 설정
     slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+    //slides.style.width ='100%';
 
     function moveSlide(num) {
-      slides.style.left = -num * 150 + 'px';
+      slides.style.left = -num * 300 + 'px';
       currentIdx = num;
     }
 
