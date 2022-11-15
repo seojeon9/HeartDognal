@@ -1,3 +1,4 @@
+import json
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -205,11 +206,14 @@ def detail_info(request, desertion_num):
 @csrf_exempt
 def adoption_inquiry(request):
     user = request.user
-    desertion_no = request.POST['desertion_no']
+    # # desertion_no = request.POST['desertion_no']
+    temp = json.loads(request.body)
+    desertion_no = temp['desertion_no']
+    print(desertion_no)
 
     adop = AdoptionInquiry(username=user.username, desertion_no=desertion_no)
     adop.save()
 
-    print('adoption_inquiry')
     # db에만 넣고 페이지적으로는 아무런 반환도 하고싶지 않음
-    return JsonResponse()
+    return JsonResponse({'status': 'True'})
+    # return 0
