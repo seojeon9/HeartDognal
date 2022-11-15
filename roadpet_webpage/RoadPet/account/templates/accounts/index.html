@@ -9,14 +9,15 @@
 
 {% block content %}
     <div class="container">
-      <div class="row" style="margin-top: 150px; margin-bottom: 150px;">
+      <div class="row" style="">
         <div class="col-lg-7 align-self-center text-lg-left text-center">
           <div class="row">
             <div class="col-md-12">
               <div class="row my-5">
                 <div class="col-md-12">
-                  <h4 class="text-center">-유기강아지매칭서비스-</h4>
-                  <h1 class="display-4 text-center" ><b>하트도그널</b></h1>
+                  <div class="row" style="">
+                    <div class="col-md-12 d-flex justify-content-center" ><img class="card-img-top w-75" src="https://postfiles.pstatic.net/MjAyMjExMTVfMTM0/MDAxNjY4NDcyODI4Njg1.U5ACBvNXdadRN71aG94nVJA94vmKreKM0yusyuTPNs8g.sZGBFIhPaPWpjWZAPF3fhZpd7ikp-pUjl1IGpa1UAxcg.PNG.sjs2605/%ED%95%98%ED%8A%B8%EB%8F%84%EA%B7%B8%EB%84%90_%ED%8F%AC%EC%9D%B8%ED%8A%B8X.png?type=w966"></div>
+                    </div>
                   <div class="row"></div>
                 </div>
               </div>
@@ -34,11 +35,13 @@
           </div>
         </div>
         <div class="col-lg-5 p-3" >
-          <form class="p-4 bg-dark-opaque" method="post" action="{% url 'accounts:login' %}" style="">
+          <form class="bg-dark-opaque my-5 p-4 py-5" method="post" action="{% url 'accounts:login' %}" style="" >
             {% csrf_token %}
             <input type="hidden" name="next" value="{{next}}">
             {% if user.is_authenticated %}
-            <h1 class="" >{{user.name}}님<br>환영합니다.</h1>
+            <form class="bg-dark-opaque my-5 p-4 py-5 d-flex justify-content-center" method="post" action="{% url 'accounts:login' %}" style="" >
+              <h1 class="" >{{user.name}}님<br>환영합니다.</h1>
+            </form>
             {% else %}
             <div class="form-group"> <label>ID</label> <input type="Text" class="form-control mb-2" name="username" id="username" placeholder="" value="{{form.username.value|default_if_none:''}}"> </div>
             <div class="form-group"> <label>Password</label> <input type="password" class="form-control mb-3" name="password" id="password" placeholder="" value="{{form.password.value|default_if_none:''}}"> </div>
