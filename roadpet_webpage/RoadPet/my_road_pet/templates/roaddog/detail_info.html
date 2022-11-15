@@ -6,11 +6,66 @@
 
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
   <link rel="stylesheet" href="{% static 'searchdetail/assets/css/star-rating.css' %}">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <!-- src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" -->
+  <!-- src="https://code.jquery.com/jquery-3.5.1.js" -->
 
   <style>
+    /* 입양문의 모달창 css */
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+
+        /* 숨기기 */
+        z-index: -1;
+        opacity: 0;
+      }
+
+      .show {
+        opacity: 1;
+        z-index: 1000;
+        transition: all 0.5s;
+      }
+
+      .window {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius:10px; 
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+
+        /* 임시 지정 */
+        width:400px; 
+        height:300px;
+
+        /* 초기에 약간 아래에 배치 */
+        transform: translate(-50%, -40%);
+      }
+
+      .show .popup {
+        transform: translate(-50%, -50%);
+        transition: all 0.5s;
+      }
+    /* end */
+
+    /* 이런아이들도 있어요 슬라이드 css */
     /* 보여줄 구간의 높이와 넓이 설정 */
     #slideShow{
-      width: 100%;
+      width: 75%;
       height: 423px;
       position: relative;
       margin: 50px auto;
@@ -20,33 +75,32 @@
       hidden으로 숨겨줘야됨*/
     }
 
-
     .slides{
       position: absolute;
       left: 0;
       top: 0;
-      width: 1000px; /* 슬라이드할 사진과 마진 총 넓이 */
+      width: 1000px; /*슬라이드할 사진과 마진 총 넓이*/
       transition: left 0.5s ease-out; 
       /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
     }
 
     /* 첫 번째 슬라이드 가운데에 정렬하기위해
     첫번째 슬라이드만 margin-left조정 */
-    .slides li:first-child{
-      margin-left: 100px;
+    .slides li{
+      margin-right: 110px;
+      /* width:22%; */
     }
 
     /* 슬라이드들 옆으로 정렬 */
     .slides li:not(:last-child){
       float: left;
-      margin-right: 100px;
     }
 
     .slides li{
       float: left;
     }
 
-    .controller span{
+    .wrap_arrow span{
       position:absolute;
       background-color: transparent;
       color: black;
@@ -59,7 +113,7 @@
     }
 
     /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
-    .controller span:hover{
+    .wrap_arrow span:hover{
       background-color: rgba(128, 128, 128, 0.11);
     }
 
@@ -117,6 +171,21 @@
     #myform input[type=radio]:checked ~ label{
         text-shadow: 0 0 0 #ffd400; /* 마우스 클릭 체크 */
     }
+    .wrap_arrow{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .wrap_arrow span{
+      align-self: center;
+    }
+
+    .card-body{
+      display: flex;
+      flex-direction: column;
+    }
+    /* end */
   </style>
 {% endblock %}
 
@@ -131,10 +200,32 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" style="">
-              <img class="img-fluid d-block" src="{{selected_dog.0.profile}}">
-              <div class="row">
-                <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 입양문의</a></div>
+            <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" >
+              <img class="img-fluid d-block" src="{{selected_dog.0.profile}}" style="width: 100%;">
+              <!-- <form action="/detail_info/adop_inquiry/" method="POST"> -->
+                <!-- {% csrf_token %} -->
+                <div class="row">
+                  <input type="hidden" name="desertion_no" id="desertion_no" value="{{selected_dog.0.desertion_no}}"/>
+                  <div class="col-md-12"><button class="btn btn-primary w-100" id="show"><img src="https://cdn-icons-png.flaticon.com/512/7044/7044607.png" style="width: 25px;"> 입양문의</button></div>
+                </div>
+              <!-- </form> -->
+              <!-- 모달 팝업 -->
+              <div class="background">
+                <div class="window">
+                  <div class="popup">
+                    <p style="padding: 10px; ">
+                      <h2 style="text-align: center;">보호소 정보</h2>
+                      <p style="padding: 20px;"><b>이름</b> : {{shelter.care_nm}} <br>
+                        <b>상세주소</b> : {{shelter.addr_detail}}<br>
+                        <b>전화번호</b> : {{shelter.care_tel}}
+                      </p>
+                      <button class="btn btn-primary" id="close" style="margin-left: 15%; width: 70%;">닫기</button>
+                    </p>
+                  </div>
+                  <div>
+                    <div></div>
+                  </div>
+                </div>
               </div>
               <br>
               <form name="myform" id="myform" method="post" action="/detail_info/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
@@ -236,7 +327,8 @@
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-12"><iframe width="100%" height="400" src="https://maps.google.com/maps?q=New%20York&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
+        <div class="col-md-12">
+          <iframe width="100%" height="400" src="https://maps.google.com/maps?q={{shelter.addr_detail|urlencode}}&center={{shelter.latitude}},{{shelter.longitude}}1&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
       </div>
     </div>
   </div>
@@ -248,13 +340,14 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-1 wrap_arrow"><span class="prev">&lang;</span></div>
         <!-- class="col-md-12" -->
-        <div id="slideShow"> 
+        <div id="slideShow" class="col-md-10"> 
           <ul class="slides" style="list-style:none;">
             {% for dog in recom_dog %}
             <li>
               <form action="/detail_info/{{dog.desertion_no}}/" method="GET">
-              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 100%; height: 200px">
+              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 200px">
                 <div class="card-body">
                   <h4 class="card-title" style="text-align: center; white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}</h4>
                   <p class="card-text">나이 : {{dog.age}}세
@@ -279,19 +372,41 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="controller">
-            <!-- &lang: 왼쪽 방향 화살표
-            &rang: 오른쪽 방향 화살표 -->
-            <span class="prev">&lang;</span>  
-            <span class="next">&rang;</span>
-          </p>
+          
+
         </div>
+        <div class="col-md-1 wrap_arrow"><span class="next">&rang;</span></div>
       </div>
     </div>
   </div>
 
+  <script >
+    // 입양문의 모달 js
+    
 
-  <script>
+    function show() {
+      document.querySelector(".background").className = "background show";
+
+      var x = $("#desertion_no").val();
+      console.log(x);
+      //ajax 통신
+      $.ajax({
+        type: 'POST',
+        url: '{% url "adop_inquiry" %}',
+        data: {'desertion_no':desertion_no},
+        // dataType: 'json'
+      });
+    }
+
+    function close() {
+      document.querySelector(".background").className = "background";
+    }
+
+    document.querySelector("#show").addEventListener("click", show);
+    document.querySelector("#close").addEventListener("click", close);
+
+
+    // 이런 아이들도 있어요 슬라이드 js
     const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
     const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
     let currentIdx = 0; //현재 슬라이드 index
@@ -299,14 +414,16 @@
     const prev = document.querySelector('.prev'); //이전 버튼
     const next = document.querySelector('.next'); //다음 버튼
     const slideWidth = 300; //한개의 슬라이드 넓이
-    const slideMargin = 200; //슬라이드간의 margin 값
+    const slideMargin = 50; //슬라이드간의 margin 값
 
     //전체 슬라이드 컨테이너 넓이 설정
     slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
 
     function moveSlide(num) {
-      slides.style.left = -num * 400 + 'px';
-      currentIdx = num;
+      if (num < 3){
+        slides.style.left = -num * 300 + 'px';
+        currentIdx = num;
+      }
     }
 
     prev.addEventListener('click', function () {

@@ -12,9 +12,11 @@ from django.utils.dateformat import DateFormat
 
 class AdoptionInquiry(models.Model):
     ai_id = models.BigAutoField(primary_key=True)
-    username = models.BigIntegerField()
+    username = models.CharField(max_length=100, blank=True, null=True)
     desertion_no = models.BigIntegerField(blank=True, null=True)
-    std_date = models.CharField(max_length=30, blank=True, null=True)
+
+    std_date = models.CharField(
+        max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Ymd'))
 
     class Meta:
         managed = False
