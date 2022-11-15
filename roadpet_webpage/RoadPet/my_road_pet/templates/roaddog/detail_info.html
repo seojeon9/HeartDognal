@@ -137,7 +137,24 @@
       transform: translateX(10px);
     }
 
-    /* ----------------------------------------- */
+    .wrap_arrow{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .wrap_arrow span{
+      align-self: center;
+    }
+
+    .card-body{
+      display: flex;
+      flex-direction: column;
+    }
+    /* end */
+
+
+    /* 관심등록 별점 css */
 
     #myform fieldset{
         display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
@@ -171,21 +188,7 @@
     #myform input[type=radio]:checked ~ label{
         text-shadow: 0 0 0 #ffd400; /* 마우스 클릭 체크 */
     }
-    .wrap_arrow{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
 
-    .wrap_arrow span{
-      align-self: center;
-    }
-
-    .card-body{
-      display: flex;
-      flex-direction: column;
-    }
-    /* end */
   </style>
 {% endblock %}
 

@@ -3,6 +3,100 @@
 
 {% block header_code %}
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+
+  <style>
+    /* 이런아이들도 있어요 슬라이드 css */
+    /* 보여줄 구간의 높이와 넓이 설정 */
+    #slideShow{
+      width: 75%;
+      height: 423px;
+      position: relative;
+      margin: 50px auto;
+      overflow: hidden;   
+      /*리스트 형식으로 이미지를 일렬로 
+      정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
+      hidden으로 숨겨줘야됨*/
+    }
+
+    .slides{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1000px; /*슬라이드할 사진과 마진 총 넓이*/
+      transition: left 0.5s ease-out; 
+      /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
+    }
+
+    /* 첫 번째 슬라이드 가운데에 정렬하기위해
+    첫번째 슬라이드만 margin-left조정 */
+    .slides li{
+      margin-right: 110px;
+      /* width:22%; */
+    }
+
+    /* 슬라이드들 옆으로 정렬 */
+    .slides li:not(:last-child){
+      float: left;
+    }
+
+    .slides li{
+      float: left;
+    }
+
+    .wrap_arrow span{
+      position:absolute;
+      background-color: transparent;
+      color: black;
+      text-align: center;
+      border-radius: 50%;
+      padding: 10px 20px;
+      top: 50%;
+      font-size: 1.3em;
+      cursor: pointer;
+    }
+
+    /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
+    .wrap_arrow span:hover{
+      background-color: rgba(128, 128, 128, 0.11);
+    }
+
+    .prev{
+      left: 10px;
+    }
+
+    /* 이전 화살표에 마우스 커서가 올라가 있을때 
+    이전 화살표가 살짝 왼쪽으로 이동하는 효과*/
+    .prev:hover{
+      transform: translateX(-10px);
+    }
+
+    .next{
+      right: 10px;
+    }
+
+    /* 다음 화살표에 마우스 커서가 올라가 있을때 
+    이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
+    .next:hover{
+      transform: translateX(10px);
+    }
+
+    .wrap_arrow{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .wrap_arrow span{
+      align-self: center;
+    }
+
+    .card-body{
+      display: flex;
+      flex-direction: column;
+    }
+    /* end */
+
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -20,8 +114,8 @@
                       <div class="row">
                         <div class="col-md-8 py-5">
                           <div class="col-md-12 col-8 d-flex flex-column justify-content-center p-3 order-1 order-md-2" style="">
-                            <h3>이상엽님 환영합니다.</h3>
-                            <p>현재 많은 반려견들이 좋은주인의 품을 그리워 하고있습니다&nbsp;</p>
+                            <h3>{{user.name}}님 환영합니다.</h3>
+                            <p>현재 많은 반려견들이 좋은 주인의 품을 그리워 하고있습니다&nbsp;</p>
                           </div>
                         </div>
                         <div class="col-md-4">
@@ -41,84 +135,92 @@
   <div class="py-5" style="">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-center">
-          <h1>관심동물</h1>
+        <div class="col-md-12">
+          <h2 class="text-center" style="margin-bottom: 10px;">관심동물</h2>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-1.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :<br>나이 :<br>중성화 :</p>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-md-1 wrap_arrow"><span class="prev">&lang;</span></div>
+        <!-- class="col-md-12" -->
+        <div id="slideShow" class="col-md-10"> 
+          <ul class="slides" style="list-style:none;">
+            {% for dog in doginfo %}
+            <li>
+              <form action="/detail_info/{{dog.desertion_no}}/" method="GET">
+              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 200px">
+                <div class="card-body">
+                  <h4 class="card-title" style="text-align: center; white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}</h4>
+                  <p class="card-text">나이 : {{dog.age}}세
+                    <br>성별 : 
+                    {% if dog.sex_cd == 'F' %}
+                    여
+                    {% elif dog.sex_cd == 'M' %}
+                    남
+                    {% else %}
+                    미상
+                    {% endif %}
+                    <br>중성화 여부 : 
+                    {% if dog.neuter_yn == 'U' %}
+                    미상
+                    {% else %}
+                    {{dog.neuter_yn}}
+                    {% endif %}
+                    <br>내 관심지수 : <label for="rate1">⭐</label>
+                  </p style="float: center;"><button class="btn btn-primary" >상세페이지</button>
+                </div>
+              </div>
+              </form>
+            </li>
+            {% endfor %}
+          </ul>
+          
+
         </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-4.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :&nbsp;<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-2.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :&nbsp;<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-3.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-3.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 : 나이 :&nbsp;<br>중성화 : </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-4.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :&nbsp;<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-1.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :&nbsp;<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 p-3">
-          <div class="row">
-            <div class="col-3 p-0"> <img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-2.svg"> </div>
-            <div class="col-9">
-              <p class="lead mb-1">품종</p>
-              <p class="mb-0">성별 :&nbsp;<br>나이 :&nbsp;<br>중성화 :</p>
-            </div>
-          </div>
-        </div>
+        <div class="col-md-1 wrap_arrow"><span class="next">&rang;</span></div>
       </div>
     </div>
   </div>
+
+  <script >
+    
+    // 관심동물 슬라이드 js
+    const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
+    const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
+    let currentIdx = 0; //현재 슬라이드 index
+    const slideCount = slideImg.length; // 슬라이드 개수
+    const prev = document.querySelector('.prev'); //이전 버튼
+    const next = document.querySelector('.next'); //다음 버튼
+    const slideWidth = 300; //한개의 슬라이드 넓이
+    const slideMargin = 50; //슬라이드간의 margin 값
+
+    //전체 슬라이드 컨테이너 넓이 설정
+    slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+
+    function moveSlide(num) {
+      if (num < 3){
+        slides.style.left = -num * 300 + 'px';
+        currentIdx = num;
+      }
+    }
+
+    prev.addEventListener('click', function () {
+      /*첫 번째 슬라이드로 표시 됐을때는 
+      이전 버튼 눌러도 아무런 반응 없게 하기 위해 
+      currentIdx !==0일때만 moveSlide 함수 불러옴 */
+
+      if (currentIdx !== 0) moveSlide(currentIdx - 1);
+    });
+
+    next.addEventListener('click', function () {
+      /* 마지막 슬라이드로 표시 됐을때는 
+      다음 버튼 눌러도 아무런 반응 없게 하기 위해
+      currentIdx !==slideCount - 1 일때만 
+      moveSlide 함수 불러옴 */
+      if (currentIdx !== slideCount - 1) {
+        moveSlide(currentIdx + 1);
+      }
+    });
+
+  </script>
+
 {% endblock %}
