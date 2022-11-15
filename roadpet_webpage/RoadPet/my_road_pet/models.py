@@ -23,7 +23,7 @@ class AdoptionInquiry(models.Model):
 
 class LikeStarPet(models.Model):
     lp_id = models.BigAutoField(primary_key=True)
-    username = models.BigIntegerField()
+    username = models.CharField(max_length=100, blank=True, null=True)
     desertion_no = models.BigIntegerField(blank=True, null=True)
     star = models.BigIntegerField(blank=True, null=True)
     std_date = models.CharField(max_length=30, blank=True, null=True)

@@ -82,6 +82,41 @@
     .next:hover{
       transform: translateX(10px);
     }
+
+    /* ----------------------------------------- */
+
+    #myform fieldset{
+        display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+        direction: rtl; /* 이모지 순서 반전 */
+        border: 0; /* 필드셋 테두리 제거 */
+    }
+
+    #myform input[type=radio]{
+        display: none; /* 라디오박스 감춤 */
+    }
+
+    #myform label{
+        font-size: 2em; /* 이모지 크기 */
+        color: transparent; /* 기존 이모지 컬러 제거 */
+        text-shadow: 0 0 0 #3d3d2b; /* 새 이모지 색상 부여 */
+    }
+
+    #myform label:hover{
+        text-shadow: 0 0 0 #ffd400; /* 마우스 호버 */
+    }
+
+    #myform label:hover ~ label{
+        text-shadow: 0 0 0 #ffd400; /* 마우스 호버 뒤에오는 이모지들 */
+    }
+
+    #myform fieldset legend{
+        text-align: left;
+        font-size: 18pt;
+    }
+
+    #myform input[type=radio]:checked ~ label{
+        text-shadow: 0 0 0 #ffd400; /* 마우스 클릭 체크 */
+    }
   </style>
 {% endblock %}
 
@@ -94,15 +129,6 @@
             <div class="col-md-6">
               <h2 class="">품종명 : {{selected_dog.0.kind_nm}}</h2>
             </div>
-            <div class="col-md-6">
-              <div class="rating">
-                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-              </div>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-4 col-lg-3 order-2 order-md-1 p-0" style="">
@@ -110,6 +136,25 @@
               <div class="row">
                 <div class="col-md-12"><a class="btn btn-primary w-100" href="#" style="">(전화 아이콘) 입양문의</a></div>
               </div>
+              <br>
+              <form name="myform" id="myform" method="post" action="/detail_info/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-12" style="">
+                    <fieldset>
+                        <legend>관심등록하기</legend>
+                        <input type="radio" name="mystar" value="5" id="rate1"><label for="rate1">⭐</label>
+                        <input type="radio" name="mystar" value="4" id="rate2"><label for="rate2">⭐</label>
+                        <input type="radio" name="mystar" value="3" id="rate3"><label for="rate3">⭐</label>
+                        <input type="radio" name="mystar" value="2" id="rate4"><label for="rate4">⭐</label>
+                        <input type="radio" name="mystar" value="1" id="rate5"><label for="rate5">⭐</label>
+                    </fieldset>                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12" ><br><button class="btn btn-secondary">등록</button></div>
+                </div>
+              </form>
             </div>
             <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px; text-shadow: black 0px 0px 4px;">
               <div class="row w-100">
@@ -281,6 +326,15 @@
         moveSlide(currentIdx + 1);
       }
     });
+
+    function Stareg(){
+      if (confirm('정말 등록하시겠습니까?')){ // 확인
+        document.getElementById('myform').submit();
+      }
+      else {
+        return false;
+      }
+    }
   </script>
 
 {% endblock %}

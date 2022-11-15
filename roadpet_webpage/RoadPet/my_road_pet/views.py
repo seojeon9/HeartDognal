@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Kind, RoaddogInfo, Sido, Survey, Shelter
+from .models import Kind, RoaddogInfo, Sido, Survey, Shelter, LikeStarPet
 from .module import kmeans_recom
 from .module import content_recom
 from sklearn.cluster import KMeans
@@ -193,5 +193,24 @@ def detail_info(request, desertion_num):
         carenm = list(Shelter.objects.filter(
             care_id=careid).values())[0]['care_nm']
         content['recom_dog'][i]['care_id'] = carenm
+
+    if request.method == 'POST':
+
+        user = request.user
+        star = request.POST['mystar']
+        des_no = desertion_num
+
+        likestar = LikeStarPet.objects.filter(username=user)
+
+        if not likestar:
+            likestar = LikeStarPet(username=user.username, desertion_no=des_no, star=star)
+
+            likestar.save()
+        else:
+            likestar = likestar[0]
+
+            likestar.star = star
+
+            likestar.save()
 
     return render(request, 'roaddog/detail_info.html', content)
