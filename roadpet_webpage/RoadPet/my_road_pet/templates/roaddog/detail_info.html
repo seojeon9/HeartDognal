@@ -328,7 +328,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <iframe width="100%" height="400" src="https://maps.google.com/maps?q={{shelter.addr_detail|urlencode}}&center={{shelter.latitude}},{{shelter.longitude}}1&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
+          <iframe width="100%" height="400" src="https://maps.google.com/maps?q={{shelter.care_nm|urlencode}}&center={{shelter.latitude}},{{shelter.longitude}}1&amp;z=14&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
       </div>
     </div>
   </div>
@@ -383,19 +383,31 @@
   <script >
     // 입양문의 모달 js
     
+    // POST 메서드 구현 예제
+    async function postData(url, data) {
+      // 옵션 기본 값은 *로 강조
+      console.log(data)
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE 등
+        mode: 'cors', // no-cors, *cors, same-origin
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data)
+      });
+      return response.json(); // JSON 응답을 네이티브 JavaScript 객체로 파싱
+      // return 0; // JSON 응답을 네이티브 JavaScript 객체로 파싱
+    }
 
     function show() {
       document.querySelector(".background").className = "background show";
 
       var x = $("#desertion_no").val();
       console.log(x);
-      //ajax 통신
-      $.ajax({
-        type: 'POST',
-        url: '{% url "adop_inquiry" %}',
-        data: {'desertion_no':desertion_no},
-        // dataType: 'json'
-      });
+      //postData 요청
+      postData('/detail_info/adop_inquiry/', {'desertion_no':x})
     }
 
     function close() {
