@@ -8,6 +8,9 @@
 from django.db import models
 from datetime import datetime
 from django.utils.dateformat import DateFormat
+from pytz import timezone
+
+datetime.now(timezone('Asia/Seoul'))
 
 
 class AdoptionInquiry(models.Model):
@@ -16,7 +19,7 @@ class AdoptionInquiry(models.Model):
     desertion_no = models.BigIntegerField(blank=True, null=True)
 
     std_date = models.CharField(
-        max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Ymd'))
+        max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Y/m/d h:i:s'))
 
     class Meta:
         managed = False
@@ -28,7 +31,8 @@ class LikeStarPet(models.Model):
     username = models.CharField(max_length=100, blank=True, null=True)
     desertion_no = models.BigIntegerField(blank=True, null=True)
     star = models.BigIntegerField(blank=True, null=True)
-    std_date = models.CharField(max_length=30, blank=True, null=True)
+    std_date = models.CharField(
+        max_length=100, blank=True, null=True, default=DateFormat(datetime.now()).format('Y/m/d h:i:s'))
 
     class Meta:
         managed = False
