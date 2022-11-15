@@ -5,8 +5,8 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 
 def recommend(sample) :
-    minmax = joblib.load('./my_road_pet/model/minmax(20000).pkl')
+    minmax = joblib.load('./my_road_pet/model/stdscaler(20000,konlpy).pkl')
     sample_minmax = minmax.transform(sample)
-    model = joblib.load("./my_road_pet/model/kmeans(20000,60).pkl")
+    model = joblib.load("./my_road_pet/model/kmeans(20000,konlpy).pkl")
     sample_cluster = model.predict(sample_minmax)[0]
     return sample_cluster
