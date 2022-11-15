@@ -1,9 +1,17 @@
 import pandas as pd
 import re
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
-import joblib
+from itertools import product
+
+from konlpy.tag import Kkma
+from konlpy.utils import pprint
+from tqdm import tqdm_notebook
+
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
+
+import joblib
+
 from infra.jdbc import OperateDatabase, find_data
 from pyspark.sql.functions import col
 
