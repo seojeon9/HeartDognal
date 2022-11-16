@@ -44,4 +44,19 @@ BEGIN
 DBMS_SCHEDULER.DROP_JOB(job_name => 'UPDATE_PROCESS_JOB', defer => false,force => false);
 END;
 /
+-- 잡 확인
 SELECT JOB_NAME, JOB_STYLE, JOB_CREATOR, JOB_TYPE, JOB_ACTION, SCHEDULE_TYPE, START_DATE, REPEAT_INTERVAL, ENABLED, STATE FROM user_scheduler_jobs;
+/
+-- 잡 로그 확인
+select * from user_scheduler_job_log where job_name='UPDATE_PROCESS_JOB';
+/
+-- 중복되는 유기번호 (먼저 들어온 친구) delete
+DELETE from roaddog_info a WHERE ROWID < (SELECT MAX(ROWID) FROM roaddog_info b
+WHERE b.desertion_no = a.desertion_no);
+/
+-- 중복되는 친구 확인
+/
+select count(*) from roaddog_info a WHERE ROWID < (SELECT MAX(ROWID) FROM roaddog_info b
+WHERE b.desertion_no = a.desertion_no);
+/
+select * from roaddog_info where desertion_no = '448535202201935';
