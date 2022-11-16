@@ -232,7 +232,7 @@
               </div>
               <br>
               {% if user.is_authenticated %}
-              <form name="myform" id="myform" method="post" action="/detail_info/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
+              <form name="myform" id="myform" method="post" action="/detail_info/savestar/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-md-12" style="">

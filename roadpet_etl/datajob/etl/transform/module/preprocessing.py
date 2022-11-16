@@ -2,16 +2,15 @@ import pandas as pd
 import re
 import numpy as np
 from itertools import product
-
 from konlpy.tag import Kkma
 from konlpy.utils import pprint
 from tqdm import tqdm_notebook
-
+import logging
 
 def preprocess(animal) :
 
     # 나이 형식에 안맞는 값 제거
-    
+    logging.getLogger().warn('>>>>>>>>>>>>>>>>>>> preprocess')
     animal['나이'] = animal['나이'].astype('str')
     p = re.compile('(\d){4}')
 
@@ -350,8 +349,6 @@ def preprocess(animal) :
     animal.drop(animal.loc[animal['만나이']>9,:].index, axis=0, inplace=True)
     animal.drop(animal.loc[animal['체중']>50,:].index, axis=0, inplace=True)
     
-
-    animal.reset_index(inplace=True)
 
     # ### 이상치 제거(군집화에는 있어야되고 유사도계산에는 지워야됨 357~360줄까지)
 

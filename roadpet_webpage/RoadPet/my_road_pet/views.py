@@ -202,24 +202,6 @@ def detail_info(request, desertion_num):
     content = {'selected_dog': selected_dog,
                'recom_dog': recom_dog, 'shelter': shelter}
 
-    if request.method == 'POST':
-
-        user = request.user
-        star = request.POST['mystar']
-        des_no = desertion_num
-
-        likestar = LikeStarPet.objects.filter(
-            username=user, desertion_no=des_no)
-
-        if not likestar:
-            likestar = LikeStarPet(
-                username=user.username, desertion_no=des_no, star=star)
-            likestar.save()
-        else:
-            likestar = likestar[0]
-            likestar.star = star
-            likestar.save()
-
     return render(request, 'roaddog/detail_info.html', content)
 
 
@@ -238,4 +220,25 @@ def adoption_inquiry(request):
 
     # db에만 넣고 페이지적으로는 아무런 반환도 하고싶지 않음
     return JsonResponse({'status': 'True'})
+
+
+def savestar(request, desertion_num):
+    # 별점을 입력받고 유기번호와 함께 저장
+    user = request.user
+    star = request.POST['mystar']
+    des_no = desertion_num
+
+    likestar = LikeStarPet.objects.filter(
+        username=user, desertion_no=des_no)
+
+    if not likestar:
+        likestar = LikeStarPet(
+            username=user.username, desertion_no=des_no, star=star)
+        likestar.save()
+    else:
+        likestar = likestar[0]
+        likestar.star = star
+        likestar.save()
+
+    return HttpResponseRedirect(reverse('detail', args=[desertion_num]))
 
