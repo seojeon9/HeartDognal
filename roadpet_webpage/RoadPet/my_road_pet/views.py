@@ -49,7 +49,6 @@ def recommend(request):
 
 
 def presurvey(request):
-
     return render(request, 'roaddog/presurvey.html')
 
 
@@ -171,9 +170,12 @@ def detail_info(request, desertion_num):
         desertion_no=desertion_num).values())
 
     sim10_reg_list = content_recom.recommend(desertion_num)
-    top5_list = sim10_reg_list[:5]
-    recom_dog = list(RoaddogInfo.objects.filter(
-        Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
+    if sim10_reg_list == []:
+        recom_dog = []
+    else:
+        top5_list = sim10_reg_list[:5]
+        recom_dog = list(RoaddogInfo.objects.filter(
+            Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
 
     # print(recom_dog)
     selected_dog[0]['age'] = 2022 - \
@@ -206,17 +208,16 @@ def detail_info(request, desertion_num):
         star = request.POST['mystar']
         des_no = desertion_num
 
-        likestar = LikeStarPet.objects.filter(username=user, desertion_no=des_no)
+        likestar = LikeStarPet.objects.filter(
+            username=user, desertion_no=des_no)
 
         if not likestar:
-            likestar = LikeStarPet(username=user.username, desertion_no=des_no, star=star)
-
+            likestar = LikeStarPet(
+                username=user.username, desertion_no=des_no, star=star)
             likestar.save()
         else:
             likestar = likestar[0]
-
             likestar.star = star
-
             likestar.save()
 
     return render(request, 'roaddog/detail_info.html', content)
@@ -225,17 +226,18 @@ def detail_info(request, desertion_num):
 @csrf_exempt
 def adoption_inquiry(request):
     user = request.user
-    # # desertion_no = request.POST['desertion_no']
-    temp = json.loads(request.body)
-    desertion_no = temp['desertion_no']
-    print(desertion_no)
+    if user.username != "":
+        # # desertion_no = request.POST['desertion_no']
+        temp = json.loads(request.body)
+        desertion_no = temp['desertion_no']
+        print(desertion_no)
 
-    adop = AdoptionInquiry(username=user.username, desertion_no=desertion_no)
-    adop.save()
+        adop = AdoptionInquiry(username=user.username,
+                               desertion_no=desertion_no)
+        adop.save()
 
     # db에만 넣고 페이지적으로는 아무런 반환도 하고싶지 않음
     return JsonResponse({'status': 'True'})
-    # return 0
 
 
 def mypage(request):
@@ -244,24 +246,23 @@ def mypage(request):
     user = request.user
     dogstar = list(LikeStarPet.objects.filter(username=user).values())
 
-    star_list=[]
-    des_no_list=[]
-    doginfo=[]
+    star_list = []
+    des_no_list = []
+    doginfo = []
 
-    for i in range(len(dogstar)) :
+    for i in range(len(dogstar)):
         star_list.append(dogstar[i]['star'])
         des_no_list.append(dogstar[i]['desertion_no'])
-    
 
-    for des_no in des_no_list :
-        doginfo.extend(list(RoaddogInfo.objects.filter(desertion_no=des_no).values()))
+    for des_no in des_no_list:
+        doginfo.extend(
+            list(RoaddogInfo.objects.filter(desertion_no=des_no).values()))
 
-    content = {'user':user, 'star_list':star_list, 'doginfo':doginfo}
+    content = {'user': user, 'star_list': star_list, 'doginfo': doginfo}
 
     for i in range(len(dogstar)):
         content['doginfo'][i]['age'] = 2022 - int(content['doginfo'][i]['age'])
-    
+
     print(content)
 
     return render(request, 'accounts/mypage.html', content)
-
