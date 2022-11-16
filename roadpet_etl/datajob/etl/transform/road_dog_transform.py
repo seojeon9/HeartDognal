@@ -19,7 +19,7 @@ class RoadDogTrasformer:
         road_dog_df = get_spark_session().createDataFrame(road_dog_pd \
                         , schema = 'DESERTION_NO string, COLOR_NM string, SEX_CD string, KIND_NM string, AGE string, WEIGHT string, NEUTER_YN string, PROCESS_ST string, HAPPEN_DT string, HAPPEN_PLACE string, SPECIAL_MARK string, THUMBNAIL string, PROFILE string, NOTICESDT string, NOTICEEDT string, CARE_ID integer, STD_DATE string')
         
-        for i in range(1, 10):
+        for i in range(15, 16):
             std_date=str(datetime.now().date()).replace('-','')
 
             path = '/roadpet/detail/road_dog_' + cal_std_day_yyyymmdd(i) + '.json'
@@ -69,8 +69,9 @@ class RoadDogTrasformer:
                 ,col('COLOR_NM').alias('색상')
                 ,col('SPECIAL_MARK').alias('특징')
             )
-        road_dog_rename = road_dog_rename.toPandas()
 
+        road_dog_rename = road_dog_rename.toPandas()
+        # road_dog_rename = road_dog_rename.iloc[0:10,:]
         # road_dog_rename.to_csv('./datajob/etl/data/raw_data.csv',encoding = 'utf-8', index = False)
 
         # road_dog_today = road_dog_df.select("*").where(road_dog_df.NOTICE_DT==std_date)
@@ -81,16 +82,18 @@ class RoadDogTrasformer:
         # 스파크 데이터프레임으로 변환
         # 기존 데이터프레임과  변환한 데이터프레임을 유기번호로 조인
         # 거기서 운영디비에 필요한 컬럼만 셀랙트해서 새로운 데프로 바꾼다음 운영디비에 저장
-
+        # data = pd.read_csv('/home/big/study/roadpet_etl/datajob/etl/data/raw_data.csv')
         pre_data = preprocess(road_dog_rename)
+        print(pre_data)
         label_data = create_model(pre_data)
         label_data.columns = ['DESERTION_NO', 'LABEL']
         label_data = get_spark_session().createDataFrame(label_data, schema = 'DESERTION_NO string, LABEL string')
+        label_data.show()
         road_dog_op = road_dog_df.join(label_data, road_dog_df.DESERTION_NO == label_data.DESERTION_NO, how='left').select(road_dog_df.DESERTION_NO, road_dog_df.KIND_NM,road_dog_df.AGE,road_dog_df.WEIGHT,road_dog_df.COLOR_NM,road_dog_df.CARE_ID,road_dog_df.SEX_CD,road_dog_df.NEUTER_YN,road_dog_df.PROCESS_ST,road_dog_df.HAPPEN_DT,road_dog_df.HAPPEN_PLACE,road_dog_df.SPECIAL_MARK,road_dog_df.THUMBNAIL,road_dog_df.PROFILE,road_dog_df.NOTICEEDT,road_dog_df.STD_DATE,label_data.LABEL)
+        
 
-
-        # overwrite_data(DataWarehouse, road_dog_df, 'ROADDOG_INFO')
-        # overwrite_data(OperateDatabase, road_dog_op, 'ROADDOG_INFO')
+        save_data(DataWarehouse, road_dog_df, 'ROADDOG_INFO')
+        save_data(OperateDatabase, road_dog_op, 'ROADDOG_INFO')
 
         
 
