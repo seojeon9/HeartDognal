@@ -232,7 +232,7 @@
               </div>
               <br>
               {% if user.is_authenticated %}
-              <form name="myform" id="myform" method="post" action="/detail_info/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
+              <form name="myform" id="myform" method="post" action="/detail_info/savestar/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-md-12" style="">
@@ -255,7 +255,7 @@
             <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px;">
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">나이(만)</h4>
+                  <h4 class=""><b>나이(만)</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">{{selected_dog.0.age}}세</h5>
@@ -263,7 +263,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">성별</h4>
+                  <h4 class=""><b>성별</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">
@@ -279,7 +279,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">체중</h4>
+                  <h4 class=""><b>체중</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">{{selected_dog.0.weight}}kg</h5>
@@ -287,7 +287,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">중성화 여부</h4>
+                  <h4 class=""><b>중성화 여부</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">
@@ -301,7 +301,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">상태</h4>
+                  <h4 class=""><b>상태</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">{{selected_dog.0.process_st}}</h5>
@@ -309,7 +309,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">특징</h4>
+                  <h4 class=""><b>특징</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">{{selected_dog.0.special_mark}}</h5>
@@ -317,7 +317,7 @@
               </div>
               <div class="row w-100">
                 <div class="col-md-3" style="">
-                  <h4 class="">보호소</h4>
+                  <h4 class=""><b>보호소</b></h4>
                 </div>
                 <div class="col-md-5" style="">
                   <h5 class="">{{selected_dog.0.care_id}}</h5>
@@ -352,7 +352,7 @@
             {% for dog in recom_dog %}
             <li>
               <form action="/detail_info/{{dog.desertion_no}}/" method="GET">
-              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 200px">
+              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 200px; ">
                 <div class="card-body">
                   <h4 class="card-title" style="text-align: center; white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}</h4>
                   <p class="card-text">나이 : {{dog.age}}세
