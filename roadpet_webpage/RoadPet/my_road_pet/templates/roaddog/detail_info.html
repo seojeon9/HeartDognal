@@ -231,6 +231,7 @@
                 </div>
               </div>
               <br>
+              {% if user.is_authenticated %}
               <form name="myform" id="myform" method="post" action="/detail_info/{{selected_dog.0.desertion_no}}/" onsubmit="return Stareg()">
                 {% csrf_token %}
                 <div class="row">
@@ -249,8 +250,9 @@
                   <div class="col-md-12" ><br><button class="btn btn-secondary">등록</button></div>
                 </div>
               </form>
+              {% endif %}
             </div>
-            <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px; text-shadow: black 0px 0px 4px;">
+            <div class="d-flex flex-column justify-content-center p-3 col-md-8 offset-lg-1 align-items-start order-1 order-md-2" style="box-shadow: black 0px 0px 4px;">
               <div class="row w-100">
                 <div class="col-md-3" style="">
                   <h4 class="">나이(만)</h4>

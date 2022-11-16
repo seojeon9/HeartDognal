@@ -10,16 +10,30 @@ from tqdm import tqdm_notebook
 
 def preprocess(animal) :
 
+    # 나이 형식에 안맞는 값 제거
+    
+    animal['나이'] = animal['나이'].astype('str')
+    p = re.compile('(\d){4}')
+
+    drop_list = []
+    for index, a in enumerate(animal['나이']):
+
+        if p.search(a) == None:
+            drop_list.append(index)
+
+    animal = animal.drop(drop_list, axis=0)
+    animal.reset_index(inplace=True)
+
     # ### 체중 이상한 값 제거
 
     animal['체중']=animal['체중'].astype('str')
 
-    p = re.compile('(\d+[.]){0,1}\d+')
+    p = re.compile('\d*\.?\d+')
 
     drop_list = []
     for index, a in enumerate(animal['체중']) :
 
-        if p.search(a) == None :
+        if len(p.findall(a)) != 1 :
             drop_list.append(index)
 
     animal = animal.drop(drop_list, axis = 0)
@@ -37,17 +51,17 @@ def preprocess(animal) :
     for i in tqdm_notebook(range(len(animal))):
         if animal['특징'][i].replace(' ','') == '':
             special_list.append('')
-        else :
+        else:
             pos_character = kkma.pos(animal['특징'][i])
-
             word_list = []
 
+        # print('a')
             for pos in pos_character:
                 if pos[1] in ['NR','NNM','XR','NNG','NNP', 'VV', 'VA', 'MAG', 'VXV', 'VXA', 'VCN']:    # 'XSN','XSV', 'XSA' 파생접미사(~하다)
                     word_list.append(pos[0])
 
             word = " ".join(word_list)
-
+            print(word)
             special_list.append(word)
 
     animal['특징'] = special_list
@@ -330,20 +344,24 @@ def preprocess(animal) :
     animal['건강지수'] = hel_score
 
 
+    animal['건강지수'] = hel_score
     animal['만나이'] = 2022 - animal['나이'].astype('int')
-
-
     animal['체중'] = animal['체중'].astype(float)
+    animal.drop(animal.loc[animal['만나이']>9,:].index, axis=0, inplace=True)
+    animal.drop(animal.loc[animal['체중']>50,:].index, axis=0, inplace=True)
+    
+
+    animal.reset_index(inplace=True)
 
     # ### 이상치 제거(군집화에는 있어야되고 유사도계산에는 지워야됨 357~360줄까지)
 
-    animal.drop(animal.loc[animal['만나이']>9,:].index, axis=0, inplace=True)
-    animal.drop(animal.loc[animal['체중']>50,:].index, axis=0, inplace=True)
-
-    animal.reset_index(inplace=True)
+    
 
     return animal
 
     # db에서 라벨링할 데이터 추출하는 코드
     # 추출된 df를 이용해 def preprocess(animal) 호출하면 animal 리턴
     # create_model(animal)을 호출하면 유기번호, 군집라벨 출력
+
+# data = pd.read_csv('/home/big/study/roadpet_etl/datajob/etl/data/raw_data.csv')
+# preprocess(data)
