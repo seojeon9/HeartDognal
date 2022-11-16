@@ -6,7 +6,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from .forms import UserForm
 from django.contrib.auth.forms import AuthenticationForm
-
+import numpy as np
+import pandas as pd
+from my_road_pet.models import LikeStarPet, RoaddogInfo
 
 # Create your views here.
 def index(request):
@@ -36,8 +38,31 @@ def signup(request):
 
 
 def mypage(request):
+    # username으로 LikeStarPet을 이용하여 관심지수와 유기번호 받아오기
+    # 유기번호로 RoaddogInfo를 이용하여 필요한 정보 받아오기
+    user = request.user
+    dogstar = list(LikeStarPet.objects.filter(username=user).values())
 
-    return render(request, 'accounts/mypage.html')
+    # star_list=[]
+    # des_no_list=[]
+    doginfo=[]
+
+    for i in range(len(dogstar)) :
+        infodict = list(RoaddogInfo.objects.filter(desertion_no=dogstar[i]['desertion_no']).values())[0]
+        infodict['mystar'] = range(dogstar[i]['star'])
+        doginfo.append(infodict)
+
+    # for des_no in des_no_list :
+    #     doginfo.append(list(RoaddogInfo.objects.filter(desertion_no=des_no).values())[0])
+
+    content = {'user':user, 'doginfo':doginfo}
+
+    for i in range(len(doginfo)):
+        content['doginfo'][i]['age'] = 2022 - int(content['doginfo'][i]['age'])
+    
+    print(content)
+
+    return render(request, 'accounts/mypage.html', content)
 
 
 def user_info(request):

@@ -136,7 +136,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2 class="text-center" style="margin-bottom: 10px;">관심동물</h2>
+          <h2 class="text-center" style="margin-bottom: 10px;">내 관심동물</h2>
         </div>
       </div>
       <div class="row">
@@ -147,7 +147,7 @@
             {% for dog in doginfo %}
             <li>
               <form action="/detail_info/{{dog.desertion_no}}/" method="GET">
-              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 200px">
+              <div class="card" > <img class="card-img-top" src="{{dog.profile}}" alt="{{dog.kind_nm}}" style="width: 200px; height: 165px">
                 <div class="card-body">
                   <h4 class="card-title" style="text-align: center; white-space: nowrap;overflow:hidden;text-overflow: ellipsis;">{{dog.kind_nm}}</h4>
                   <p class="card-text">나이 : {{dog.age}}세
@@ -165,7 +165,10 @@
                     {% else %}
                     {{dog.neuter_yn}}
                     {% endif %}
-                    <br>내 관심지수 : <label for="rate1">⭐</label>
+                    <br>내 관심<br>
+                    {% for star in dog.mystar %}
+                    <span>⭐</span>
+                    {% endfor %}
                   </p style="float: center;"><button class="btn btn-primary" >상세페이지</button>
                 </div>
               </div>
