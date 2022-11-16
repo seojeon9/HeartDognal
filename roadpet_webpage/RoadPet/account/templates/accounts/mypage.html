@@ -200,7 +200,7 @@
     slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
 
     function moveSlide(num) {
-      if (num < 3){
+      if (num < (slideCount-2)){
         slides.style.left = -num * 300 + 'px';
         currentIdx = num;
       }
