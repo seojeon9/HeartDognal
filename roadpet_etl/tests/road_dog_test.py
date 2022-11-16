@@ -1,6 +1,6 @@
 import unittest
-from datajob.etl.extract.kind_crawling_extract import DogKindExtractor
 from datajob.etl.extract.road_dog_extract import RoadDogExtractor
+from datajob.etl.transform.module.content_sim import ContentSimPreprocess
 from datajob.etl.transform.road_dog_transform import RoadDogTrasformer
 
 class MTest(unittest.TestCase):
@@ -9,9 +9,9 @@ class MTest(unittest.TestCase):
 
     def test2(self):
         RoadDogTrasformer.transform()
-
+    
     def test3(self):
-        DogKindExtractor.extract_data()
+        ContentSimPreprocess.content_sim_preprocess()
 
 
 
