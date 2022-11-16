@@ -51,12 +51,12 @@ class ContentSimPreprocess:
 
         animal['체중']=animal['체중'].astype('str')
 
-        p = re.compile('(\d+[.]){0,1}\d+')
+        p = re.compile('\d*\.?\d+')
 
         drop_list = []
         for index, a in enumerate(animal['체중']) :
 
-            if p.search(a) == None :
+            if len(p.findall(a)) != 1 :
                 drop_list.append(index)
 
         animal = animal.drop(drop_list, axis = 0)
