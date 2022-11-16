@@ -49,7 +49,6 @@ def recommend(request):
 
 
 def presurvey(request):
-
     return render(request, 'roaddog/presurvey.html')
 
 
@@ -171,9 +170,12 @@ def detail_info(request, desertion_num):
         desertion_no=desertion_num).values())
 
     sim10_reg_list = content_recom.recommend(desertion_num)
-    top5_list = sim10_reg_list[:5]
-    recom_dog = list(RoaddogInfo.objects.filter(
-        Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
+    if sim10_reg_list == []:
+        recom_dog = []
+    else:
+        top5_list = sim10_reg_list[:5]
+        recom_dog = list(RoaddogInfo.objects.filter(
+            Q(desertion_no=top5_list[0]) | Q(desertion_no=top5_list[1]) | Q(desertion_no=top5_list[2]) | Q(desertion_no=top5_list[3]) | Q(desertion_no=top5_list[4])).values())
 
     # print(recom_dog)
     selected_dog[0]['age'] = 2022 - \
@@ -209,14 +211,12 @@ def detail_info(request, desertion_num):
         likestar = LikeStarPet.objects.filter(username=user)
 
         if not likestar:
-            likestar = LikeStarPet(username=user.username, desertion_no=des_no, star=star)
-
+            likestar = LikeStarPet(
+                username=user.username, desertion_no=des_no, star=star)
             likestar.save()
         else:
             likestar = likestar[0]
-
             likestar.star = star
-
             likestar.save()
 
     return render(request, 'roaddog/detail_info.html', content)
