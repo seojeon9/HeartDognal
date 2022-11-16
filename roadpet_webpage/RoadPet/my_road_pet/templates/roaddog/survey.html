@@ -4,6 +4,25 @@
 {% block header_code %}
   <link rel="stylesheet" href="{% static 'survey/wireframe.css' %}">
   <link rel="stylesheet" href="{% static 'survey/assets/css/star.css' %}">
+<style>
+  .survey_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2vw;
+    font-weight: bolder;
+  }
+
+  .yes {
+    color: darkgreen;
+  }
+
+  .no {
+    color: firebrick;
+  }
+
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -20,9 +39,9 @@
   </div>
   <div class="py-5">
     <div class="container">
-      <h2>&nbsp;&nbsp;&nbsp;&nbsp;← 작다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 크다 →</h2>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2 survey_info no" >작다</div>
+        <div class="col-md-8">
           <div class="rating">
             <input type="radio" name="weight" value="28" id="a" required><label for="a">☆</label>
             <input type="radio" name="weight" value="18" id="b"><label for="b">☆</label>
@@ -31,6 +50,7 @@
             <input type="radio" name="weight" value="1" id="e" ><label for="e">☆</label>
           </div>
         </div>
+        <div class="col-md-2 survey_info yes">크다</div>
       </div>
     </div>
   </div>
@@ -45,9 +65,9 @@
   </div>
   <div class="py-5">
     <div class="container">
-      <h2>&nbsp;&nbsp;← 아니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 그렇다 →</h2>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2 survey_info no" >아니다</div>
+        <div class="col-md-8">
           <div class="rating">
             <input type="radio" name="age" value="0" id="f" required><label for="f">☆</label>
             <input type="radio" name="age" value="2" id="g"><label for="g">☆</label>
@@ -56,6 +76,7 @@
             <input type="radio" name="age" value="8" id="j"><label for="j">☆</label>
           </div>
         </div>
+        <div class="col-md-2 survey_info yes" >그렇다</div>
       </div>
     </div>
   </div>
@@ -70,9 +91,9 @@
   </div>
   <div class="py-5">
     <div class="container">
-      <h2>&nbsp;&nbsp;← 아니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 그렇다 →</h2>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2 survey_info no" >아니다</div>
+        <div class="col-md-8">
           <div class="rating">
             <input type="radio" name="health" value="1" id="k" required><label for="k">☆</label>
             <input type="radio" name="health" value="0" id="l"><label for="l">☆</label>
@@ -81,6 +102,7 @@
             <input type="radio" name="health" value="-4" id="o"><label for="o">☆</label>
           </div>
         </div>
+        <div class="col-md-2 survey_info yes" >그렇다</div>
       </div>
     </div>
   </div>
@@ -95,9 +117,9 @@
   </div>
   <div class="py-5">
     <div class="container">
-      <h2>&nbsp;&nbsp;← 아니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 그렇다 →</h2>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2 survey_info no" >아니다</div>
+        <div class="col-md-8">
           <div class="rating">
             <input type="radio" name="friendly" value="6" id="p" required><label for="p">☆</label>
             <input type="radio" name="friendly" value="3" id="q"><label for="q">☆</label>
@@ -106,6 +128,7 @@
             <input type="radio" name="friendly" value="-6" id="t"><label for="t">☆</label>
           </div>
         </div>
+        <div class="col-md-2 survey_info yes" >그렇다</div>
       </div>
     </div>
   </div>

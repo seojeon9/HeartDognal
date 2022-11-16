@@ -108,7 +108,7 @@
             <input type="hidden" name="next" value="{{next}}">
             {% if user.is_authenticated %}
             <form class="bg-dark-opaque my-5 p-4 py-5 d-flex justify-content-center" method="post" action="{% url 'accounts:login' %}" style="" >
-              <h1 class="" >{{user.name}}님<br>환영합니다.</h1>
+              <h1 class=""  style="font-family: 'IBM Plex Sans KR', sans-serif">{{user.name}}님<br>환영합니다.</h1>
             </form>
             {% else %}
             <div class="form-group"> <label>ID</label> <input type="Text" class="form-control mb-2" name="username" id="username" placeholder="" value="{{form.username.value|default_if_none:''}}"> </div>
