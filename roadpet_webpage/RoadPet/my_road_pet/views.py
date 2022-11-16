@@ -238,30 +238,30 @@ def adoption_inquiry(request):
     # return 0
 
 
-def mypage(request):
-    # username으로 LikeStarPet을 이용하여 관심지수와 유기번호 받아오기
-    # 유기번호로 RoaddogInfo를 이용하여 필요한 정보 받아오기
-    user = request.user
-    dogstar = list(LikeStarPet.objects.filter(username=user).values())
+# def mypage(request):
+#     # username으로 LikeStarPet을 이용하여 관심지수와 유기번호 받아오기
+#     # 유기번호로 RoaddogInfo를 이용하여 필요한 정보 받아오기
+#     user = request.user
+#     dogstar = list(LikeStarPet.objects.filter(username=user).values())
 
-    star_list=[]
-    des_no_list=[]
-    doginfo=[]
+#     star_list=[]
+#     des_no_list=[]
+#     doginfo=[]
 
-    for i in range(len(dogstar)) :
-        star_list.append(dogstar[i]['star'])
-        des_no_list.append(dogstar[i]['desertion_no'])
+#     for i in range(len(dogstar)) :
+#         star_list.append(dogstar[i]['star'])
+#         des_no_list.append(dogstar[i]['desertion_no'])
     
 
-    for des_no in des_no_list :
-        doginfo.extend(list(RoaddogInfo.objects.filter(desertion_no=des_no).values()))
+#     for des_no in des_no_list :
+#         doginfo.extend(list(RoaddogInfo.objects.filter(desertion_no=des_no).values()))
 
-    content = {'user':user, 'star_list':star_list, 'doginfo':doginfo}
+#     content = {'user':user, 'star_list':star_list, 'doginfo':doginfo}
 
-    for i in range(len(dogstar)):
-        content['doginfo'][i]['age'] = 2022 - int(content['doginfo'][i]['age'])
+#     for i in range(len(dogstar)):
+#         content['doginfo'][i]['age'] = 2022 - int(content['doginfo'][i]['age'])
     
-    print(content)
+#     print(content)
 
-    return render(request, 'accounts/mypage.html', content)
+#     return render(request, 'accounts/mypage.html', content)
 
