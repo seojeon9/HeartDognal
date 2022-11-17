@@ -40,6 +40,7 @@ BEGIN
     DBMS_SCHEDULER.ENABLE('UPDATE_PROCESS_JOB');
 END;
 /
+-- 잡 삭제
 BEGIN
 DBMS_SCHEDULER.DROP_JOB(job_name => 'UPDATE_PROCESS_JOB', defer => false,force => false);
 END;
@@ -60,3 +61,33 @@ select count(*) from roaddog_info a WHERE ROWID < (SELECT MAX(ROWID) FROM roaddo
 WHERE b.desertion_no = a.desertion_no);
 /
 select * from roaddog_info where desertion_no = '448535202201935';
+/
+-- 15일치 친구들 프로시저
+CREATE OR REPLACE PROCEDURE UPDATE_PROCESS_FINISHED
+IS
+BEGIN
+    UPDATE (SELECT a.desertion_no
+             , a.process_st
+             , b.desertion_no AS deser_2
+             , b.process_st AS pro_2
+        FROM roaddog_info a
+             , finished_dog b
+        WHERE a.desertion_no = b.desertion_no)
+    SET process_st = pro_2 
+    WHERE process_st = '보호중';
+    COMMIT;
+END;
+/
+BEGIN
+    DBMS_SCHEDULER.CREATE_JOB (
+        JOB_NAME => 'UPDATE_PROCESS_FINISHED_JOB'
+        , START_DATE => TRUNC(SYSDATE+1)+7/24
+        , REPEAT_INTERVAL => 'FREQ=DAILY;INTERVAL=1'
+        , END_DATE => NULL
+        , JOB_CLASS => 'DEFAULT_JOB_CLASS'
+        , JOB_TYPE => 'STORED_PROCEDURE'
+        , JOB_ACTION => 'UPDATE_PROCESS_FINISHED'
+        , COMMENTS => '15일치 유기견 종료 상태 변환 JOB'
+    );
+    DBMS_SCHEDULER.ENABLE('UPDATE_PROCESS_FINISHED_JOB');
+END;
