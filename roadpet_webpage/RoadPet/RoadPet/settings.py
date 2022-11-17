@@ -21,6 +21,15 @@ LOGOUT_REDIRECT_URL = '/'
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'account.User'
 
+# 브라우저 종료시 세션 종료
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# 더이상 행동이 없을 때 부터 세션만료시간이 지나면 세션 종료
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# 세션만료시간 설정
+SESSION_EXPIRE_SECONDS = 600
+#세션만료 이후 리다이랙트
+SESSION_TIMEOUT_REDIRECT = '/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -56,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'RoadPet.middleware.LogMiddleware',
 ]
 
 ROOT_URLCONF = 'RoadPet.urls'
@@ -129,9 +140,10 @@ USE_TZ = True
 import os
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
-
+#STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
+STATIC_URL
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
