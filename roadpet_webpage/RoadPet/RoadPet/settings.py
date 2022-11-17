@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-5tzf@ardw2t9$1%x2##(5uentkw&+)x)o-r-$zqs6x7gn&#48v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # TRUE : 개발모드 / False : 운영모드
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','127.0.0.1:8000']
 
 
 # Application definition
@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'my_road_pet',
-    'account'
-
+    'account',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -56,6 +56,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
 ]
 
 ROOT_URLCONF = 'RoadPet.urls'
@@ -129,7 +135,8 @@ USE_TZ = True
 import os
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
