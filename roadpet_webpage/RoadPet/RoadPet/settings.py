@@ -27,7 +27,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 # 세션만료시간 설정
 SESSION_EXPIRE_SECONDS = 600
-#세션만료 이후 리다이랙트
+# 세션만료 이후 리다이랙트
 SESSION_TIMEOUT_REDIRECT = '/'
 
 
@@ -38,9 +38,9 @@ SESSION_TIMEOUT_REDIRECT = '/'
 SECRET_KEY = 'django-insecure-5tzf@ardw2t9$1%x2##(5uentkw&+)x)o-r-$zqs6x7gn&#48v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # TRUE : 개발모드 / False : 운영모드
+DEBUG = False  # TRUE : 개발모드 / False : 운영모드
 
-ALLOWED_HOSTS = ['*','127.0.0.1:8000']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -65,17 +65,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
-=======
-    'django_session_timeout.middleware.SessionTimeoutMiddleware',
-    'RoadPet.middleware.LogMiddleware',
->>>>>>> 6dc8821d9b698aed77f98e1ca7d97bb57ac55330
 ]
 
 ROOT_URLCONF = 'RoadPet.urls'
@@ -104,10 +99,10 @@ WSGI_APPLICATION = 'RoadPet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.oracle',
-        'NAME':'roadpet_high', # tnsnames.ora 파일에 등록된 NAME을 등록
-        'USER':'roadpet_op',
-        'PASSWORD':'123qwe!@#QWE', #Please provide the db password here
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'roadpet_high',  # tnsnames.ora 파일에 등록된 NAME을 등록
+        'USER': 'roadpet_op',
+        'PASSWORD': '123qwe!@#QWE',  # Please provide the db password here
     }
 }
 
@@ -146,17 +141,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-import os
 
 STATIC_URL = 'static/'
-<<<<<<< HEAD
-# STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
-
-=======
 #STATICFILES_DIRS = [os.path.join(BASE_DIR,'RoadPet', 'static'),]
-STATIC_URL
->>>>>>> 6dc8821d9b698aed77f98e1ca7d97bb57ac55330
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
