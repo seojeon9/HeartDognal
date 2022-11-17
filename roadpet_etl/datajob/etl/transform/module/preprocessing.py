@@ -85,7 +85,7 @@ def preprocess(animal) :
 
     disorders3 = []
     for ite in list(product(*[['혀', '안구', '눈', '머리', '코', '귀', '귓', '치아', '이빨', '다리',  '족지', '후지', '장',  '골격'],['없','휘','파열','파행','나오 있음', '손실', '이형', '불편', '좋 않']])) :
-        disorders2.append(" ".join(ite))
+        disorders3.append(" ".join(ite))
 
     disorders = disorders1 + disorders2 + disorders3
 
@@ -130,7 +130,7 @@ def preprocess(animal) :
 
     health3 = []
     for ite in list(product(*[['에너지', '활력'],['넘치','좋']])) :
-        health2.append(" ".join(ite))
+        health3.append(" ".join(ite))
 
     health_list = health1 + health2 + health3
 

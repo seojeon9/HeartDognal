@@ -1,0 +1,109 @@
+[2022-11-17 16:15:00 +0900] [2790] [INFO] Starting gunicorn 20.1.0
+[2022-11-17 16:15:00 +0900] [2790] [INFO] Listening at: http://0.0.0.0:8000 (2790)
+[2022-11-17 16:15:00 +0900] [2790] [INFO] Using worker: sync
+[2022-11-17 16:15:00 +0900] [2795] [INFO] Booting worker with pid: 2795
+[2022-11-17 16:15:56 +0900] [2790] [CRITICAL] WORKER TIMEOUT (pid:2795)
+[2022-11-17 16:15:56 +0900] [2795] [INFO] Worker exiting (pid: 2795)
+[2022-11-17 16:15:57 +0900] [3355] [INFO] Booting worker with pid: 3355
+[2022-11-17 16:20:47 +0900] [2790] [INFO] Handling signal: hup
+[2022-11-17 16:20:47 +0900] [2790] [INFO] Hang up: Master
+[2022-11-17 16:20:47 +0900] [2790] [WARNING] Worker with pid 3355 was terminated due to signal 1
+[2022-11-17 16:20:47 +0900] [7076] [INFO] Booting worker with pid: 7076
+[2022-11-17 16:59:49 +0900] [7076] [INFO] Parent changed, shutting down: <Worker 7076>
+[2022-11-17 16:59:49 +0900] [7076] [INFO] Worker exiting (pid: 7076)
+[2022-11-17 17:00:01 +0900] [28913] [INFO] Starting gunicorn 20.1.0
+[2022-11-17 17:00:01 +0900] [28913] [INFO] Listening at: http://0.0.0.0:8000 (28913)
+[2022-11-17 17:00:01 +0900] [28913] [INFO] Using worker: sync
+[2022-11-17 17:00:01 +0900] [28926] [INFO] Booting worker with pid: 28926
+[2022-11-17 17:00:01 +0900] [28926] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/arbiter.py", line 589, in spawn_worker
+    worker.init_process()
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/big/.local/lib/python3.8/site-packages/gunicorn/util.py", line 359, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/big/study/roadpet_webpage/RoadPet/RoadPet/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/home/big/.local/lib/python3.8/site-packages/django/core/wsgi.py", line 13, in get_wsgi_application
+    return WSGIHandler()
+  File "/home/big/.local/lib/python3.8/site-packages/django/core/handlers/wsgi.py", line 125, in __init__
+    self.load_middleware()
+  File "/home/big/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 40, in load_middleware
+    middleware = import_string(middleware_path)
+  File "/home/big/.local/lib/python3.8/site-packages/django/utils/module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "/home/big/.local/lib/python3.8/site-packages/django/utils/module_loading.py", line 15, in cached_import
+    module = import_module(module_path)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/big/study/roadpet_webpage/RoadPet/RoadPet/middleware.py", line 1, in <module>
+    from kafka import KafkaProducer
+ModuleNotFoundError: No module named 'kafka'
+[2022-11-17 17:00:01 +0900] [28926] [INFO] Worker exiting (pid: 28926)
+[2022-11-17 17:00:01 +0900] [28913] [INFO] Shutting down: Master
+[2022-11-17 17:00:01 +0900] [28913] [INFO] Reason: Worker failed to boot.
+[2022-11-17 17:01:28 +0900] [29717] [INFO] Starting gunicorn 20.1.0
+[2022-11-17 17:01:28 +0900] [29717] [INFO] Listening at: http://0.0.0.0:8000 (29717)
+[2022-11-17 17:01:28 +0900] [29717] [INFO] Using worker: sync
+[2022-11-17 17:01:28 +0900] [29723] [INFO] Booting worker with pid: 29723
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/', 'parameter': {}, 'timestamp': 1668672103, 'session_id': 'fni7ftl20ow1lib904qa6c9csgik0jcx'}
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/accounts/logout/', 'parameter': {}, 'timestamp': 1668672253, 'session_id': 'fni7ftl20ow1lib904qa6c9csgik0jcx'}
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'http_method': 'GET', 'url': '/', 'parameter': {}, 'timestamp': 1668672253, 'session_id': 'None'}
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'http_method': 'GET', 'url': '/accounts/login/', 'parameter': {}, 'timestamp': 1668672256, 'session_id': 'None'}
+{'ip': '172.17.0.3', 'user': 'AnonymousUser', 'http_method': 'POST', 'url': '/accounts/login/', 'parameter': {'csrfmiddlewaretoken': ['sdORQVDRh7EpyxPABhzqXLAYePVuJIPz9uLVeoeqXSDXzm3b1n3OhnlP91htu277'], 'next': [''], 'username': ['s456486'], 'password': ['123qwe!@#QWE']}, 'timestamp': 1668672266, 'session_id': 'None'}
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/', 'parameter': {}, 'timestamp': 1668672267, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/', 'parameter': {}, 'timestamp': 1668672646, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/', 'parameter': {}, 'timestamp': 1668672651, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/picture/dog_main_pic.png', 'parameter': {}, 'timestamp': 1668672652, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/picture/dog_main_pic.png
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/', 'parameter': {}, 'timestamp': 1668672661, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/picture/dog_main_pic.png', 'parameter': {}, 'timestamp': 1668672663, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/picture/dog_main_pic.png
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/survey/', 'parameter': {}, 'timestamp': 1668672674, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+get request
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/wireframe.css', 'parameter': {}, 'timestamp': 1668672675, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/wireframe.css
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/assets/css/star.css', 'parameter': {}, 'timestamp': 1668672675, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/assets/css/star.css
+[2022-11-17 17:14:46 +0900] [29723] [INFO] Parent changed, shutting down: <Worker 29723>
+[2022-11-17 17:14:46 +0900] [29723] [INFO] Worker exiting (pid: 29723)
+[2022-11-17 17:16:12 +0900] [4573] [INFO] Starting gunicorn 20.1.0
+[2022-11-17 17:16:12 +0900] [4573] [INFO] Listening at: http://0.0.0.0:8000 (4573)
+[2022-11-17 17:16:12 +0900] [4573] [INFO] Using worker: sync
+[2022-11-17 17:16:12 +0900] [4579] [INFO] Booting worker with pid: 4579
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/survey/', 'parameter': {}, 'timestamp': 1668672990, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+get request
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/survey/', 'parameter': {}, 'timestamp': 1668672995, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+get request
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/assets/css/star.css', 'parameter': {}, 'timestamp': 1668672996, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/assets/css/star.css
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/static/survey/wireframe.css', 'parameter': {}, 'timestamp': 1668672997, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+Not Found: /static/survey/wireframe.css
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/', 'parameter': {}, 'timestamp': 1668673155, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/', 'parameter': {}, 'timestamp': 1668673159, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+{'ip': '172.17.0.3', 'user': 's456486', 'http_method': 'GET', 'url': '/recommend/presurvey/survey/', 'parameter': {}, 'timestamp': 1668673161, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
+get request
+{'ip': '127.0.0.1', 'user': 's456486', 'http_method': 'GET', 'url': '/search/', 'parameter': {}, 'timestamp': 1668673169, 'session_id': 'p7gjyfqcrch65xidza285qxs2kokcqzo'}
