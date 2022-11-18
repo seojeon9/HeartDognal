@@ -41,7 +41,7 @@ SECRET_KEY = 'django-insecure-5tzf@ardw2t9$1%x2##(5uentkw&+)x)o-r-$zqs6x7gn&#48v
 DEBUG = False  # TRUE : 개발모드 / False : 운영모드
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ["https://heartdognal.ml", "https://heartdognal.ml"]
 
 # Application definition
 
