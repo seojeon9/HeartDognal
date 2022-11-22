@@ -22,7 +22,7 @@ class RoadDogTrasformer:
         road_dog_df = get_spark_session().createDataFrame(road_dog_pd \
                         , schema = 'DESERTION_NO string, COLOR_NM string, SEX_CD string, KIND_NM string, AGE string, WEIGHT string, NEUTER_YN string, PROCESS_ST string, HAPPEN_DT string, HAPPEN_PLACE string, SPECIAL_MARK string, THUMBNAIL string, PROFILE string, NOTICESDT string, NOTICEEDT string, CARE_ID integer, STD_DATE string')
         logging.getLogger().warn('>>>>>>>>>>>>>>>>>>> df create1')
-        for i in range(15, 16):
+        for i in range(1, 2):
             std_date=str(datetime.now().date()).replace('-','')
 
             path = '/roadpet/detail/road_dog_' + cal_std_day_yyyymmdd(i) + '.json'
@@ -105,7 +105,7 @@ class RoadDogTrasformer:
         road_dog_df = road_dog_df.dropDuplicates(['DESERTION_NO'])
         road_dog_op = road_dog_op.dropDuplicates(['DESERTION_NO'])
 
-        #save_data(DataWarehouse, road_dog_df, 'ROADDOG_INFO')
+        save_data(DataWarehouse, road_dog_df, 'ROADDOG_INFO')
         save_data(OperateDatabase, road_dog_op, 'ROADDOG_INFO')
 
         
