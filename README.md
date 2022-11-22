@@ -1,6 +1,6 @@
 # 하트도그널 - 유기견 매칭 서비스
 사이언스 : 김경현, 김태훈, 이지훈 | 엔지니어 : 손지수(팀장), 이상엽, 이서정 <br>
-링크 : https://heartdognal.ml/
+웹사이트 : https://heartdognal.ml/
 
 ## 1. 프로젝트 개요
 
@@ -19,13 +19,13 @@
 ![image](https://user-images.githubusercontent.com/72624263/203239444-7004e701-d069-454d-922c-0e24232ccb22.png)
 
 ### 1-3 서비스 구성도
-/서비스 구성도 그리기
+![image](https://user-images.githubusercontent.com/72624263/203250664-a7fd6ba6-3548-41da-8b40-05a555d3b2c1.png)
 
 
 ## 2. 데이터 파이프라인
 ### 2-1 수집 데이터
-농림축산식품부 - 유기동물 API / 시도·시군구·보호소 API / 품종 API
-견종정보 지식백과 크롤링
+농림축산식품부 - 유기동물 API / 시도·시군구·보호소 API / 품종 API<br>
+네이버 견종정보 지식백과 크롤링
 
 ### 2-2 데이터 웨어하우스
 ![image](https://user-images.githubusercontent.com/72624263/203210993-06d79d64-5581-4ecd-b568-61884945099c.png)
