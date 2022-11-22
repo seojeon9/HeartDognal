@@ -18,8 +18,8 @@
 ### 1-3 워크플로우
 ![image](https://user-images.githubusercontent.com/72624263/203239444-7004e701-d069-454d-922c-0e24232ccb22.png)
 
-### 1-3 서비스 구성도
-![image](https://user-images.githubusercontent.com/72624263/203250664-a7fd6ba6-3548-41da-8b40-05a555d3b2c1.png)
+### 1-4 서비스 구성도
+![image](https://user-images.githubusercontent.com/72624263/203254279-6382d614-4a70-47fc-a35c-9d936f64fed3.png)
 
 
 ## 2. 데이터 파이프라인
