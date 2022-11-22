@@ -1,4 +1,4 @@
-# 하트도그널 - 유기견 매칭 서비스
+![하트도그널](https://user-images.githubusercontent.com/72624263/203254626-c6f1bc1a-53ae-4451-8cf3-07abe24d0616.png) <br>
 사이언스 : 김경현, 김태훈, 이지훈 | 엔지니어 : 손지수(팀장), 이상엽, 이서정 <br>
 웹사이트 : https://heartdognal.ml/
 
