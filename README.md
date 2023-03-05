@@ -1,7 +1,7 @@
 <p align="left"><img src="https://user-images.githubusercontent.com/72624263/203254626-c6f1bc1a-53ae-4451-8cf3-07abe24d0616.png"> <br>
 🏃 Data Engineer 손지수(팀장), 이상엽, 이서정 <br>
 🏃 Data Scientist 김경현, 김태훈, 이지훈 <br>
-🎈 Website https://heartdognal.ml/ <br>
+🎈 Website https://heartdognal.ml/ (DB 유료화 전환으로 인해 현재는 운영되고 있지 않습니다.) <br>
 🎈 Demo
 <p align="left">
   <img src="https://user-images.githubusercontent.com/108858121/205203048-31fbcb78-38cd-4547-9e78-42fd8dfd5548.gif">
