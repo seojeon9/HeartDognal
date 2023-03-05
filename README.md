@@ -77,17 +77,17 @@
 <br>
 
 ### ✔️ ETL
-  - 지식백과 ETL : 지식백과 크롤링 후 가공
+  - 지식백과 ETL : 네이버 지식백과에 있는 견종 정보를 크롤링 후 가공합니다.
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205209230-57f86e10-7d1d-42f8-b9e2-8508e2c3fc5a.png" width="100%" height="100%"/>
   <br>
 
-  - 보호소 ETL : 보호소 API와 유기견 API의 관계를 활용하여 제공해주지 않는 정보를 찾아내 가공. 각 데이터의 전화번호로 조인하여 참조할 수 있도록 ID 부여
+  - 보호소 ETL : 보호소 API와 유기견 API의 관계를 활용하여 제공해주지 않는 정보를 찾아내 가공하고 각 데이터의 전화번호로 조인하여 참조할 수 있도록 ID를 부여합니다.
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205065560-bff87d96-2148-4b8b-8850-575f73a5a932.png" width="100%" height="100%"/>
   <br>
 
-  - 유기견 ETL : 유기견 API에서 추출 및 가공 후 배치 관리. 전화번호로 조인하여 보호소 ID 컬럼 생성
+  - 유기견 ETL : 유기견 API에서 비정형 데이터를 추출하고 가공하는 과정을 Airflow를 통해 스케줄링 합니다. 데이터 웨어하우스의 유기견 테이블과 보호소 테이블을 전화번호로 조인하여 보호소 ID 컬럼이 추가된 운영DB 유기견 테이블을 생성합니다.
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205078911-05d8ac1f-6e22-4100-8f15-b4dc8d292a93.png" width="100%" height="100%"/>
   <br>
@@ -121,7 +121,7 @@
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205072829-5ad3572b-2a7e-48d8-b02e-721416b71f8d.png" width="100%" height="100%"/>
 
-  - Airflow : 매일 업데이트 되는 유기견 데이터를 수집 가공하고 군집화 모델을 거쳐 운영 DB에 밀어넣는 과정을 스케쥴링 했습니다. BashOperator로 Dag를 구성하여 파일별로 나눠져있는 각각의 task들을 하나의 파이프라인으로 동작할 수 있도록 구성했습니다.
+  - Airflow : 매일 업데이트 되는 유기견 데이터를 수집 가공하고 군집화 모델을 거쳐 운영 DB에 밀어넣는 과정을 스케쥴링 합니다. BashOperator로 Dag를 구성하여 파일별로 나눠져있는 각각의 task들을 하나의 파이프라인으로 동작할 수 있도록 구성했습니다.
     
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/222944890-3782c291-d5ed-4528-967c-564ed258285f.jpg" width="100%" height="100%"/>
 
@@ -129,7 +129,7 @@
 <br>
 
 ### ✔️ 로그 데이터 수집
-  - Kafka : Django 연동을 통해 Web에서 사용자 로그 데이터를 수집. HDFS에 로그 데이터 적재
+  - Kafka : 데이터 아키텍처의 결합도를 낮추기 위해 로그 데이터 수집의 메시징 큐로 Kafka를 활용합니다. Django 연동을 통해 Web에서 사용자 로그 데이터를 수집하고 HDFS에 로그 데이터를 적재합니다.
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205209073-ac0cd465-e293-4bd8-97b0-ef3639beb763.png" width="100%" height="100%"/>
 
