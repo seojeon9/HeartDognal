@@ -117,13 +117,14 @@
 <br>
 
 ### ✔️ 배치
-  - Oracle scheduler : FINISHED_DOG(종료 유기견)과 비교하여 ROADDOG_INFO(모든 유기견)의 상태를 보호중에서 종료(반환/자연사/입양)로 업데이트 / 입양가능일로 부터 15일이 지난 경우 종료 처리
+  - Oracle scheduler : FINISHED_DOG(종료 유기견)과 비교하여 ROADDOG_INFO(모든 유기견)의 상태를 보호중에서 종료(반환/자연사/입양)로 업데이트 / 입양가능일로 부터 15일이 지난 경우 종료 처리하였습니다.
 
   <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205072829-5ad3572b-2a7e-48d8-b02e-721416b71f8d.png" width="100%" height="100%"/>
 
-  - Airflow : 매일 업데이트 되는 유기견 데이터를 수집 가공하고 군집화 모델을 거쳐 운영 DB에 밀어넣는 과정 자동화
+  - Airflow : 매일 업데이트 되는 유기견 데이터를 수집 가공하고 군집화 모델을 거쳐 운영 DB에 밀어넣는 과정을 스케쥴링 했습니다. BashOperator로 Dag를 구성하여 파일별로 나눠져있는 각각의 task들을 하나의 파이프라인으로 동작할 수 있도록 구성했습니다.
+    
+  <p align="left"><img src="https://user-images.githubusercontent.com/108858121/222944890-3782c291-d5ed-4528-967c-564ed258285f.jpg" width="100%" height="100%"/>
 
-  <p align="left"><img src="https://user-images.githubusercontent.com/108858121/205070255-fe70ad42-e980-4d31-a88a-7bb011e3c672.png" width="100%" height="100%"/>
 
 <br>
 
