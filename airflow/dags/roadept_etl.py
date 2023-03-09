@@ -39,6 +39,13 @@ with DAG(
     )
 
     t3 = BashOperator(
+        task_id='transform_finished_dog',
+        cwd='/home/big/study/roadpet_etl',
+        bash_command='python3 main.py transform finished_dog',
+    )
+
+
+    t4 = BashOperator(
         task_id='modeling_road_dog',
         cwd='/home/big/study/roadpet_etl',
         bash_command='python3 main.py modeling content_sim_preprocess',
@@ -68,4 +75,4 @@ with DAG(
     """
     )
 
-    t1 >> t2 >> t3
+    t1 >> t2 >> t3 >> t4
